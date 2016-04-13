@@ -1,1 +1,287 @@
-/* Add your CSS here */
+nav {
+    width: 100%;
+    height: 72px;
+    background-color: #fffabe;
+    display: inline-block;
+    position: relative;
+}
+
+
+nav img {
+    position: absolute;
+    top: 30%;
+    left: 3%;
+}
+
+nav ul {
+    position: relative;
+    top: 20%;
+    left: 20%;
+    color: #6a6969;
+}
+nav li {
+    padding-right: 13%;
+    list-style-type: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #515151;
+    display: inline-block;
+    margin-top: 1%;
+}
+
+nav li:hover {
+    color: #d42551;
+}
+
+/*Begin CSS for Image*/
+#main-container {
+    margin-top: 5%;
+}
+
+ #home-image {
+    width: 100%;
+    height: 40vh;
+}
+
+#left-macaron-image {
+    padding: 7% 6% 5% 4%;
+}
+
+h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: #6a6969;
+    padding-bottom: 5%;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #6a6969;
+}
+
+#main-body-paragraph p:nth-child(4) {
+    padding-bottom: 2%;
+}
+
+/*Begin flavor row*/
+
+#dates-container {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #6a6969;
+    padding: 0 7%;
+    height: 15vh;
+}
+
+#monday-block,
+#tuesday-block,
+#wednesday-block,
+#thursday-block,
+#friday-block,
+#saturday-block,
+#sunday-block {
+    background-color: #fffabe;
+    width: 10vw;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #6a6969;
+    display: inline-block;
+    margin: 1%;
+    padding: 1% 0 0 0;
+}
+
+ #chocolate-flavor,
+ #cassis-flavor,
+ #passion-flavor,
+ #coffee-flavor,
+ #raspberry-flavor,
+ #rose-flavor,
+ #caramel-flavor,
+ #coconut-flavor,
+ #green-flavor,
+ #vanilla-flavor,
+ #pistachio-flavor,
+ #lemon-flavor,
+ #tiffany-flavor,
+ #almond-flavor {
+    width: 100%;
+    display: inline-block;
+    padding: 5% 0;
+}
+
+ #chocolate-flavor div:first-child,
+ #cassis-flavor div:first-child,
+ #passion-flavor div:first-child,
+ #coffee-flavor div:first-child,
+ #raspberry-flavor div:first-child,
+ #rose-flavor div:first-child,
+ #caramel-flavor div:first-child,
+ #coconut-flavor div:first-child,
+ #green-flavor div:first-child,
+ #vanilla-flavor div:first-child,
+ #pistachio-flavor div:first-child,
+ #lemon-flavor div:first-child,
+ #tiffany-flavor div:first-child,
+ #almond-flavor div:first-child {
+    padding-left: 5%;
+    padding-right: 0;
+}
+
+#chocolate-flavor,
+#cassis-flavor,
+#passion-flavor,
+#coffee-flavor,
+#raspberry-flavor,
+#rose-flavor,
+#caramel-flavor {
+    margin-top: 10%;
+}
+
+ #chocolate-flavor div p,
+ #cassis-flavor div p,
+ #passion-flavor div p,
+ #coffee-flavor div p,
+ #raspberry-flavor div p,
+ #rose-flavor div p,
+ #caramel-flavor div p,
+ #coconut-flavor div p,
+ #green-flavor div p,
+ #vanilla-flavor div p,
+ #pistachio-flavor div p,
+ #lemon-flavor div p,
+ #tiffany-flavor div p,
+ #almond-flavor div p {
+    margin-bottom: 30%;
+}
+
+#coconut-flavor {
+    background-color: #824603;
+    color: white;
+}
+
+#vanilla-flavor {
+    background-color: #df5277;
+    color: white;
+}
+
+#lemon-flavor {
+    background-color: #a2304e;
+    color: white;
+}
+
+#almond-flavor {
+    background-color: #c39005;
+    color: white;
+}
+
+footer {
+    height: 10vh;
+    width: 100%
+}
+
+ footer {
+     background-color: #df5277;
+     color: #ffffff;
+     text-align: center;
+     font-size: .9em;
+     margin-top: 5%;
+ }
+
+ footer li {
+     display: inline-block;
+     padding-left: 13%;
+     position: relative;
+     right: 13%;
+     margin: 1%;
+     color:#ffffff;
+ }
+
+ footer p {
+     font-size: .9em;
+     color: #ffffff;
+ }
+
+ .icons {
+     margin-right: 10px;
+ }
+
+ #facebook {
+     margin-left: 5px;
+ }
+
+ @media screen and (max-width: 627px) {
+     nav {
+         width: 100%;
+         height: 8%;
+         background-color: #fffabe;
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+     }
+
+     nav img {
+         position: relative;
+         top: 20%;
+         left: 30%;
+     }
+
+     nav ul {
+         position: relative;
+         left: 7%;
+         top: -10%;
+         padding: 0;
+         margin: 0;
+         box-sizing: border-box;
+     }
+
+     nav li {
+         display: inline-block;
+         font-family: Arial, Helvetica, sans-serif;
+         font-size: .7em;
+         color: #515151;
+         list-style-type: none;
+         padding: 0 10% 0 0;
+     }
+
+     nav li:hover {
+         color: #d42551;
+     }
+
+     #monday-block,
+     #tuesday-block,
+     #wednesday-block,
+     #thursday-block,
+     #friday-block,
+     #saturday-block,
+     #sunday-block {
+         width: 100%;
+         margin-top: 5vh;
+     }
+
+     #chocolate-flavor div:last-child,
+     #cassis-flavor div:last-child,
+     #passion-flavor div:last-child,
+     #coffee-flavor div:last-child,
+     #raspberry-flavor div:last-child,
+     #rose-flavor div:last-child,
+     #caramel-flavor div:last-child,
+     #coconut-flavor div:last-child,
+     #green-flavor div:last-child,
+     #vanilla-flavor div:last-child,
+     #pistachio-flavor div:last-child,
+     #lemon-flavor div:last-child,
+     #tiffany-flavor div:last-child,
+     #almond-flavor div:last-child {
+         float: right;
+     }
+
+     footer {
+         position: absolute !important;
+         top: 520%!important;
+         heighT: 20vh;
+     }
+
+ }
+
