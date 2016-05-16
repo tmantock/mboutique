@@ -294,9 +294,7 @@ footer p {
      }
 
      footer {
-         position: absolute !important;
-         top: 520%!important;
-         heighT: 20vh;
+         height: 20vh;
      }
 
  }
