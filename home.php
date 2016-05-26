@@ -1,31 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
-    <title>Welcome</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link href = "style.css" rel = "stylesheet" type = "text/css">
-</head>
-<body>
-<!--Begin Navigation Bar-->
-    <nav>
-        <img id = "logo-image" src = "./assets/images/logo.png">
-        <ul>
-            <li>Welcome</li>
-            <li>Our Macarons</li>
-            <li>Gifts & Parties</li>
-            <li>Contact</li>
-        </ul>
-    </nav>
-<!--Begin Image for Home Page-->
+
+    <!--Begin Image for Home Page-->
     <img src = "./assets/images/welcome-image.png" id = "home-image">
-<!--Begin Image and Intro Paragraph Section-->
+    <!--Begin Image and Intro Paragraph Section-->
     <div id = "main-container" class = "col-md-12">
         <div class = 'row-1'>
-            <div id = "left-macaron-image" class = "col-md-3 col-sm-12"><img src = "./assets/images/macarons-image.png"></div>
+            <div id = "left-macaron-image" class = "col-md-3 col-sm-12">
+                <?php
+                    function image_holiday_change ()
+                    {
+                        $current_date = date('m/d');
+
+                        $holiday_image = [
+                            '01/01' => './assets/images/new-years-macaron.jpg',
+                            '07/04' => './assets/images/home-july-4th.jpg',
+                            '12/25' => './assets/images/christmas-macaron.jpg'
+                        ];
+                        if (!empty($holiday_image[$current_date])) {
+                            $img = $holiday_image[$current_date];
+                        }
+                        else  {
+                            $img = "./assets/images/macarons-image.png";
+                        }
+                        ?>
+                        <img src="<?php print($img);?>">
+                        <?php
+                    }
+                image_holiday_change();
+                ?>
+            </div>
             <div id = "main-body-paragraph" class = "col-md-9 col-sm-12">
                 <h3>Welcome to MBoutique!</h3>
                 <p>We're a home based baking business that specializes in teh making of French macarons, a gluten-free pastry item made from ground almonds. Our business began at teh West Reading Farmers Market in 2011. Last year (2013) marked our third and final season of participation at the market. MBoutique was established to pay homage to the delicate French confectionery, the macaron. Our shop has been recognized as the connoisseurs of this delicious French pastry because of teh wonderful variety of flavors from our great master chefs.</p>
@@ -37,7 +39,7 @@
                 <h3>Find that flavor you like. Try a sample every day!</h3>
             </div>
         </div>
-<!--Begin bottom dates block row-->
+        <!--Begin bottom dates block row-->
         <div id = "dates-container" class = 'col-md-12'>
             <div class = "col-md-2  col-sm-12" id = "monday-block">
                 <p>Monday
@@ -139,16 +141,8 @@
             </div>
         </div>
     </div>
-<!--Begin Footer section-->
+    <!--Begin Footer section-->
 
-    <footer class = "col-md-12 col-sm-12">
-        <ul>
-            <li><img src = "./assets/images/mail.png" class = "icons">order@mboutique.com</li>
-            <li><img src ="./assets/images/phone.png" class = "icons">949-800-3111</li>
-            <li>Follow us:<img src = "./assets/images/facebook.png" class = "icons" id = "facebook"><img src= "./assets/images/twitter.png" class = "icons"></li>
-        </ul>
-        <p>Copyright &copy 2015 MBoutique. All rights reserved</p>
-    </footer>
+    
 
-    </body>
-</html>
+    

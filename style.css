@@ -57,7 +57,12 @@ nav li:hover {
 }
 
 #left-macaron-image {
-    padding: 7% 6% 5% 4%;
+    padding: 7% 5% 5% 4%;
+}
+
+#left-macaron-image img {
+    height: 340px;
+    width: 210px;
 }
 
 h3 {
@@ -84,7 +89,7 @@ p {
     font-size: 14px;
     color: #6a6969;
     padding: 0;
-    height: 15%;
+    height: 18%;
     width: 100%
 }
 
@@ -199,6 +204,7 @@ p {
 footer {
      height: 10%;
      width: 100%;
+    margin-top: 10%;
      background-color: #df5277;
      color: #ffffff;
      text-align: center;
