@@ -1,5 +1,5 @@
 <img src = "./assets/images/contact-image.png " id = "contact-image">
-<article>
+<article id = "contacts">
     <div id = "days-address" class = 'col-md-4 col-sm-12'>
         <h3>Visit us!</h3>
         <ul>

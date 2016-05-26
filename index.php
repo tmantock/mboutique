@@ -11,7 +11,7 @@
         $current_date = date("m/d");
 
         $holidays = [
-            '01/01' => 'newyear.css',
+            '05/27' => 'newyear.css',
             '07/04' => 'july4th.css',
             '12/25' => 'christmas.css'
         ];

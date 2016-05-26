@@ -1,5 +1,5 @@
 <img src = ./assets/images/gifts-parties-image.png id = "gift-image">
-<article>
+<article id = "gifts">
     <h3>Let's eat macarons!</h3>
     <p>We make it easy to share la passion du macaron with your friends, family and colleagues. Choose from our array of premium gift options, or we can create a custom solution. Contact us when you need help planning your celebration! <a href ="#">orders@mboutique.com</a></p>
     <h3>Gift boxes</h3>
