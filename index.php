@@ -1,3 +1,8 @@
+<?php
+session_start();
+date_default_timezone_set('America/Los_Angeles');
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" >
@@ -5,13 +10,14 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src = "script.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
     <?php
     function holiday_date_check() {
         $current_date = date("m/d");
 
         $holidays = [
-            '05/27' => 'newyear.css',
+            '05/26' => 'newyear.css',
             '07/04' => 'july4th.css',
             '12/25' => 'christmas.css'
         ];
@@ -37,7 +43,8 @@
             'home' => ['url' => 'home.php', 'link' => 'Welcome'],
             'our-macarons' => ['url' => 'our-macarons.php', 'link' => 'Our Macarons'],
             'gift_parties' => ['url' => 'gift_parties.php', 'link' => 'Gift & Parties'],
-            'contact' => ['url' => 'contact.php', 'link' => 'Contact']
+            'order' => ['url' => 'order.php', 'link' => 'Order'],
+            'contact' => ['url' => 'contact.php', 'link' => 'Contact'],
         ];
         ?>
         <ul>
@@ -54,20 +61,22 @@
     <!--Begin PHP Include -->
 
     <?php
-        if(empty($_GET['page'])) {
+        if(empty($_GET)) {
             $_GET['page'] = 'home';
         }
         else{
             if(empty($_GET['page'])){
                 $_GET['page'] = '404';
+                print_r($_GET['page']);
             }
 
         }
-        $page = ($menu[$_GET['page']]['url']);
+    $page = $_GET['page'];
 
-        require($page);
+    require($page.".php");
     ?>
-    
+    <!--End PHP Include -->
+
     <footer class = "col-md-12 col-sm-12">
         <ul>
             <li><img src = "./assets/images/mail.png" class = "icons">order@mboutique.com</li>
@@ -76,5 +85,4 @@
         </ul>
         <p>Copyright &copy 2015 MBoutique. All rights reserved</p>
     </footer>
-
 </body>

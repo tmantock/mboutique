@@ -1,3 +1,6 @@
+<?php
+date_default_timezone_set('America/Los_Angeles');
+?>
 <img src = "./assets/images/contact-image.png " id = "contact-image">
 <article id = "contacts">
     <div id = "days-address" class = 'col-md-4 col-sm-12'>
@@ -28,5 +31,25 @@
             <input id="button" type="submit" value="Send">
         </form>
     </div>
-    <div id = "macaron-image" class = 'col-md-4 col-sm-12'><img src = "./assets/images/macarons-image.png"></div>
+    <?php
+    function image_holiday_change ()
+    {
+        $current_date = date('m/d');
+
+        $holiday_image = [
+            '01/01' => './assets/images/new-years-macaron.jpg',
+            '07/04' => './assets/images/home-july-4th.jpg',
+            '05/26' => './assets/images/christmas-macaron.jpg'
+        ];
+        if (!empty($holiday_image[$current_date])) {
+            $img = $holiday_image[$current_date];
+        } else {
+            $img = "./assets/images/macarons-image.png";
+        }
+        ?>
+        <div id="macaron-image" class='col-md-4 col-sm-12'><img src="<?=$img?>"></div>
+        <?php
+    }
+    image_holiday_change();
+    ?>
 </article>
