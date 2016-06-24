@@ -1,27 +1,13 @@
 <?php
 session_start();
-date_default_timezone_set('America/Los_Angeles');
-?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
-    <title>Welcome</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src = "script.js"></script>
-    <link href="style.css" rel="stylesheet" type="text/css">
-    <?php
     function holiday_date_check() {
         $current_date = date("m/d");
-
         $holidays = [
-            '05/26' => 'newyear.css',
-            '07/04' => 'july4th.css',
-            '12/25' => 'christmas.css'
+            '05/26' => 'css/newyear.css',
+            '07/04' => 'css/july4th.css',
+            '12/25' => 'css/christmas.css'
         ];
-
         $current_css = null;
         if(!empty($holidays[$current_date])){
             $extra_css_link = "<link href ='{$holidays[$current_date]}' rel='stylesheet' type='text/css'>";
@@ -30,59 +16,67 @@ date_default_timezone_set('America/Los_Angeles');
         }
         print($extra_css_link);
     }
-
     holiday_date_check();
     ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <title>Welcome</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <!-- Angular Routing -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+    <!-- Roboto  Font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body ng-app="mboutiqueApp">
     <!--Begin Navigation Bar-->
-    <nav>
-        <img id = "logo-image" src = "./assets/images/logo.png">
-        <?php
-        $menu = [
-            'home' => ['url' => 'home.php', 'link' => 'Welcome'],
-            'our-macarons' => ['url' => 'our-macarons.php', 'link' => 'Our Macarons'],
-            'gift_parties' => ['url' => 'gift_parties.php', 'link' => 'Gift & Parties'],
-            'order' => ['url' => 'order.php', 'link' => 'Order'],
-            'contact' => ['url' => 'contact.php', 'link' => 'Contact'],
-        ];
-        ?>
-        <ul>
-            <?php
-            foreach ($menu as $key=>$value) {
-                ?>
-                <li><a href="?page=<?= $key; ?>"><?= $value['link']; ?></a></li>
-                <?php
-            }
-            ?>
-        </ul>
+    <nav id = 'navbar' class = "navbar navbar-fixed-top">
+    <div class = 'container-fluid'>
+        <div class = 'navbar-header'>
+            <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navbar-collapse">
+                <span class = "icon-bar"></span>
+                <span class = "icon-bar"></span>
+                <span class = "icon-bar"></span>
+            </button>
+            <a class = 'navbar-brand' id = 'brand'> <img id = "logo-image" src = "./assets/images/logo.png"></a>
+        </div>
+        <div class = 'navbar-collapse collapse navbar-collapse'>
+            <ul class = 'nav navbar-nav navbar-right'>
+              <li><a class="n_link" href="#welcome">WELCOME</a></li>
+              <li><a class="n_link" href="#macarons">OUR MACARONS</a></li>
+              <li><a class="n_link" href="#gifts">GIFTS &amp; PARTIES</a></li>
+              <li><a class="n_link" href="#cart">CART</a></li>
+              <li><a class="n_link" href="#contact">CONTACT</a></li>
+            </ul>
+      </div>
     </nav>
-    
-    <!--Begin PHP Include -->
 
-    <?php
-        if(empty($_GET)) {
-            $_GET['page'] = 'home';
-        }
-        else{
-            if(empty($_GET['page'])){
-                $_GET['page'] = '404';
-                print_r($_GET['page']);
-            }
+    <!--ng-view -->
+    <div id="content" ng-controller="mainController">
+        <div ng-view></div>
+    </div>
 
-        }
-    $page = $_GET['page'];
-
-    require($page.".php");
-    ?>
-    <!--End PHP Include -->
-
-    <footer class = "col-md-12 col-sm-12">
+    <footer class = "col-sm-12 col-xs-12">
         <ul>
             <li><img src = "./assets/images/mail.png" class = "icons">order@mboutique.com</li>
             <li><img src ="./assets/images/phone.png" class = "icons">949-800-3111</li>
             <li>Follow us:<img src = "./assets/images/facebook.png" class = "icons" id = "facebook"><img src= "./assets/images/twitter.png" class = "icons"></li>
         </ul>
-        <p>Copyright &copy 2015 MBoutique. All rights reserved</p>
+        <p>Copyright &copy; 2015 MBoutique. All rights reserved</p>
     </footer>
+    <!-- Modules -->
+    <script src="js/app.js"></script>
+    <!-- Services -->
+    <script src="js/services/macaronRetrieve.js"></script>
+    <!-- Controllers -->
+    <script src="js/controllers/dateController.js"></script>
+    <script src="js/controllers/cartController.js"></script>
+    <script src="js/controllers/contactController.js"></script>
+    <script src="js/controllers/partyController.js"></script>
+    <script src="js/controllers/shopController.js"></script>
 </body>

@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
 ?>
-<img src = "./assets/images/contact-image.png " id = "contact-image">
+<img src = "./assets/images/contact-image.png " class = "header-image">
 <article id = "contacts">
     <div id = "days-address" class = 'col-md-4 col-sm-12'>
         <h3>Visit us!</h3>
