@@ -17,7 +17,7 @@ app.controller("partyController", ['$scope', 'macaronCart', function($scope, mac
             index = index + 17;
         }
         console.log($scope.macarons[index]);
-        if ($scope.macarons[index].count >= 0 && value === 1) {
+        if($scope.macarons[index].count >= 0 && value === 1) {
             $scope.macarons[index].count += 1;
         } else if ($scope.macarons[index].count > 0 && value === 0) {
             $scope.macarons[index].count -= 1;
