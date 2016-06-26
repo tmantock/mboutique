@@ -5,12 +5,9 @@
 body {
     height: 100vh;
     width: 100vw;
-    position: relative;
-    left: 45%;
-    transform: translateX(-45%);
 }
 #navbar {
-  background: rgb(246, 36, 89);
+  background: rgb(219, 10, 91);
 }
 #navbar ul {
     color: #6a6969;
@@ -20,7 +17,7 @@ body {
   padding: 0 3%;
 }
 
-nav li {
+#nabar>li {
     list-style-type: none;
     font-family: 'Roboto', sans-serif;
     font-size: 1.2em;
@@ -31,11 +28,26 @@ nav li {
 #navbar li a {
     color: #ffffff;
     text-decoration: none;
+    border: 1px solid #ffffff;
+    border-radius: 25px;
+    text-align: center;
+    padding: 8px;
+    margin: 5px;
 }
 
 #navbar li a:hover {
     color: #d42551;
     text-decoration: none;
+    background: #eee;
+}
+
+.nav>li>a:focus {
+  background: transparent;
+}
+
+.cart {
+  font-size: 20px;
+  padding: none;
 }
 
 #welcome-image{
@@ -191,8 +203,8 @@ nav li {
     color: #6a6969;
 }
 
-#main-body-paragraph p:nth-child(4) {
-    padding-bottom: 2%;
+#main-body-paragraph {
+    border-top: 3px solid #000000;
 }
 
 #flavor-of-day {
@@ -223,7 +235,7 @@ nav li {
 
 /*Our Macarons*/
 #macarons-shop {
-  height: 150%;
+  height: 210%;
   padding: 2% 5%;;
 }
 
@@ -232,14 +244,14 @@ nav li {
 }
 
 .shop-container {
-  height: 80%;
+  height: 57%;
   padding: none;
-  border: 1px solid black;
+  border-top: 3px solid #000000
 }
 
 .macaron-container {
-  height: 33%;
-  border: 1px solid black;
+  height: 40%;
+  padding-top: 2%;
 }
 
 .macaron-container {
@@ -250,19 +262,32 @@ nav li {
   height: 100%;
 }
 
+.shop-image {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
 .button-macaron {
   height: 100%;
+  font-size: 1em;
+}
+
+.button-macaron:focus {
+  outline: none !important;
 }
 
 .add-cart,
 .cart-controls {
   height: 15%;
   border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.4em;
 }
 
 .display-count,
 .add-cart {
-  padding: 8px 0;
+  padding: .5em 0;
 }
 
 .cart-controls,
@@ -273,62 +298,79 @@ nav li {
 }
 
 #macarons-shop p,
-#macarons-shop li {
-    font-size: 14px;
-    color: #6a6969;
+#gifts p {
+  font-size: 14px;
+  color: #6a6969;
 }
 
-#macarons-shop h3 {
-    font-size: 20px;
-    color: #6a6969;
-    margin: 10px 0;
-}
-
-#macarons-background{
-    max-width: 1000px;
+#macarons-shop h3,
+#gifts h3 {
+  font-size: 20px;
+  color: #6a6969;
+  margin: 10px 0;
 }
 
 #second-paragraph {
     padding-top: 15%;
     position:relative;
 }
-/*Our Macarons*/
 
 /*gifts*/
-#gifts h3 {
-    font-size: 20px;
-    color: #6a6969;
-    margin: 40px 0;
-}
-
-#gifts article {
-    padding-bottom: 50px;
+#gifts {
+  height: 210%;
 }
 
 #gifts a {
-    text-decoration: none;
-    color: #df5277
+  text-decoration: none;
+  color: #df5277
 }
 
-#gifts p {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    color: #6a6969
+.gift-container {
+  height: 50%;
 }
 
-#gifts {
-    margin-bottom: 2%;
-    background-image: url('./assets/images/gifts-parties-background.png');
-    height: 70%;
+.gift-container .display-count,
+.gift-container .add-cart {
+  padding: .3em 0;
 }
 
-#gifts li {
-    font-size: 14px;
-    color: #6a6969
+.catering-container {
+  height: 40%;
+  border-top: 3px solid #000000;
 }
 
-#bottom-list {
-    margin-bottom: 100px;
+.catering-left,
+.catering-right {
+  height: 100%;
+}
+
+.catering-top,
+.catering-bottom {
+  margin-top: 5%;
+  height: 38%;
+}
+
+.catering-box-right {
+  height: 80%;
+  margin-top: 5%;
+  background: url('../assets/images/tower.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.catering-top {
+  background: url('../assets/images/wedding.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.catering-bottom {
+  background: url('../assets/images/decorative.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 /*Order Page*/
@@ -447,44 +489,31 @@ nav li {
 footer {
      height: 10%;
      width: 100%;
-     background-color: rgb(246, 36, 89);
+     background-color: #212121;
      color: #ffffff;
      text-align: center;
-     font-size: .9em;
+     display: inline-block;
 }
 
 footer li {
-     display: inline-block;
-     padding-left: 13%;
-     position: relative;
-     right: 13%;
-     margin: 1%;
-     color:#ffffff;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  position: relative;
+  color:#000000;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px;
+  display: inline-block;
 }
 
-footer p {
-     font-size: .9em;
-     color: #ffffff;
-}
-
-.icons {
-     margin-right: 10px;
-}
-
-#facebook {
-     margin-left: 5px;
+.copyright {
+  vertical-align: bottom;
+  text-align: center;
 }
 
  @media screen and (max-width: 627px) {
-     nav {
-         width: 100%;
-         height: 8%;
-         background-color: #fffabe;
-         margin: 0;
-         padding: 0;
-         box-sizing: border-box;
-     }
-
      nav img {
          position: relative;
          top: 20%;

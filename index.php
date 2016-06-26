@@ -1,10 +1,27 @@
 <?php
 session_start();
-
+?>
+<html ng-app="mboutiqueApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <title ng-bind="title">Title</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <!-- Angular Routing -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+    <!-- Roboto  Font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <?php
     function holiday_date_check() {
         $current_date = date("m/d");
         $holidays = [
-            '05/26' => 'css/newyear.css',
+            '01/01' => 'css/newyear.css',
             '07/04' => 'css/july4th.css',
             '12/25' => 'css/christmas.css'
         ];
@@ -18,24 +35,10 @@ session_start();
     }
     holiday_date_check();
     ?>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
-    <title>Welcome</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <!-- Angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-    <!-- Angular Routing -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
-    <!-- Roboto  Font -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
-<body ng-app="mboutiqueApp">
+<body>
     <!--Begin Navigation Bar-->
-    <nav id = 'navbar' class = "navbar navbar-fixed-top">
+    <nav id = 'navbar' class = "navbar navbar-fixed-top" ng-controller="mainController">
     <div class = 'container-fluid'>
         <div class = 'navbar-header'>
             <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navbar-collapse">
@@ -50,24 +53,39 @@ session_start();
               <li><a class="n_link" href="#welcome">WELCOME</a></li>
               <li><a class="n_link" href="#macarons">OUR MACARONS</a></li>
               <li><a class="n_link" href="#gifts">GIFTS &amp; PARTIES</a></li>
-              <li><a class="n_link" href="#cart">CART</a></li>
               <li><a class="n_link" href="#contact">CONTACT</a></li>
+              <li><a class="n_link" href="#cart"> {{ "Items: " + cart }} <i class="fa fa-shopping-cart cart" aria-hidden="true"></i></a></li>
             </ul>
       </div>
     </nav>
 
     <!--ng-view -->
-    <div id="content" ng-controller="mainController">
+    <div id="content">
         <div ng-view></div>
     </div>
 
     <footer class = "col-sm-12 col-xs-12">
+      <div class="col-sm-4">
+        Contact Us On:
         <ul>
-            <li><img src = "./assets/images/mail.png" class = "icons">order@mboutique.com</li>
-            <li><img src ="./assets/images/phone.png" class = "icons">949-800-3111</li>
-            <li>Follow us:<img src = "./assets/images/facebook.png" class = "icons" id = "facebook"><img src= "./assets/images/twitter.png" class = "icons"></li>
+          <li><i class="fa fa-phone" aria-hidden="true"></i></li>
+          <li><i class="fa fa-envelope" aria-hidden="true"></i></li>
+          <li><i class="fa fa-map" aria-hidden="true"></i></li>
         </ul>
-        <p>Copyright &copy; 2015 MBoutique. All rights reserved</p>
+      </div>
+      <div class="col-sm-4">
+        <p class="copyright">Copyright &copy; 2015 MBoutique. All rights reserved</p>
+      </div>
+      <div class="col-sm-4">
+        Follow Us On:
+        <ul>
+          <li><i class="fa fa-facebook" aria-hidden="true"></i></li>
+          <li><i class="fa fa-instagram" aria-hidden="true"></i></li>
+          <li><i class="fa fa-twitter" aria-hidden="true"></i></li>
+          <li><i class="fa fa-pinterest" aria-hidden="true"></i></li>
+          <li><i class="fa fa-google" aria-hidden="true"></i></li>
+        </ul>
+      </div>
     </footer>
     <!-- Modules -->
     <script src="js/app.js"></script>
@@ -80,3 +98,4 @@ session_start();
     <script src="js/controllers/partyController.js"></script>
     <script src="js/controllers/shopController.js"></script>
 </body>
+</html>

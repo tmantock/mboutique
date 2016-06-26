@@ -1,7 +1,7 @@
 <?php
 require_once ("db_connect.php");
 //Query for selecting all macarons and saving it to a variable
-$result = $db -> query("SELECT `id`,`name`,`cost`,`description` FROM `products`");
+$result = $db -> query("SELECT `id`,`name`,`cost`,`description`,`day`,`img_src`,`category` FROM `products`");
 //declare object array to hold the macarons
 $object = [];
 //Conditional for determining if there are macarons present to be pushed into the object array
