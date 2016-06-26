@@ -6,7 +6,7 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
 
   cart.days = [];
 
-  cart.itemCount = '';
+  cart.itemCount = 0;
 
   cart.flavor = {};
 
@@ -71,7 +71,6 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
       }
 
       cart.days = days;
-      console.log(cart.days);
       cart.macarons = data;
       cart.generateFlavor(day);
 

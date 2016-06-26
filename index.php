@@ -16,6 +16,9 @@ session_start();
     <!-- Roboto  Font -->
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <?php
     function holiday_date_check() {
@@ -54,14 +57,14 @@ session_start();
               <li><a class="n_link" href="#macarons">OUR MACARONS</a></li>
               <li><a class="n_link" href="#gifts">GIFTS &amp; PARTIES</a></li>
               <li><a class="n_link" href="#contact">CONTACT</a></li>
-              <li><a class="n_link" href="#cart"> {{ "Items: " + cart }} <i class="fa fa-shopping-cart cart" aria-hidden="true"></i></a></li>
+              <li><a class="n_link mdl-badge mdl-badge--overlap" data-badge=" {{ cart }} " href="#cart">CART</a></li>
             </ul>
       </div>
     </nav>
 
     <!--ng-view -->
     <div id="content">
-        <div ng-view></div>
+        <div ng-view autoscroll="true"></div>
     </div>
 
     <footer class = "col-sm-12 col-xs-12">

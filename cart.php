@@ -1,4 +1,8 @@
-<img src = "./assets/images/macaron-order.png" id = "order-image">
+<div id="cart-image" class = "header-image">
+  <div class="header-text">
+    <h1>Checkout</h1>
+  </div>
+</div>
 <main id = "order_page" ng-app = "listApp">
     <div class = "sidebar col-lg-3 col-md-3 col-sm-3"></div>
     <?php

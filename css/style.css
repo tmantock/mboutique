@@ -1,13 +1,36 @@
-* {
-  font-style: 'Roboto',sans-serif;
-}
-
 body {
     height: 100vh;
     width: 100vw;
 }
+
+h1 {
+  font-size: 36px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 #navbar {
   background: rgb(219, 10, 91);
+  min-height: 60px;
+  padding: 6.5px 0;
 }
 #navbar ul {
     color: #6a6969;
@@ -20,13 +43,13 @@ body {
 #nabar>li {
     list-style-type: none;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.2em;
     color: #515151;
     display: inline-block;
 }
 
 #navbar li a {
     color: #ffffff;
+    font-size: 1em;
     text-decoration: none;
     border: 1px solid #ffffff;
     border-radius: 25px;
@@ -65,7 +88,21 @@ body {
 }
 
 #gifts-image {
-  background: linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)),url('../assets/images/macaron-work-2.jpg');
+  background: linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)),url('../assets/images/macaron-gifts.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#contact-image {
+  background: linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)),url('../assets/images/macaron-contact.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#cart-image {
+  background: linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)),url('../assets/images/macaron-cart.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -92,16 +129,19 @@ body {
 }
 
 #home-page {
-  height: 70%;
+  height: 75%;
+  padding: 0 !important;
 }
 
 #main-container {
     margin-top: 1%;
     margin-bottom: 1%;
+    height: 75%;
 }
 
-#main-container{
-  height: 60%;
+#main-container h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .header-image {
@@ -147,13 +187,18 @@ body {
   background: rgb(197, 239, 247);
 }
 
+.bottom-box h2 {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
 .table>thead>tr>th {
   border-color: #000000;
 }
 
 .price-dispay {
-  height: 100px;
-  width: 100px;
+  height: 90px;
+  width: 90px;
   border-radius: 50%;
 }
 
@@ -174,7 +219,7 @@ body {
 
 .discount h3,
 .price h3 {
-  padding: 1.5em 0 0 0;
+  padding: 1.1em 0;
   margin: 0;
   text-align: center;
 }
@@ -185,8 +230,8 @@ body {
   padding: 5px 0;
   position: absolute;
   bottom: 1%;
-  left: 40%;
-  transform: translateY(-40%);
+  left: 50%;
+  transform: translateX(-50%);
   border: 1px solid rgb(245, 171, 53);
   border-radius: 25px;
   text-align: center;
@@ -235,7 +280,7 @@ body {
 
 /*Our Macarons*/
 #macarons-shop {
-  height: 210%;
+  height: 250%;
   padding: 2% 5%;;
 }
 
@@ -244,7 +289,7 @@ body {
 }
 
 .shop-container {
-  height: 57%;
+  height: 55%;
   padding: none;
   border-top: 3px solid #000000
 }
@@ -256,6 +301,10 @@ body {
 
 .macaron-container {
   text-align: center;
+}
+
+.macaron-container > .price > h3 {
+  padding: .8em 0
 }
 
 .display-count {
@@ -279,7 +328,7 @@ body {
 
 .add-cart,
 .cart-controls {
-  height: 15%;
+  height: 13%;
   border-radius: 25px;
   font-weight: 600;
   font-size: 1.4em;
@@ -317,7 +366,7 @@ body {
 
 /*gifts*/
 #gifts {
-  height: 210%;
+  height: 250%;
 }
 
 #gifts a {
@@ -326,12 +375,17 @@ body {
 }
 
 .gift-container {
+  border-top: 3px solid #000000;
   height: 50%;
 }
 
 .gift-container .display-count,
 .gift-container .add-cart {
   padding: .3em 0;
+}
+
+.gift-container>.macaron-container {
+  margin-top: 3%;
 }
 
 .catering-container {

@@ -1,26 +1,3 @@
-<?php
-  $flavors = [
-    'Monday'=>['flavor'=>'Chocolate','img'=>'assets/images/chocolate-mac.png','description'=>'milk chocolatey'],
-    'Tuesday'=>['flavor'=>'Cookies & Cream','img'=>'assets/images/cookies-mac.png','description'=>'dunkable'],
-    'Wednesday'=>['flavor'=>'Strawberry','img'=>'assets/images/strawberry-mac.png','description'=>'fresh from the field'],
-    'Thursday'=>['flavor'=>'Pistachio','img'=>'assets/images/pistachio-mac.png','description'=>'nutty'],
-    'Friday'=>['flavor'=>'Coffee','img'=>'assets/images/truffee-mac.png','description'=>'addictive'],
-    'Saturday'=>['flavor'=>'Caramel & Toffee','img'=>'h']
-  ];
-
-  $date = date("l");
-
-  $currenct_flavor;
-  $current_image;
-  $description;
-
-  foreach($flavors as $key => $value){
-    if($key == $date){
-      $currenct_flavor = $value['flavor'];
-      $currenct_image = $value['img'];
-    }
-  }
-?>
 <!--Begin Image for Home Page-->
 <div id="welcome-image" class = "header-image">
   <div class="header-text">
@@ -41,16 +18,16 @@
         </div>
     <!--Begin bottom dates block row-->
 </main>
-<article id="home-page" class="col-sm-12">
-  <div class="left-home col-lg-7 col-md-7">
-    <div class="left-box top-box col-lg-12 col-md-12">
+<article id="home-page" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+  <div class="left-home col-lg-8 col-md-8">
+    <div class="left-box top-box col-lg-12 col-md-12 mdl-shadow--2dp">
       <div class="price-dispay price">
         <h3> {{ dc.flavor.cost | currency }} </h3>
       </div>
       <h1>It's {{ dc.flavor.day }}!</h1>
       <h1>The flavor of the day is {{ dc.flavor.name }}!</h1>
     </div>
-    <div class="left-box bottom-box col-lg-12 col-md-12">
+    <div class="left-box bottom-box col-lg-12 col-md-12 mdl-shadow--2dp">
       <h2>Keep an eye out for these next!</h2>
       <table class="table">
         <thead>
@@ -61,6 +38,7 @@
             <th>Thursday</th>
             <th>Friday</th>
             <th>Saturday</th>
+            <th>Sunday</th>
           </tr>
         </thead>
         <tbody>
@@ -72,11 +50,10 @@
         </tbody>
       </table>
     </div>
-
   </div>
 
-  <div class="right-home col-lg-5 col-md-5">
-    <div class="right-card">
+  <div class="right-home col-lg-4 col-md-4">
+    <div class="right-card mdl-shadow--2dp">
       <h2>Order Our "MBoutique Dozen" Now!</h2>
       <div class="price-dispay discount">
         <h3>15% Off</h3>

@@ -28,15 +28,15 @@
 
     <div class="catering-container col-lg-12 col-md-12 col-xs-12">
       <div class = "catering-left col-lg-6 col-md-6">
-        <div class="catering-top col-sm-12">
+        <div class="catering-top col-sm-12 mdl-shadow--2dp">
 
         </div>
-        <div class="catering-bottom col-sm-12">
+        <div class="catering-bottom col-sm-12 mdl-shadow--2dp">
 
         </div>
       </div>
       <div class = "catering-right col-lg-6 col-md-6">
-        <div class = "catering-box-right col-sm-12">
+        <div class = "catering-box-right col-sm-12 mdl-shadow--2dp">
 
         </div>
       </div>
