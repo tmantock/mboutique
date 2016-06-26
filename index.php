@@ -6,7 +6,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" >
     <title ng-bind="title">Title</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <!-- Angular -->
@@ -100,5 +100,10 @@ session_start();
     <script src="js/controllers/contactController.js"></script>
     <script src="js/controllers/partyController.js"></script>
     <script src="js/controllers/shopController.js"></script>
+    <!-- Directives -->
+    <script src="js/directives/imageBackground.js"></script>
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnKuuYMhqpQ5xxbiRhj4YXOzti691JSt4&callback=initMap"
+    async defer></script>
 </body>
 </html>

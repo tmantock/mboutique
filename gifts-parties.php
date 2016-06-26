@@ -9,16 +9,28 @@
     <h2 class="shop-header">Gift boxes</h2>
     <div class="gift-container col-lg-12 col-md-12 col-xs-12">
 
-      <div class="macaron-container col-lg-4 col-md-4 col-xs-6" ng-repeat="gift in macarons | filter: {category: '3'}">
-        <div class="price-dispay price"><h3>{{ gift.cost | currency }}</h3></div>
-        <img class="shop-image" ng-src="{{ gift.img_src }}">
-        <h4>{{ gift.name }}</h4>
-        <div class="shop-controls col-sm-12">
-          <div class="add-cart col-sm-6 col-sm-offset-3" ng-click="addToggle = !addToggle" ng-hide="addToggle">Add to Cart</div>
-          <div class="cart-controls col-sm-6 col-sm-offset-3" ng-show="addToggle">
-            <button ng-click="pc.giftCartControl(gift,0,$index);" type="button" class="btn button-macaron col-sm-3">-</button>
-            <div class="display-count col-sm-6">{{ gift.count }}</div>
-            <button ng-click="pc.giftCartControl(gift,1,$index);" type="button" class="btn button-macaron col-sm-3">+</button>
+      <div class="col-lg-3 col-md-3 mdl-card mdl-shadow--2dp" ng-repeat="gift in macarons | filter: {category: '3'}">
+        <div class="mdl-card__title" image-background value= "{{gift.img_src}}">
+          <h2 class="mdl-card__title-text"> {{ gift.name }} </h2>
+        </div>
+        <div class="mdl-card__supporting-text"> {{ gift.description }} </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <a class="cart-control mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="toggleControls = !toggleControls">
+            Add To Cart
+          </a>
+          <div class="cart-buttons" ng-show="toggleControls">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"ng-click="pc.giftCartControl(gift,0,$index)">
+              -
+            </a>
+            <a>{{ gift.count }} </a>
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="pc.giftCartControl(gift,1,$index)">
+              +
+            </a>
+          </div>
+        </div>
+        <div class="mdl-card__menu">
+          <div class="macaron-price-dispay">
+            <h3> {{ gift.cost | currency }} </h3>
           </div>
         </div>
       </div>

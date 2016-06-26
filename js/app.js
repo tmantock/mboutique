@@ -1,52 +1,71 @@
-var app = angular.module("mboutiqueApp",['ngRoute',]);
+$(document).ready(function() {
+  var map;
+    window.initMap = function() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 33.6839, lng: -117.7947},
+        zoom: 12
+      });
+      map.addMarker({
+          lat: 33.6839,
+          lng: -117.7947,
+          title: 'Here I Am',
+          infoWindow: {
+              content: '<p> Irvine, California</p>'
+          }
+      });
+    };
 
-app.config(["$routeProvider",function ($routeProvider) {
+});
+
+var app = angular.module("mboutiqueApp", ['ngRoute', ]);
+
+app.config(["$routeProvider", function($routeProvider) {
     $routeProvider
-        .when('/',{
+        .when('/', {
             templateUrl: 'home.php',
             controller: 'dateController as dc',
             title: 'Mboutique'
         })
-        .when('/macarons',{
-                templateUrl: 'our-macarons.php',
-                controller: 'shopController as sc',
-                title: 'Shop'
+        .when('/macarons', {
+            templateUrl: 'our-macarons.php',
+            controller: 'shopController as sc',
+            title: 'Shop'
         })
-        .when('/gifts',{
-                templateUrl: 'gifts-parties.php',
-                controller: 'partyController as pc',
-                title: 'GIfts & Parties'
+        .when('/gifts', {
+            templateUrl: 'gifts-parties.php',
+            controller: 'partyController as pc',
+            title: 'GIfts & Parties'
         })
-        .when('/contact',{
-                templateUrl: 'contact.php',
-                controller: 'contactController as cc',
-                title: 'Contact'
+        .when('/contact', {
+            templateUrl: 'contact.php',
+            controller: 'contactController as cc',
+            title: 'Contact'
         })
-        .when('/cart',{
-                templateUrl: 'cart.php',
-                controller: 'cartController as crc',
-                title: 'Cart'
+        .when('/cart', {
+            templateUrl: 'cart.php',
+            controller: 'cartController as crc',
+            title: 'Cart'
         })
         .otherwise({
-                redirectTo: '/'
+            redirectTo: '/'
         });
 }]);
 
 app.run(['$location', '$rootScope', function($location, $rootScope) {
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-      if (current.hasOwnProperty('$$route')) {
-        $rootScope.title = current.$$route.title;
-      }
+    $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+        if (current.hasOwnProperty('$$route')) {
+            $rootScope.title = current.$$route.title;
+        }
     });
 }]);
 
-app.controller("mainController",['macaronCart','$log','$scope',function(macaronCart,$log,$scope){
-  var self = this;
-  $scope.title = "Mboutique";
-  $scope.macarons = macaronCart.retrieveMacarons();
-  $scope.cart = '';
-  $scope.$on('handleBroadcast', function() {
-    $scope.macarons = macaronCart.macarons;
-    $scope.cart = macaronCart.itemCount;
-  });
+app.controller("mainController", ['macaronCart', '$log', '$scope', function(macaronCart, $log, $scope) {
+    var self = this;
+    $scope.title = "Mboutique";
+    $scope.macarons = macaronCart.retrieveMacarons();
+    $scope.cart = '';
+    $scope.$on('handleBroadcast', function() {
+        $scope.macarons = macaronCart.macarons;
+        $scope.cart = macaronCart.itemCount;
+    });
 }]);

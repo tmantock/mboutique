@@ -34,6 +34,19 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
     }
   };
 
+  cart.generateCheckout = function () {
+    var checkoutArray = [];
+    for(var i = 0; i < cart.macarons.length; i++){
+      var item = cart.macarons[i];
+      if(item.count > 0){
+        item.itemTotal = item.count * item.cost;
+        checkoutArray.push(item);
+      }
+    }
+    $log.log(checkoutArray);
+    return checkoutArray;
+  };
+
   cart.updateMacarons = function (array) {
     cart.macarons = array;
     cart.getItemCount();
