@@ -366,7 +366,7 @@ h4 {
 
 /*gifts*/
 #gifts {
-  height: 250%;
+  height: 240%;
 }
 
 #gifts a {
@@ -376,7 +376,7 @@ h4 {
 
 .gift-container {
   border-top: 3px solid #000000;
-  height: 50%;
+  height: 45%;
 }
 
 .gift-container .display-count,
