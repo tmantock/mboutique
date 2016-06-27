@@ -37,7 +37,7 @@ session_start();
     <nav id = 'navbar' class = "navbar navbar-default" ng-controller="mainController">
     <div class = 'container-fluid'>
         <div class = 'navbar-header'>
-            <button class = "navbar-toggle collapsed mdl-badge mdl-badge--overlap" data-toggle = "collapse" data-badge="{{ cart }}" data-target = "#navbar-collapse" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">
+            <button class = "navbar-toggle collapsed mdl-badge mdl-badge--overlap" data-toggle = "collapse" data-badge="{{ cart }}" data-target = "#navbar-collapse" ng-init="asisCollapsed = true" ng-click="isCollapsed = !isCollapsed">
                 <span class = "icon-bar"></span>
                 <span class = "icon-bar"></span>
                 <span class = "icon-bar"></span>
