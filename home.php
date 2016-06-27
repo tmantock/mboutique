@@ -4,7 +4,7 @@
     <h1>MBoutique</h1>
   </div>
 </div>
-<main id = "main-container" class = "col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1" ng-controller="dateController as dc">
+<main id = "main-container" class = "col-sm-12" ng-controller="dateController as dc">
   <h2 class="shop-header">About Us</h2>
         <div id = "main-body-paragraph">
             <h3>Welcome to MBoutique!</h3>
@@ -17,50 +17,20 @@
             <h3>Find that flavor you like. Try our flavor of the day!</h3>
         </div>
     <!--Begin bottom dates block row-->
-</main>
-<article id="home-page" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
-  <div class="left-home col-lg-8 col-md-8">
+  <div class="left-home col-lg-8 col-md-8 col-xs-12">
     <div class="left-box top-box col-lg-12 col-md-12 mdl-shadow--2dp">
-      <div class="price-dispay price">
-        <h3> {{ dc.flavor.cost | currency }} </h3>
-      </div>
       <h1>It's {{ dc.flavor.day }}!</h1>
       <h1>The flavor of the day is {{ dc.flavor.name }}!</h1>
     </div>
-    <div class="left-box bottom-box col-lg-12 col-md-12 mdl-shadow--2dp">
-      <h2>Keep an eye out for these next!</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-            <th>Sunday</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td ng-repeat="day in dc.days">
-              {{ day.name }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="left-box bottom-box col-sm-12 mdl-shadow--2dp">
+      <h1>Look through our Gifts and Catering <br>section to see our signature deals!</h1>
     </div>
   </div>
 
-  <div class="right-home col-lg-4 col-md-4">
+  <div class="right-home col-lg-4 col-md-4 col-xs-12">
     <div class="right-card mdl-shadow--2dp">
-      <h2>Order Our "MBoutique Dozen" Now!</h2>
-      <div class="price-dispay discount">
-        <h3>15% Off</h3>
-      </div>
-      <div class="order-button">
-        Order Now
-      </div>
+    <h2>Keep an eye out for these next!</h2>
+      <p ng-repeat="day in dc.days" class="day-list">{{ day.day }} | {{ day.name }} | {{ day.cost | currency }}</p>
     </div>
   </div>
-</article>
+</main>

@@ -1,23 +1,9 @@
 $(document).ready(function() {
-  var map;
-    window.initMap = function() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 33.6839, lng: -117.7947},
-        zoom: 12
-      });
-      map.addMarker({
-          lat: 33.6839,
-          lng: -117.7947,
-          title: 'Here I Am',
-          infoWindow: {
-              content: '<p> Irvine, California</p>'
-          }
-      });
-    };
+
 
 });
 
-var app = angular.module("mboutiqueApp", ['ngRoute', ]);
+var app = angular.module("mboutiqueApp", ['ngRoute']);
 
 app.config(["$routeProvider", function($routeProvider) {
     $routeProvider
@@ -59,7 +45,7 @@ app.run(['$location', '$rootScope', function($location, $rootScope) {
     });
 }]);
 
-app.controller("mainController", ['macaronCart', '$log', '$scope', function(macaronCart, $log, $scope) {
+app.controller("mainController", ['macaronCart', '$log', '$scope','$location', function(macaronCart, $log, $scope, $location) {
     var self = this;
     $scope.title = "Mboutique";
     $scope.macarons = macaronCart.retrieveMacarons();
@@ -68,4 +54,8 @@ app.controller("mainController", ['macaronCart', '$log', '$scope', function(maca
         $scope.macarons = macaronCart.macarons;
         $scope.cart = macaronCart.itemCount;
     });
+    $scope.collapse = function () {
+      $scope.isCollapsed = true;
+      console.log("click");
+    };
 }]);

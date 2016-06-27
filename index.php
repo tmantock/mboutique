@@ -6,19 +6,12 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" >
     <title ng-bind="title">Title</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <!-- Angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-    <!-- Angular Routing -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
     <!-- Roboto  Font -->
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <?php
     function holiday_date_check() {
@@ -41,23 +34,23 @@ session_start();
 </head>
 <body>
     <!--Begin Navigation Bar-->
-    <nav id = 'navbar' class = "navbar navbar-fixed-top" ng-controller="mainController">
+    <nav id = 'navbar' class = "navbar navbar-default" ng-controller="mainController">
     <div class = 'container-fluid'>
         <div class = 'navbar-header'>
-            <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navbar-collapse">
+            <button class = "navbar-toggle collapsed mdl-badge mdl-badge--overlap" data-toggle = "collapse" data-badge="{{ cart }}" data-target = "#navbar-collapse" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">
                 <span class = "icon-bar"></span>
                 <span class = "icon-bar"></span>
                 <span class = "icon-bar"></span>
             </button>
             <a class = 'navbar-brand' id = 'brand'> <img id = "logo-image" src = "./assets/images/logo.png"></a>
         </div>
-        <div class = 'navbar-collapse collapse navbar-collapse'>
+        <div class="navbar-collapse" ng-class="{collapse: isCollapsed}" id="navbar-collapse">
             <ul class = 'nav navbar-nav navbar-right'>
-              <li><a class="n_link" href="#welcome">WELCOME</a></li>
-              <li><a class="n_link" href="#macarons">OUR MACARONS</a></li>
-              <li><a class="n_link" href="#gifts">GIFTS &amp; PARTIES</a></li>
-              <li><a class="n_link" href="#contact">CONTACT</a></li>
-              <li><a class="n_link mdl-badge mdl-badge--overlap" data-badge=" {{ cart }} " href="#cart">CART</a></li>
+              <li><a class="n_link" href="#welcome" ng-click="collapse()">WELCOME</a></li>
+              <li><a class="n_link" href="#macarons" ng-click="collapse()">OUR MACARONS</a></li>
+              <li><a class="n_link" href="#gifts" ng-click="collapse()">GIFTS &amp; PARTIES</a></li>
+              <li><a class="n_link" href="#contact" ng-click="collapse()">CONTACT</a></li>
+              <li><a class="n_link mdl-badge mdl-badge--overlap nav-badge" data-badge=" {{ cart }}" href="#cart" ng-click="collapse()">CART</a></li>
             </ul>
       </div>
     </nav>
@@ -68,19 +61,17 @@ session_start();
     </div>
 
     <footer class = "col-sm-12 col-xs-12">
-      <div class="col-sm-4">
-        Contact Us On:
+      <div class="col-sm-4 col-xs-12">
         <ul>
           <li><i class="fa fa-phone" aria-hidden="true"></i></li>
           <li><i class="fa fa-envelope" aria-hidden="true"></i></li>
           <li><i class="fa fa-map" aria-hidden="true"></i></li>
         </ul>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4 col-xs-12">
         <p class="copyright">Copyright &copy; 2015 MBoutique. All rights reserved</p>
       </div>
-      <div class="col-sm-4">
-        Follow Us On:
+      <div class="col-sm-4 col-xs-12">
         <ul>
           <li><i class="fa fa-facebook" aria-hidden="true"></i></li>
           <li><i class="fa fa-instagram" aria-hidden="true"></i></li>
@@ -90,6 +81,16 @@ session_start();
         </ul>
       </div>
     </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <!-- Angular Routing -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnKuuYMhqpQ5xxbiRhj4YXOzti691JSt4&"></script>
     <!-- Modules -->
     <script src="js/app.js"></script>
     <!-- Services -->
@@ -102,8 +103,5 @@ session_start();
     <script src="js/controllers/shopController.js"></script>
     <!-- Directives -->
     <script src="js/directives/imageBackground.js"></script>
-    <!-- Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnKuuYMhqpQ5xxbiRhj4YXOzti691JSt4&callback=initMap"
-    async defer></script>
 </body>
 </html>
