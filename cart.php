@@ -74,7 +74,7 @@
 
     <div class = "cart_list col-lg-9 col-md-9 col-xs-12" ng-show="toggleCartView">
       <button type="button" class="btn btn-info cart-toggle col-xs-12" ng-click="toggleCartView = !toggleCartView">Show Checkout</button>
-      <div class="col-lg-6 col-md-6 col-sm-12" ng-repeat="item in checkout">
+      <div class="col-lg-6 col-md-6 col-sm-12 card" ng-repeat="item in checkout">
       <div class="col-sm-12 mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title" image-background value= "{{item.img_src}}">
           <h2 class="mdl-card__title-text"> {{ item.name }} </h2>

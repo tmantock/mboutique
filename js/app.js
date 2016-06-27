@@ -56,6 +56,5 @@ app.controller("mainController", ['macaronCart', '$log', '$scope','$location', f
     });
     $scope.collapse = function () {
       $scope.isCollapsed = true;
-      console.log("click");
     };
 }]);
