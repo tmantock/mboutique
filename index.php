@@ -95,6 +95,7 @@ session_start();
     <script src="js/app.js"></script>
     <!-- Services -->
     <script src="js/services/macaronRetrieve.js"></script>
+    <script src="js/services/cartCheckout.js"></script>
     <!-- Controllers -->
     <script src="js/controllers/dateController.js"></script>
     <script src="js/controllers/cartController.js"></script>
@@ -103,5 +104,6 @@ session_start();
     <script src="js/controllers/shopController.js"></script>
     <!-- Directives -->
     <script src="js/directives/imageBackground.js"></script>
+    <script src="js/directives/checkouts.js"></script>
 </body>
 </html>

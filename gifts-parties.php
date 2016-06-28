@@ -3,7 +3,7 @@
     <h1>Gifts &amp; Parties</h1>
   </div>
 </div>
-<article id = "gifts" class = "col-sm-12">
+<article id = "gifts" class = "col-sm-12 body">
     <h2>Macarons for Everyone!</h2>
     <p>We make it easy to share la passion du macaron with your friends, family and colleagues. Choose from our array of premium gift options, or we can create a custom solution. Contact us when you need help planning your celebration! <a href ="#">orders@mboutique.com</a></p>
     <h2 class="shop-header">Gift boxes</h2>

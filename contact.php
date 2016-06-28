@@ -6,7 +6,7 @@ date_default_timezone_set('America/Los_Angeles');
     <h1>Contact Us</h1>
   </div>
 </div>
-<article id = "contacts" class="col-sm-12">
+<article id = "contacts" class="col-sm-12 body">
     <div id = "days-address" class = 'col-lg-4 col-md-4 col-xs-12 mdl-card mdl-shadow--2dp'>
         <h3 class="move-right">Visit us!</h3>
         <ul>

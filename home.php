@@ -4,7 +4,7 @@
     <h1>MBoutique</h1>
   </div>
 </div>
-<main id = "main-container" class = "col-sm-12" ng-controller="dateController as dc">
+<main id = "main-container" class = "col-sm-12 body" ng-controller="dateController as dc">
   <h2 class="shop-header">About Us</h2>
         <div id = "main-body-paragraph">
             <h3>Welcome to MBoutique!</h3>
@@ -17,20 +17,22 @@
             <h3>Find that flavor you like. Try our flavor of the day!</h3>
         </div>
     <!--Begin bottom dates block row-->
-  <div class="left-home col-lg-8 col-md-8 col-xs-12">
-    <div class="left-box top-box col-lg-12 col-md-12 mdl-shadow--2dp">
-      <h1>It's {{ dc.flavor.day }}!</h1>
-      <h1>The flavor of the day is {{ dc.flavor.name }}!</h1>
-    </div>
-    <div class="left-box bottom-box col-sm-12 mdl-shadow--2dp">
-      <h1>Look through our Gifts and Catering <br>section to see our signature deals!</h1>
-    </div>
-  </div>
+    <div class="col-sm-12 dates-info">
+      <div class="left-home col-lg-8 col-md-8 col-xs-12">
+        <div class="left-box top-box col-lg-12 col-md-12 mdl-shadow--2dp">
+          <h1>It's {{ dc.flavor.day }}!</h1>
+          <h1>The flavor of the day is {{ dc.flavor.name }}!</h1>
+        </div>
+        <div class="left-box bottom-box col-sm-12 mdl-shadow--2dp">
+          <h1>Look through our Gifts and Catering <br>section to see our signature deals!</h1>
+        </div>
+      </div>
 
-  <div class="right-home col-lg-4 col-md-4 col-xs-12">
-    <div class="right-card mdl-shadow--2dp">
-    <h2>Keep an eye out for these next!</h2>
-      <p ng-repeat="day in dc.days" class="day-list">{{ day.day }} | {{ day.name }} | {{ day.cost | currency }}</p>
+      <div class="right-home col-lg-4 col-md-4 col-xs-12">
+        <div class="right-card mdl-shadow--2dp">
+        <h2>Keep an eye out for these next!</h2>
+          <p ng-repeat="day in dc.days" class="day-list">{{ day.day }} | {{ day.name }} | {{ day.cost | currency }}</p>
+        </div>
+      </div>
     </div>
-  </div>
 </main>

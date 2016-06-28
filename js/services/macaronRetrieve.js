@@ -10,6 +10,10 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
 
   cart.flavor = {};
 
+  cart.checkoutArray = [];
+
+  cart.total = 0;
+
   cart.retrieveMacarons = function () {
     return cart.macarons;
   };
@@ -43,13 +47,14 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
         checkoutArray.push(item);
       }
     }
-    $log.log(checkoutArray);
-    return checkoutArray;
+    cart.checkoutArray = checkoutArray;
+    return cart.checkoutArray;
   };
 
   cart.updateMacarons = function (array) {
     cart.macarons = array;
     cart.getItemCount();
+    cart.calculateTotal();
     cart.broadcastItem();
   };
 
@@ -60,6 +65,16 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
       counter += macaron.count;
     }
     cart.itemCount = counter;
+  };
+
+  cart.calculateTotal = function () {
+    var total = 0;
+    for(var i = 0; i<cart.checkoutArray.length; i++){
+      total += cart.checkoutArray[i].cost * cart.checkoutArray[i].count;
+    }
+    cart.total = total;
+    console.log(cart.total);
+    return cart.total;
   };
 
   cart.broadcastItem = function () {

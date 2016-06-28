@@ -1,3 +1,5 @@
 .idea/
 .DS_Store
 /php/db_connect.php
+/php/login.php
+/php/new-user.php

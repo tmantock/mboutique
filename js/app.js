@@ -45,7 +45,7 @@ app.run(['$location', '$rootScope', function($location, $rootScope) {
     });
 }]);
 
-app.controller("mainController", ['macaronCart', '$log', '$scope','$location', function(macaronCart, $log, $scope, $location) {
+app.controller("mainController", ['macaronCart', '$log', '$scope','$location','cartCheckout', function(macaronCart, $log, $scope, $location, cartCheckout) {
     var self = this;
     $scope.title = "Mboutique";
     $scope.macarons = macaronCart.retrieveMacarons();

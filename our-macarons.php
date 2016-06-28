@@ -3,7 +3,7 @@
     <h1>Shop</h1>
   </div>
 </div>
-<article id = "macarons-shop" class="col-sm-12">
+<article id = "macarons-shop" class="col-sm-12 body">
   <h2>Our macarons are freshly made by hand</h2>
   <p>The vivid hues of our unique macarons reflect the natural flavors and essences {{ date }} that infuse the ganache filling of these delicious almond cookies - each has its own personality, and all of them are made to savour for their delicacy and unique character. Take a look around to find your next guilty pleasure.</p>
   <h2 class="shop-header">Shop</h2>

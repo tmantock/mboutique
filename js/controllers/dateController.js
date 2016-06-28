@@ -1,4 +1,4 @@
-app.controller("dateController", ['macaronCart','$scope','$log','$timeout',function(macaronCart, $scope,$log,$timeout) {
+app.controller("dateController", ['macaronCart','$scope','$log','$timeout','cartCheckout',function(macaronCart, $scope,$log,$timeout,cartCheckout) {
     var self = this;
     $scope.macarons = macaronCart.retrieveMacarons();
     self.days = macaronCart.getDays();
