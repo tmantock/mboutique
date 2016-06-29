@@ -1,5 +1,9 @@
-app.controller("cartController", ['$scope','macaronCart','cartCheckout',function($scope,macaronCart,cartCheckout){
+app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginService',function($scope,macaronCart,cartCheckout,loginService){
   var self = this;
+  self.username = '';
+  self.password='';
+  $scope.token = null;
+  $scope.message = null;
   $scope.macarons = [];
   $scope.cart = macaronCart.itemCount;
   $scope.title = "Cart";
@@ -9,6 +13,12 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout',function
     $scope.macarons = macaronCart.macarons;
     $scope.cart = macaronCart.itemCount;
     $scope.total = macaronCart.total;
+  });
+
+  $scope.$on('loginBroadcast', function(){
+    $scope.token = loginService.token;
+    $scope.message = loginService.message;
+    console.log($scope.token);
   });
 
   self.states = [
@@ -86,8 +96,13 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout',function
   };
 
   self.submit = function () {
-    cartCheckout.checkout(self.customer, $scope.checkout, $scope.total);
+    cartCheckout.checkout($scopeself.customer, $scope.checkout, $scope.total);
+    console.log($scope.token);
   };
+
+  self.login = function () {
+    loginService.httpLogin(self.username,self.password);
+  }
 
   self.cancel = function (option) {
     $('input').html('');

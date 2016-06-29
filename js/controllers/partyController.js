@@ -1,4 +1,4 @@
-app.controller("partyController", ['$scope', 'macaronCart','cartCheckout',function($scope, macaronCart,cartCheckout) {
+app.controller("partyController", ['$scope', 'macaronCart','cartCheckout','loginService',function($scope, macaronCart,cartCheckout,loginService) {
     var self = this;
     $scope.macarons = macaronCart.retrieveMacarons();
     $scope.cart = '';

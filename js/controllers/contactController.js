@@ -1,4 +1,4 @@
-app.controller("contactController", ['$scope','macaronCart','$timeout','cartCheckout',function($scope,macaronCart,$timeout, cartCheckout){
+app.controller("contactController", ['$scope','macaronCart','$timeout','cartCheckout','loginService',function($scope,macaronCart,$timeout, cartCheckout,loginService){
   var self = this;
   $scope.macarons = [];
   $scope.cart = '';

@@ -1,4 +1,4 @@
-app.controller("shopController", ['macaronCart','$log','$scope','cartCheckout',function(macaronCart,$log,$scope,cartCheckout){
+app.controller("shopController", ['macaronCart','$log','$scope','cartCheckout','loginService',function(macaronCart,$log,$scope,cartCheckout,loginService){
   var self = this;
   $scope.$on('handleBroadcast', function() {
     $scope.macarons = macaronCart.macarons;

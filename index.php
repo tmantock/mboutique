@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <html ng-app="mboutiqueApp">
 <head>
     <meta charset="UTF-8">
@@ -96,6 +93,7 @@ session_start();
     <!-- Services -->
     <script src="js/services/macaronRetrieve.js"></script>
     <script src="js/services/cartCheckout.js"></script>
+    <script src="js/services/login.js"></script>
     <!-- Controllers -->
     <script src="js/controllers/dateController.js"></script>
     <script src="js/controllers/cartController.js"></script>
