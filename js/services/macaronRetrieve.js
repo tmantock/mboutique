@@ -100,6 +100,7 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
       cart.macarons = data;
       cart.generateFlavor(day);
 
+      $log.log("Shopping Data Retrieved");
       return data;
     })
     .error(function (err) {

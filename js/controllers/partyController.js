@@ -10,7 +10,6 @@ app.controller("partyController", ['$scope', 'macaronCart','cartCheckout','login
 
     self.giftCartControl = function(gift, value, index) {
         index = index + 18;
-        console.log($scope.macarons);
         if($scope.macarons[index].count >= 0 && value === 1) {
             $scope.macarons[index].count += 1;
         } else if ($scope.macarons[index].count > 0 && value === 0) {
