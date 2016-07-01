@@ -34,7 +34,7 @@
     <nav id = 'navbar' class = "navbar navbar-default" ng-controller="mainController">
     <div class = 'container-fluid'>
         <div class = 'navbar-header'>
-            <button class = "navbar-toggle collapsed mdl-badge mdl-badge--overlap" data-toggle = "collapse" data-badge="{{ cart }}" data-target = "#navbar-collapse" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">
+            <button class = "navbar-toggle collapsed mdl-badge mdl-badge--overlap" id="nav-toggle" data-toggle = "collapse" data-badge="{{ cart }}" data-target = "#navbar-collapse" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">
                 <span class = "icon-bar"></span>
                 <span class = "icon-bar"></span>
                 <span class = "icon-bar"></span>
@@ -47,7 +47,7 @@
               <li><a class="n_link" href="#macarons" ng-click="collapse()">OUR MACARONS</a></li>
               <li><a class="n_link" href="#gifts" ng-click="collapse()">GIFTS &amp; PARTIES</a></li>
               <li><a class="n_link" href="#contact" ng-click="collapse()">CONTACT</a></li>
-              <li><a class="n_link mdl-badge mdl-badge--overlap nav-badge" data-badge=" {{ cart }}" href="#cart" ng-click="collapse()">CART</a></li>
+              <li><a class="n_link mdl-badge mdl-badge--overlap nav-badge" id="cart-nav" data-badge=" {{ cart }}" href="#cart" ng-click="collapse()">CART</a></li>
             </ul>
       </div>
     </nav>

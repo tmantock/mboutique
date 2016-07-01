@@ -31,18 +31,18 @@
 
     <div class = "cart_list col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 " ng-hide="displayToggle">
       <div class="col-sm-12 checkout-bar-container">
-        <div class="checkout-bar col-sm-4">
+        <div class="checkout-bar col-lg-4 col-md-4 col-xs-4">
           <h3>Items: {{ cart }}</h3>
         </div>
-        <div class="checkout-bar col-sm-4">
+        <div class="checkout-bar col-lg-4 col-md-4 col-xs-4">
           <h3>Total: {{ total | currency}}</h3>
         </div>
-        <div class="checkout-bar col-sm-4">
+        <div class="checkout-bar col-lg-4 col-md-4 col-xs-4">
           <button type="button" class="btn btn-success col-sm-12" ng-click="displayToggle = !displayToggle">Checkout</button>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 card" ng-repeat="item in checkout">
-      <div class="col-sm-12 mdl-card mdl-shadow--2dp">
+      <div class="col-lg-12 col-md-12 col-xs-12 mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title" image-background value= "{{item.img_src}}">
           <h2 class="mdl-card__title-text"> {{ item.name }} - {{ item.count }}</h2>
         </div>

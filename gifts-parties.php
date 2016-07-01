@@ -9,7 +9,7 @@
     <h2 class="shop-header">Gift boxes</h2>
     <div class="gift-container col-sm-12">
       <div class="col-lg-4 col-md-4 col-xs-12 card" ng-repeat="gift in macarons | filter: {category: '3'}">
-      <div class="col-sm-12 mdl-card mdl-shadow--2dp">
+      <div class="col-lg-12 col-md-12 col-xs-12 mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title" image-background value= "{{gift.img_src}}">
           <h2 class="mdl-card__title-text"> {{ gift.name }} </h2>
         </div>
