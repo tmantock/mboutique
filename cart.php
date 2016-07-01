@@ -5,16 +5,26 @@
 </div>
 <main id = "order_page">
     <div class = "sidebar col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12" ng-show="displayToggle">
-      <button type="button" class="btn btn-info col-xs-12 display-toggle" ng-click="displayToggle = !displayToggle">Show Cart</button>
-      <div class = "choose-checkout" ng-hide="showGuest || showSignUp || showSignIn;">
-        <button type="button" class="btn btn-primary col-xs-12" ng-click="showSignUp = !showSignUp">Sign-Up</button>
-        <button type="button" class="btn btn-info col-xs-12" ng-click="showSignIn = !showSignIn">Sign-In</button>
-        <button type="button" class="btn btn-success col-xs-12" ng-click="showGuest = !showGuest">Guest Checkout</button>
-      </div>
       <div class = "checkout_form col-sm-12 mdl-shadow--2dp">
+        <div class="col-sm-12 show-cart">
+          <button type="button" class="btn btn-default col-sm-3 display-toggle" ng-click="displayToggle = !displayToggle">Show Cart</button>
+        </div>
+        <div class = "choose-checkout" ng-hide="showGuest || showSignUp || showSignIn;">
+          <h2 class="checkout-title">MBoutique requires that all customers be registered.</h2>
+          <div class="col-sm-6 sign-up">
+            <h3>If you're a new customer...</h3>
+            <h4>For the best experience, please sign-up.</h4>
+            <button type="button" class="btn btn-primary col-xs-12" ng-click="showSignUp = !showSignUp">Sign-Up</button>
+          </div>
+          <div class="col-sm-6 sign-in">
+            <h3>If you're a returning customer...</h3>
+            <h4>Thank You for coming back!</h4>
+            <button type="button" class="btn btn-info col-xs-12" ng-click="showSignIn = !showSignIn">Sign-In</button>
+          </div>
+          <checkout ng-if="status"></checkout>
+        </div>
         <sign-up ng-show="showSignUp"></sign-up>
         <sign-in ng-show="showSignIn"></sign-in>
-        <guest-checkout ng-show="showGuest"></guest-checkout>
       </div>
 
     </div>
@@ -28,7 +38,7 @@
           <h3>Total: {{ total | currency}}</h3>
         </div>
         <div class="checkout-bar col-sm-4">
-          <button type="button" class="btn btn-success col-sm-12 display-toggle" ng-click="displayToggle = !displayToggle">Checkout</button>
+          <button type="button" class="btn btn-success col-sm-12" ng-click="displayToggle = !displayToggle">Checkout</button>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 card" ng-repeat="item in checkout">

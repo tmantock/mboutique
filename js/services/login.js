@@ -6,30 +6,47 @@ app.factory("loginService", ["$http","$log","$rootScope", function($http,$log,$r
 
   login.message = null;
 
+  login.username = null;
+
+  login.status = false;
+
   login.broadcastCredentials = function () {
-    console.log("Successful Broadcast");
     $rootScope.$broadcast('loginBroadcast');
   };
 
-  login.httpLogin = function (username,password) {
+  login.httpLogin = function (customer,boolean) {
     return $http({
     url: './php/api-call.php',
     method: 'POST',
     data: {
-      username : username,
-      password : password
+      username : customer.username,
+      password : customer.password,
+      name: customer.name,
+      email: customer.email,
+      phone: customer.phone,
+      address: customer.address,
+      city: customer.city,
+      state: customer.state,
+      zip: customer.zip,
+      status: boolean
     },
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   }).then(function successCallack (data){
     var result = data.data;
     console.log(result);
+    login.status = result.success;
       if(result.success.success === true){
         login.token = result.success.token;
         login.broadcastCredentials();
-    }
+      } else if(result.success === false){
+        login.username = result.error.username;
+        login.message = result.error.message;
+        login.broadcastCredentials();
+      }
   }, function errorCallback (err){
-    var result = data.data
+    var result = data.data;
     if(result.success === false){
+      login.status = result.success.success;
       login.message = result.error.message;
       login.broadcastCredentials();
     }

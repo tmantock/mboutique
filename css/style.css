@@ -399,9 +399,6 @@ h4 {
   min-height: 307px;
 }
 
-/*.mdl-card.col-lg-6.col-md-6{
-  width: 45%;
-}*/
 .mdl-card__title{
   height: 150px;
   color: #ffffff;
@@ -410,7 +407,7 @@ h4 {
 }
 
 .mdl-card__supporting-text {
-  min-height: 104px;
+  min-height: 150px;
   width: 100%;
   font-size: 1.1em;
 }
@@ -464,9 +461,30 @@ legend {
 .checkout_form {
   min-height: 50%;
   height: auto;
-  padding-top: 4%;
+  padding-top: 6%;
   padding-bottom: 4%;
   overflow: auto;
+  position: relative;
+}
+
+.checkout-title {
+  text-align: center;
+  margin-top: 3%;
+  margin-bottom: 5%;
+}
+
+.sign-in {
+  border-left: 1px solid black;
+}
+
+.sign-up {
+  border-right: 1px solid black;
+}
+
+.show-cart {
+  position: absolute;
+  top: 1%;
+  left: 0;
 }
 
 .main_list {
@@ -508,11 +526,6 @@ legend {
     color: #df5277;
 }
 
-/*#contacts .col-lg-4.col-lg-offset-2,
-#contacts .col-md-4.col-md-offset-2 {
-  margin-left: 13.66666667%
-}*/
-
 .move-right {
   padding-left: 40px;
 }
@@ -536,7 +549,8 @@ legend {
 
 #days-address,
 #contact-form {
-  height: 90%;
+  height: 85%;
+  padding-top: 3%;
   margin: 3% 0;
   overflow: auto;
 }
@@ -635,10 +649,6 @@ footer li {
     width: 0;
     display: none;
   }
-
-  /*.display-toggle {
-    display: block;
-  }*/
 
   footer {
     display: block;

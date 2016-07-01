@@ -6,82 +6,52 @@ function orderNumber () {
   return uniqid('order#',false);
 }
 
-if(!empty($_POST['cart'])) {
+
+  $result = [];
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+  $token = $request->token;
+
   $shipDateConversion = strtotime("+3 days");
   $shippingDate = date("Y-m-d H:i:s",$shipDateConversion);
 
-  $orderCount = $_POST['itemCount'];
-  $orderDiscount = $_POST['discount'];
-  $orderTax = $_POST['tax'];
-  $orderTotal = $_POST['total'];
+  $orderCount = $request->itemCount;
+  $orderDiscount = $request->discount;
+  $orderTax = $request->tax;
+  $orderTotal = $request->total;
   $orderNumber = orderNumber();
 
-  if(isset($_SESSION['user_id'])) {
-    $user = $db -> query("SELECT * FROM `users` WHERE `user_id`='".$_SESSION['user_id']."'");
-    if($user -> num_rows == 1){
-      while($info = $user -> fetch_assoc()){
-        $id = $_SESSION['user_id'];
-        $name = $user['name'];
-        $email = $user['email'];
-        $phone = $user['phone'];
-        $address = $user['street_address'];
-        $city = $user['city'];
-        $state = $user['state'];
-        $zip = $user['zip'];
-      }
-
-      $customer = "INSERT INTO `customers` SET (`user_id`,`order_id`,`name`,`email`,`phone_number`,`street_address`, `city`,`state`,`zip`,`item_count`,`order_discount`,`order_tax`,`order_total`,`shipping_date`) VALUES ('$id','$orderNumber','$name','$email','$phone','$address','$city','$state','$zip','$orderCount','$orderDiscount','$orderTax','$orderTotal','$shippingDate')";
-      if(mysqli_query($conn,$customer)){
-        echo "Customer Successfully added";
-      } else {
-        echo "Unable to abb customer to system.";
-      }
-      foreach ($_POST['cart'] as $key => $value) {
-        $cart_id = $value['id'];
-        $cart_item = $key;
-        $cart_item_quantity = $value['quantity'];
-        $cart_item_cost = $value['cost'];
-
-        $db -> query("INSERT INTO `orders` SET (`order_id`,`product_id`,`unit_cost`,`unit_count`,`product_name`,`shipping_date`) VALUES ('$orderNumber','$cart_id','$cart_item_cost','$cart_item_quantity','$cart_item','$shippingDate')");
-      }
-    }
+  $token_result = $db -> query("SELECT * FROM `token` WHERE `token`='$token'");
+  $row = $token->fetch_assoc();
+  $timestamp = $row['unix_timestamp'];
+  $username = $row['username'];
+  if(($timestamp - time()) > 1800 ){
+    $result['success'] = false;
+    $result['error'] = true;
+    $result['error']['message'] = "Error: Your session has expired. Please sign in again.";
+    exit();
   }
   else {
-    foreach($_POST as $key => $value){
-      if(empty($_POST[$key])){
-        $error = "Error: Please enter your ". ucfirst($key) .'.';
-        exit();
-      }
-    }
+    $user = $db -> query("SELECT * FROM `users` WHERE `username` = '$username'");
+    $customer_info = $user->fetch_assoc();
+    $id = $customer_info['id'];
+    $name = $customer_info['name'];
+    $email = $customer_info['email'];
+    $phone = $customer_info['phone'];
+    $address = $customer_info['street_address'];
+    $city = $customer_info['city'];
+    $state = $customer_info['state'];
+    $zip = $customer_info['zip'];
+    $customer = "INSERT INTO `customers` SET (`user_id`,`order_id`,`name`,`email`,`phone_number`,`street_address`, `city`,`state`,`zip`,`item_count`,`order_discount`,`order_tax`,`order_total`,`shipping_date`) VALUES ('$id','$orderNumber','$name','$email','$phone','$address','$city','$state','$zip','$orderCount','$orderDiscount','$orderTax','$orderTotal','$shippingDate')";
 
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $address = $_POST['street_address'];
-    $city = $_POST['city'];
-    $state = $_POST['state'];
-    $zip = $_POST['zip'];
-
-    $customer = "INSERT INTO `customers` SET (`user_id`,`order_id`,`name`,`email`,`phone_number`,`street_address`, `city`,`state`,`zip`,`item_count`,`order_discount`,`order_tax`,`order_total`,`shipping_date`) VALUES ('null','$orderNumber','$name','$email','$phone','$address','$city','$state','$zip','$orderCount','$orderDiscount','$orderTax','$orderTotal','$shippingDate')";
-    if(mysqli_query($conn,$customer)){
-      echo "Customer Successfully added";
-    } else {
-      echo "Unable to abb customer to system.";
-    }
-    foreach ($_POST['cart'] as $key => $value) {
-      $cart_id = $value['id'];
+    foreach ($request->cart as $key => $value) {
+      $cart_id = $value->id;
       $cart_item = $key;
-      $cart_item_quantity = $value['quantity'];
-      $cart_item_cost = $value['cost'];
+      $cart_item_quantity = $value->quantity;
+      $cart_item_cost = $value->cost;
 
       $db -> query("INSERT INTO `orders` SET (`order_id`,`product_id`,`unit_cost`,`unit_count`,`product_name`,`shipping_date`) VALUES ('$orderNumber','$cart_id','$cart_item_cost','$cart_item_quantity','$cart_item','$shippingDate')");
     }
-
   }
-} else {
-  echo "Cart is empty";
-  exit();
-}
-
 
 ?>

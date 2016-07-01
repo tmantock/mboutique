@@ -4,6 +4,7 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   self.password='';
   $scope.token = null;
   $scope.message = null;
+  $scope.status = false;
   $scope.macarons = [];
   $scope.cart = macaronCart.itemCount;
   $scope.title = "Cart";
@@ -18,6 +19,12 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   $scope.$on('loginBroadcast', function(){
     $scope.token = loginService.token;
     $scope.message = loginService.message;
+    $scope.status = loginService.status;
+    $scope.username = loginService.username;
+    if($scope.status === false){
+      $scope.modatText = $scope.message;
+      $("#modal").modal('show');
+    }
     console.log($scope.token);
   });
 
@@ -85,24 +92,35 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
 ];
 
   self.customer = {
+    username: '',
+    password: '',
+    confirm:'',
     name: '',
     email: '',
     phone: '',
     address: '',
     city: '',
     state: '',
-    zip: '',
-    comments: ''
+    zip: ''
   };
 
-  self.submit = function () {
-    cartCheckout.checkout($scopeself.customer, $scope.checkout, $scope.total);
-    console.log($scope.token);
+  self.newCustomer = function () {
+    if(self.customer.password == self.customer.confirm){
+      loginService.login(self.customer,false);
+    }
+    else {
+      $scope.modalText = "Error! Please make sure that passwords are matching.";
+      $("#modal").modal("show");
+    }
+  };
+
+  self.checkout = function () {
+    cartCheckout.checkout($scope.token,$scope.checkout,$scope.total);
   };
 
   self.login = function () {
-    loginService.httpLogin(self.username,self.password);
-  }
+    loginService.httpLogin(self.customer,true);
+  };
 
   self.cancel = function (option) {
     $('input').html('');

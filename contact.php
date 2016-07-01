@@ -6,8 +6,8 @@ date_default_timezone_set('America/Los_Angeles');
     <h1>Contact Us</h1>
   </div>
 </div>
-<article id = "contacts" class="col-sm-12 body">
-    <div id = "days-address" class = 'col-lg-4 col-md-4 col-xs-12 mdl-card mdl-shadow--2dp'>
+<article id = "contacts" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 body">
+    <div id = "days-address" class = 'col-lg-5 col-md-5 col-xs-12 mdl-card mdl-shadow--2dp'>
         <h3 class="move-right">Visit us!</h3>
         <ul>
             <li>Monday - Friday | 10am - 9pm</li>
@@ -27,7 +27,7 @@ date_default_timezone_set('America/Los_Angeles');
         <p class="move-right">Send your questions, comments and flavor<br>suggestions or place an order</p>
     </div>
 
-    <div id = "contact-form" class = 'col-md-7 col-lg-7 col-xs-12 mdl-card mdl-shadow--2dp'>
+    <div id = "contact-form" class = 'col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 col-xs-12 mdl-card mdl-shadow--2dp'>
       <fieldset>
         <h3>Need to let us know something?</h3>
         <div class="form-group">

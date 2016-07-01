@@ -4,7 +4,7 @@
     <h1>MBoutique</h1>
   </div>
 </div>
-<main id = "main-container" class = "col-sm-12 body" ng-controller="dateController as dc">
+<main id = "main-container" class = "col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 body" ng-controller="dateController as dc">
   <h2 class="shop-header">About Us</h2>
         <div id = "main-body-paragraph">
             <h3>Welcome to MBoutique!</h3>

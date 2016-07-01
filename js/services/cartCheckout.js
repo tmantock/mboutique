@@ -14,13 +14,6 @@ app.factory('cartCheckout',["$log","$http", function($log,$http){
       method: 'POST',
       url: '../php/checkout.php',
       data: {
-        name: user_info.name,
-        email: user_info.email,
-        phone: user_info.phone,
-        street_address: user_info.address,
-        city: user_info.city,
-        state: user_info.state,
-        zip: user_info.zip,
         cart: cart,
         discount: 0,
         tax: 0,

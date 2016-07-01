@@ -3,11 +3,11 @@
     <h1>Shop</h1>
   </div>
 </div>
-<article id = "macarons-shop" class="col-sm-12 body">
+<article id = "macarons-shop" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 body">
   <h2>Our macarons are freshly made by hand</h2>
   <p>The vivid hues of our unique macarons reflect the natural flavors and essences {{ date }} that infuse the ganache filling of these delicious almond cookies - each has its own personality, and all of them are made to savour for their delicacy and unique character. Take a look around to find your next guilty pleasure.</p>
   <h2 class="shop-header">Shop</h2>
-  <div class="shop-container col-lg-12 col-md-12 col-xs-12">
+  <div class="shop-container col-sm-12">
     <div class="col-lg-4 col-md-4 col-xs-12 card" ng-repeat="macaron in macarons | filter: {category: '1'}">
       <div class="col-sm-12 mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title" image-background value= "{{macaron.img_src}}">
