@@ -1,4 +1,4 @@
-app.factory("loginService", ["$http","$log","$rootScope", function($http,$log,$rootScope){
+app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$log,$rootScope,$q){
 
   var login = {};
 
@@ -17,6 +17,7 @@ app.factory("loginService", ["$http","$log","$rootScope", function($http,$log,$r
   };
 
   login.httpLogin = function (customer,boolean) {
+     var deferred = $q.defer();
     return $http({
     url: './php/api-call.php',
     method: 'POST',
@@ -46,6 +47,8 @@ app.factory("loginService", ["$http","$log","$rootScope", function($http,$log,$r
         login.message = result.error.message;
         login.broadcastCredentials();
       }
+      $log.log("User Data Retrieved");
+      return deferred.resolve(data.success);
   }, function errorCallback (err){
     var result = data.data;
     if(result.success === false){

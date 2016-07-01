@@ -73,12 +73,10 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
       total += cart.checkoutArray[i].cost * cart.checkoutArray[i].count;
     }
     cart.total = total;
-    console.log(cart.total);
     return cart.total;
   };
 
   cart.broadcastItem = function () {
-    $log.log("Update Distributed");
     $rootScope.$broadcast('handleBroadcast');
   };
 

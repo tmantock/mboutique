@@ -22,7 +22,7 @@ app.factory('cartCheckout',["$log","$http", function($log,$http){
         total: total
       }
     }).then(function successCallack(data) {
-      $log.log("Success: ", data);
+      $log.log("Cart Successfully sent: ", data);
     }, function errorCallback (err) {
       $log.warn("Error: ", err);
     });

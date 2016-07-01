@@ -25,15 +25,7 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     $scope.status = loginService.status;
     $scope.username = loginService.username;
     $scope.name = loginService.name;
-    if($scope.status === false){
-      $scope.modatText = $scope.message;
-      $("#modal").modal('show');
-    }
-    if($scope.status === true){
-      self.showSignUp = false;
-      self.showSignIn = false;
-    }
-    console.log($scope.token);
+    self.check();
   });
 
   self.states = [
@@ -127,20 +119,29 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   };
 
   self.login = function () {
-    loginService.httpLogin(self.customer,true);
+    var x = loginService.httpLogin(self.customer,true);
+    console.log(x);
+  };
+
+  self.check = function () {
+    if($scope.status.success === false){
+      $scope.modalText = $scope.message;
+      $("#modal").modal('show');
+    }
+    if($scope.status.success === true){
+      self.showSignUp = false;
+      self.showSignIn = false;
+    }
   };
 
   self.cancel = function (option) {
     $('input').html('');
     if(option === 0){
       console.log("close sign up");
-      $scope.showSignUp = false;
+      self.showSignUp = false;
     } else if(option === 1){
       console.log("close sign in");
-      $scope.showSignIn = false;
-    } else if(option === 2){
-      console.log("close guest");
-      $scope.showGuest = false;
+      self.showSignIn = false;
     }
   };
 }]);
