@@ -8,6 +8,8 @@ app.factory("loginService", ["$http","$log","$rootScope", function($http,$log,$r
 
   login.username = null;
 
+  login.name = '';
+
   login.status = false;
 
   login.broadcastCredentials = function () {
@@ -37,6 +39,7 @@ app.factory("loginService", ["$http","$log","$rootScope", function($http,$log,$r
     login.status = result.success;
       if(result.success.success === true){
         login.token = result.success.token;
+        login.name = result.success.name;
         login.broadcastCredentials();
       } else if(result.success === false){
         login.username = result.error.username;

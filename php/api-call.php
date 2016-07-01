@@ -53,8 +53,12 @@ function getUserBase () {
       $token = $token.uniqid('token',true).$time;
       $token = sha1($token);
 
+      $user = $db -> query("SELECT `name`,`username` FROM `users` WHERE `username` = '$username'");
+      $name = $user->fetch_assoc();
+
       $return['success']['success'] = true;
       $return['success']['token'] = $token;
+      $return['success']['name'] = $name['name'];
 
       $user_token = $db -> query("SELECT * FROM `token` WHERE `username`='$username'");
 

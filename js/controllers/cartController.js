@@ -8,6 +8,9 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   $scope.macarons = [];
   $scope.cart = macaronCart.itemCount;
   $scope.title = "Cart";
+  $scope.name='';
+  self.showSignUp = false;
+  self.showSignIn = false;
   $scope.checkout = macaronCart.generateCheckout();
   $scope.total = macaronCart.calculateTotal();
   $scope.$on('handleBroadcast', function() {
@@ -21,9 +24,14 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     $scope.message = loginService.message;
     $scope.status = loginService.status;
     $scope.username = loginService.username;
+    $scope.name = loginService.name;
     if($scope.status === false){
       $scope.modatText = $scope.message;
       $("#modal").modal('show');
+    }
+    if($scope.status === true){
+      self.showSignUp = false;
+      self.showSignIn = false;
     }
     console.log($scope.token);
   });
@@ -115,7 +123,7 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   };
 
   self.checkout = function () {
-    cartCheckout.checkout($scope.token,$scope.checkout,$scope.total);
+    cartCheckout.checkout($scope.token,$scope.checkout,$scope.cart,$scope.total);
   };
 
   self.login = function () {
