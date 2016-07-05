@@ -8,27 +8,27 @@ var app = angular.module("mboutiqueApp", ['ngRoute']);
 app.config(["$routeProvider", function($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'home.php',
+            templateUrl: 'home.html',
             controller: 'dateController as dc',
             title: 'Mboutique'
         })
         .when('/macarons', {
-            templateUrl: 'our-macarons.php',
+            templateUrl: 'our-macarons.html',
             controller: 'shopController as sc',
             title: 'Shop'
         })
         .when('/gifts', {
-            templateUrl: 'gifts-parties.php',
+            templateUrl: 'gifts-parties.html',
             controller: 'partyController as pc',
             title: 'GIfts & Parties'
         })
         .when('/contact', {
-            templateUrl: 'contact.php',
+            templateUrl: 'contact.html',
             controller: 'contactController as cc',
             title: 'Contact'
         })
         .when('/cart', {
-            templateUrl: 'cart.php',
+            templateUrl: 'cart.html',
             controller: 'cartController as crc',
             title: 'Cart'
         })
