@@ -34,7 +34,7 @@ function orderNumber () {
     exit();
   }
   else {
-    $user = $db -> query("SELECT * FROM `users` WHERE `username` = '$username'");
+    $user = $db -> query("SELECT * FROM `customers` WHERE `username` = '$username'");
     $customer_info = $user->fetch_assoc();
     $id = $customer_info['user_id'];
     $name = $customer_info['name'];

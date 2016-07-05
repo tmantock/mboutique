@@ -25,9 +25,9 @@ function getUserBase () {
   $status = $request->status;
 
   if($status === false){
-    $check = $db -> query("SELECT `username` FROM `users` WHERE `username` ='$username'");
+    $check = $db -> query("SELECT `username` FROM `customers` WHERE `username` ='$username'");
     if($check -> num_rows == 0){
-      $query = "INSERT INTO `users` SET (`user_id`,`username`,`password`,`name`,`email`,`phone_number`,`street_address`,`city`,`state`,`zip`) VALUES ('$id','$username','$password','$name','$email','$phone','$street','$city','$state','$zip')";
+      $query = "INSERT INTO `customers` SET (`user_id`,`username`,`password`,`name`,`email`,`phone_number`,`street_address`,`city`,`state`,`zip`) VALUES ('$id','$username','$password','$name','$email','$phone','$street','$city','$state','$zip')";
       if(mysqli_query($conn,$query)) {
 
       } else {
@@ -42,10 +42,10 @@ function getUserBase () {
     }
   }
 
-  $user = $db -> query("SELECT `username` , `password`, `user_id` FROM `users` WHERE `username` = '".$username."'");
+  $user = $db -> query("SELECT `username` , `password`, `user_id` FROM `customers` WHERE `username` = '".$username."'");
 
   if($user -> num_rows == 1) {
-    $password = $db -> query("SELECT `username` , `password`, `user_id` FROM `users` WHERE `username` = '".$username."' AND `password` = '".$password."'");
+    $password = $db -> query("SELECT `username` , `password`, `user_id` FROM `customers` WHERE `username` = '".$username."' AND `password` = '".$password."'");
     if($password->num_rows==1){
       $token = uniqid('mbq',true);
       $token = sha1($token);
@@ -53,7 +53,7 @@ function getUserBase () {
       $token = $token.uniqid('token',true).$time;
       $token = sha1($token);
 
-      $user = $db -> query("SELECT `name`,`username` FROM `users` WHERE `username` = '$username'");
+      $user = $db -> query("SELECT `name`,`username` FROM `customers` WHERE `username` = '$username'");
       $name = $user->fetch_assoc();
 
       $return['success']['success'] = true;
