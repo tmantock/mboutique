@@ -19,7 +19,7 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
   login.httpLogin = function (customer,boolean) {
      var deferred = $q.defer();
     return $http({
-    url: 'http://www.tevinmantock.com/mb_php/api_call.php',
+    url: 'tevinmantock.com/mb_php/api_call.php',
     method: 'POST',
     data: {
       username : customer.username,

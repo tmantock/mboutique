@@ -11,7 +11,7 @@ app.factory('cartCheckout',["$log","$http", function($log,$http){
     }
 
     return $http({
-      url: 'http://www.tevinmantock.com/mb_php/checkout.php',
+      url: 'tevinmantock.com/mb_php/checkout.php',
       method: 'POST',
       data: {
         token: token,
