@@ -81,7 +81,7 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
   };
 
   cart.httpMacaron = function () {
-    return $http.get("./php/mysql_connect.php")
+    return $http.get("http://www.tevinmantock.com/mb_php/mysql_connect.php")
     .success(function(data) {
       var date = new Date();
       var weekday = new Array(7);
