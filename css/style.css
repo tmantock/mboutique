@@ -531,6 +531,9 @@ footer {
     display: inline-block;
     padding: 1% 0;
 }
+footer ul {
+  padding: 0;
+}
 footer li {
     height: 30px;
     width: 30px;
@@ -589,6 +592,16 @@ footer li {
     }
     #cart-nav {
         width: 95%;
+    }
+    .checkout-bar-container div:first-child {
+      padding-left: 0;
+    }
+    .checkout-bar-container div:first-child,
+    .checkout-bar-container div:nth-child(2) {
+      padding-top: 10px;
+    }
+    .checkout-bar h3 {
+      font-size: 1.3em;
     }
     footer {
         margin-top: 3%;

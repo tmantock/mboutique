@@ -15,7 +15,7 @@
 </head>
 <body>
     <!--Begin Navigation Bar-->
-    <nav id = 'navbar' class = "navbar navbar-default" ng-controller="mainController">
+    <nav id = 'navbar' class = "navbar navbar-default" ng-controller="mainController as mc">
     <div class = 'container-fluid'>
         <div class = 'navbar-header'>
             <button class = "navbar-toggle collapsed mdl-badge mdl-badge--overlap" id="nav-toggle" data-toggle = "collapse" data-badge="{{ cart }}" data-target = "#navbar-collapse" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">
@@ -48,7 +48,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title"></h4>
+                    <h4 class="modal-title">{{ modalTitle }}</h4>
                 </div>
                 <div class="modal-body">
                     <p>{{ modalText }}</p>
