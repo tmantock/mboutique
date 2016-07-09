@@ -16,7 +16,7 @@
         <div class="form-group">
             <label for="confirmpassword" class="col-lg-3 control-label">Confirm Password</label>
             <div class="col-lg-9">
-                <input type="text" class="form-control" id="confirmpassword" ng-model="crc.customer.confirm" name="confirmpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Confirm Password" required>
+                <input type="password" class="form-control" id="confirmpassword" ng-model="crc.customer.confirm" name="confirmpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Confirm Password" required>
             </div>
         </div>
         <div class="form-group">
@@ -28,13 +28,13 @@
         <div class="form-group">
             <label for="inputEmail" class="col-lg-3 control-label">Email</label>
             <div class="col-lg-9">
-                <input type="email" class="form-control" id="inputEmail" ng-model="crc.customer.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" placeholder="Email Address" required>
+                <input type="email" class="form-control" id="inputEmail" ng-model="crc.customer.email" name="email" placeholder="Email Address" required>
             </div>
         </div>
         <div class="form-group">
             <label for="inputPhone" class="col-lg-3 control-label">Phone</label>
             <div class="col-lg-9">
-                <input type="tel" class="form-control" id="inputPhone" ng-model="crc.customer.phone" pattern="^\d{4}-\d{3}-\d{4}$" name="phone" placeholder="Phone Number" required>
+                <input type="tel" class="form-control" id="inputPhone" ng-model="crc.customer.phone" name="phone" placeholder="Phone Number" required>
             </div>
         </div>
         <div class="form-group">

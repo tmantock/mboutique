@@ -2,7 +2,7 @@
 require_once('db_connect.php');
 
 function orderNumber () {
-  return uniqid('order#',false);
+  return uniqid('ORD',false);
 }
 
 

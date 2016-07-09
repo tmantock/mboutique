@@ -17,7 +17,7 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
   };
 
   login.httpLogin = function (customer,boolean) {
-     var deferred = $q.defer();
+    var deferred = $q.defer();
     return $http({
     url: './php/api-call.php',
     method: 'POST',
@@ -36,19 +36,17 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   }).then(function successCallack (data){
     var result = data.data;
-    console.log(result);
+    console.log(result.success);
     login.status = result.success;
-      if(result.success.success === true){
-        login.token = result.success.token;
-        login.name = result.success.name;
+      if(result.success === true){
+        login.token = result.token;
+        login.name = result.name;
         login.broadcastCredentials();
       } else if(result.success === false){
-        login.username = result.error.username;
-        login.message = result.error.message;
-        login.broadcastCredentials();
+        console.log("Error on login");
       }
       $log.log("User Data Retrieved");
-      return deferred.resolve(data.success);
+      return deferred.resolve(result.success);
   }, function errorCallback (err){
     var result = data.data;
     if(result.success === false){

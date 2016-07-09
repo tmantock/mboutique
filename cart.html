@@ -7,7 +7,7 @@
     <div class = "sidebar col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12" ng-show="displayToggle">
       <div class = "checkout_form col-sm-12 mdl-shadow--2dp">
         <div class="col-sm-12 show-cart">
-          <button type="button" class="btn btn-default col-sm-3 display-toggle" ng-click="displayToggle = !displayToggle">Show Cart</button>
+          <button type="button" class="btn btn-active col-sm-3 display-toggle" ng-click="displayToggle = !displayToggle">Show Cart</button>
         </div>
         <div class = "choose-checkout" ng-hide=" crc.showSignUp || crc.showSignIn || status;">
           <h2 class="checkout-title">MBoutique requires that all customers be registered.</h2>
@@ -48,7 +48,7 @@
         </div>
         <div class="mdl-card__supporting-text"> {{ item.description }} </div>
         <div class="mdl-card__actions mdl-card--border">
-          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="crc.removeItem(item,$index)">
             Remove
           </a>
         </div>

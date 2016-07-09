@@ -4,10 +4,11 @@ require_once('db_connect.php');
 
 function getUserBase () {
 
-  global $db;
+  global $db, $conn;
   $return = [];
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata);
+  
   $username = $request->username;
   $password = $request->password;
 
@@ -27,7 +28,7 @@ function getUserBase () {
   if($status === false){
     $check = $db -> query("SELECT `username` FROM `customers` WHERE `username` ='$username'");
     if($check -> num_rows == 0){
-      $query = "INSERT INTO `customers` SET (`user_id`,`username`,`password`,`name`,`email`,`phone_number`,`street_address`,`city`,`state`,`zip`) VALUES ('$id','$username','$password','$name','$email','$phone','$street','$city','$state','$zip')";
+      $query = "INSERT INTO `customers` (`user_id`,`username`,`password`,`name`,`email`,`phone_number`,`street_address`,`city`,`state`,`zip`) VALUES ('$id','$username','$password','$name','$email','$phone','$address','$city','$state','$zip')";
       if(mysqli_query($conn,$query)) {
 
       } else {
@@ -56,9 +57,9 @@ function getUserBase () {
       $user = $db -> query("SELECT `name`,`username` FROM `customers` WHERE `username` = '$username'");
       $name = $user->fetch_assoc();
 
-      $return['success']['success'] = true;
-      $return['success']['token'] = $token;
-      $return['success']['name'] = $name['name'];
+      $return['success'] = true;
+      $return['token'] = $token;
+      $return['name'] = $name['name'];
 
       $user_token = $db -> query("SELECT * FROM `token` WHERE `username`='$username'");
 

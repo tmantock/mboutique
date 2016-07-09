@@ -5,10 +5,12 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   $scope.token = null;
   $scope.message = null;
   $scope.status = false;
+  self.checkoutStatus = null;
   $scope.macarons = [];
   $scope.cart = macaronCart.itemCount;
   $scope.title = "Cart";
-  $scope.name='';
+  $scope.name = '';
+  $scope.orderNumber = '';
   self.showSignUp = false;
   self.showSignIn = false;
   $scope.checkout = macaronCart.generateCheckout();
@@ -25,7 +27,16 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     $scope.status = loginService.status;
     $scope.username = loginService.username;
     $scope.name = loginService.name;
+    console.log("Login broadcast");
     self.check();
+  });
+
+  $scope.$on('successBroadcast', function () {
+    console.log("Broadcast Reached");
+    $scope.orderNumber = cartCheckout.orderNumber;
+    console.log($scope.orderNumber);
+    self.checkoutStatus = cartCheckout.checkoutStatus;
+    self.checkCheckout();
   });
 
   self.states = [
@@ -104,9 +115,24 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     zip: ''
   };
 
+  self.removeItem = function (item,index) {
+    $scope.checkout[index].count = 0;
+    $scope.checkout.splice(index,1);
+  };
+
+  self.resetCart = function () {
+    $scope.checkout = [];
+    $scope.cart = 0;
+    $scope.total = 0;
+    for(var i = 0; i < $scope.macarons.length; i++){
+      $scope.macarons[i].count = 0;
+    }
+    console.log("Cart has been emptied");
+  };
+
   self.newCustomer = function () {
     if(self.customer.password == self.customer.confirm){
-      loginService.login(self.customer,false);
+      loginService.httpLogin(self.customer,false);
     }
     else {
       $scope.modalText = "Error! Please make sure that passwords are matching.";
@@ -119,18 +145,30 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   };
 
   self.login = function () {
-    var x = loginService.httpLogin(self.customer,true);
-    console.log(x);
+    var login = loginService.httpLogin(self.customer,true);
   };
 
   self.check = function () {
-    if($scope.status.success === false){
+    console.log("Check called" , $scope.status);
+    if($scope.status === false){
       $scope.modalText = $scope.message;
       $("#modal").modal('show');
     }
-    if($scope.status.success === true){
+    if($scope.status === true){
+      console.log("In Check");
       self.showSignUp = false;
       self.showSignIn = false;
+    }
+  };
+
+  self.checkCheckout = function () {
+    console.log("Checking");
+    if(self.checkoutStatus === true){
+      self.name = $scope.name;
+      self.orderNumber = $scope.orderNumber;
+      $("#reciept-modal").modal("show");
+    } else if (self.checkoutStatus === false) {
+      console.log("Error: On Checkout confirmation");
     }
   };
 

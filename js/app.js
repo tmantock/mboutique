@@ -1,9 +1,4 @@
-$(document).ready(function() {
-
-
-});
-
-var app = angular.module("mboutiqueApp", ['ngRoute']);
+var app = angular.module("mboutiqueApp", ['ngRoute','ngAnimate']);
 
 app.config(["$routeProvider", function($routeProvider) {
     $routeProvider
@@ -37,7 +32,7 @@ app.config(["$routeProvider", function($routeProvider) {
         });
 }]);
 
-app.run(['$location', '$rootScope', function($location, $rootScope) {
+app.run(['$location', '$rootScope','$window', function($location, $rootScope, $window) {
     $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
         if (current.hasOwnProperty('$$route')) {
             $rootScope.title = current.$$route.title;

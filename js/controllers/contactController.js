@@ -12,14 +12,14 @@ app.controller("contactController", ['$scope','macaronCart','$timeout','cartChec
     var map;
     var marker;
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 33.6839, lng: -117.7947},
-          zoom: 12
+          center: {lat: 33.6501, lng: -117.7436},
+          zoom: 14
         });
 
         marker = new google.maps.Marker({
-            position: {lat: 33.6839, lng: -117.7947},
+            position: {lat: 33.6501, lng: -117.7436},
             map: map,
             title: 'MBoutique!'
           });
-  })
+  });
 }]);
