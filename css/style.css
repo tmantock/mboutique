@@ -175,7 +175,7 @@ h4 {
 }
 .dates-info {
     padding: 0;
-    min-height: 20%;
+    min-height: 25%;
     height: auto;
 }
 .left-home, .right-home {
@@ -547,7 +547,7 @@ footer li {
     vertical-align: bottom;
     text-align: center;
 }
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 500px) {
     #navbar-collapse {
         background-color: rgb(219, 10, 91);
     }
@@ -560,11 +560,14 @@ footer li {
     .header-text h1 {
         font-size: 5em;
     }
+    .dates-info {
+      height: 107%;
+    }
     .right-home {
         margin-top: 25%;
     }
     .bottom-box {
-        margin-bottom: 12%;
+        margin-bottom: 5%;
     }
     .catering-container {
         min-height: 100%;
