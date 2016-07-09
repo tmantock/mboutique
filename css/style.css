@@ -8,9 +8,9 @@ html {
     width: 100vw;
 }
 body {
+    position: relative;
     height: 100%;
     width: 100%;
-    position: relative;
     overflow-x: hidden;
 }
 button, a {
