@@ -84,13 +84,17 @@ h4 {
     position: fixed;
     z-index: 1030;
 }
+#navbar-collapse {
+    background-color: rgb(219, 10, 91);
+}
 #navbar ul {
     color: #6a6969;
 }
 #brand.navbar-brand {
-    padding-right: 0;
+    padding-left: 5%;
 }
 .container-fluid {
+    background-color: rgb(219, 10, 91);
     padding: 0 3%;
 }
 #nabar>li {
@@ -104,7 +108,7 @@ h4 {
     font-size: 1em;
     text-decoration: none;
     padding: 8px;
-    margin: 10px;
+    margin: 13px;
 }
 #navbar li a:hover {
     color: #d42551;
@@ -158,7 +162,7 @@ h4 {
 .header-text {
     padding: 5px;
     height: 100px;
-    width: 50%;
+    width: 100%;
     text-align: center;
     position: relative;
     top: 50%;
@@ -567,9 +571,6 @@ footer li {
     text-align: center;
 }
 @media screen and (max-width: 500px) {
-    #navbar-collapse {
-        background-color: rgb(219, 10, 91);
-    }
     #navbar li a {
         margin: 0;
     }
