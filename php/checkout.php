@@ -61,6 +61,7 @@ function orderNumber () {
   }
 
   $result = json_encode($result);
-  print($result);
+  header('Content-Type: application/json;charset=utf-8');
+  echo($result);
 
 ?>

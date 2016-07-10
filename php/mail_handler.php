@@ -48,5 +48,6 @@ if(!$mail->send()) {
     $output['success'] = "Thank You! Your message has been recieved. We will get back to you in two days. Have a Nice Day!";
 }
 $output = json_encode($output);
-print($output);
+header('Content-Type: application/json;charset=utf-8');
+echo($output);
 ?>

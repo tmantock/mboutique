@@ -36,7 +36,7 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   }).then(function successCallack (data){
     var result = data.data;
-    console.log(result.success);
+    console.log(data);
     login.status = result.success;
       if(result.success === true){
         login.token = result.token;

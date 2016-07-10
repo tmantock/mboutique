@@ -1,14 +1,13 @@
 <?php
 
 require_once('db_connect.php');
-
 function getUserBase () {
 
   global $db, $conn;
   $return = [];
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata);
-  
+
   $username = $request->username;
   $password = $request->password;
 
@@ -70,9 +69,6 @@ function getUserBase () {
         $db->query("INSERT INTO `token`(`username`, `token`,`unix_timestamp`) VALUES ('$username' , '$token','$time')");
       }
 
-      $return = json_encode($return);
-
-      print($return);
     }
     else {
       $return['success'] = false;
@@ -83,6 +79,10 @@ function getUserBase () {
     $return['success'] = false;
     $return['error']['message'] = "Error you have entered the wrong username.";
   }
+
+  header('Content-Type: application/json');
+  $return = json_encode($return);
+  echo($return);
 }
 
 getUserBase();

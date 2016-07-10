@@ -1,5 +1,6 @@
 <?php
 require_once ("db_connect.php");
+header('Content-Type: application/json;charset=utf-8');
 //Query for selecting all macarons and saving it to a variable
 $result = $db -> query("SELECT * FROM `products` ORDER BY `products`.`category` ASC");
 //declare object array to hold the macarons
@@ -13,11 +14,11 @@ if($result->num_rows>0) {
   //json encode the object array and assigning it to the output variable
   $output = json_encode($object);
   //print the output variable to be printed for the AJAX call
-  print($output);
+  echo($output);
 }
 //if thre is are no macarons in the database, then prent error message
 else {
-  print("Error 76 from Server: unable to read data.");
+  echo("Error 76 from Server: unable to read data.");
 }
 //close the database connections
 mysqli_close($conn);
