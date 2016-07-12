@@ -55,6 +55,7 @@ app.factory("macaronCart",["$http","$log","$rootScope",function($http,$log,$root
     cart.macarons = array;
     cart.getItemCount();
     cart.calculateTotal();
+    cart.generateCheckout();
     cart.broadcastItem();
   };
 

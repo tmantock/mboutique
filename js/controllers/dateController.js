@@ -3,7 +3,7 @@ app.controller("dateController", ['macaronCart','$scope','$log','$timeout','cart
     $scope.macarons = macaronCart.retrieveMacarons();
     self.days = macaronCart.getDays();
     $scope.cart = '';
-    $scope.title = "Mboutique";
+    $scope.title = "MBoutique";
     self.flavor = macaronCart.getFlavor();
     $scope.$on('handleBroadcast', function() {
       $scope.macarons = macaronCart.macarons;

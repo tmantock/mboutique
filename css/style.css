@@ -587,10 +587,6 @@ footer li {
     .right-home {
         margin-top: 25%;
     }
-    .left-home, .right-home {
-      min-height: 53%;
-      height: auto;
-    }
     .bottom-box {
         margin-bottom: 5%;
     }
