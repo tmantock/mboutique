@@ -6,7 +6,7 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   $scope.message = null;
   $scope.status = false;
   self.checkoutStatus = null;
-  $scope.macarons = [];
+  $scope.macarons = macaronCart.retrieveMacarons();
   $scope.cart = macaronCart.itemCount;
   $scope.title = "Cart";
   $scope.name = '';
@@ -19,6 +19,7 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     $scope.macarons = macaronCart.macarons;
     $scope.cart = macaronCart.itemCount;
     $scope.total = macaronCart.total;
+    $scope.checkout = macaronCart.checkoutArray;
   });
 
   $scope.$on('loginBroadcast', function(){
@@ -27,14 +28,11 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     $scope.status = loginService.status;
     $scope.username = loginService.username;
     $scope.name = loginService.name;
-    console.log("Login broadcast");
     self.check();
   });
 
   $scope.$on('successBroadcast', function () {
-    console.log("Broadcast Reached");
     $scope.orderNumber = cartCheckout.orderNumber;
-    console.log($scope.orderNumber);
     self.checkoutStatus = cartCheckout.checkoutStatus;
     self.checkCheckout();
   });
@@ -116,8 +114,13 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   };
 
   self.removeItem = function (item,index) {
-    $scope.checkout[index].count = 0;
-    $scope.checkout.splice(index,1);
+    var macaron = parseInt(item.id);
+    for(var i = 0; i < $scope.macarons.length; i++){
+      if(parseInt($scope.macarons[i].id) === macaron){
+        $scope.macarons[i].count = 0;
+      }
+    }
+    macaronCart.updateMacarons($scope.macarons);
   };
 
   self.resetCart = function () {
