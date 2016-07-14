@@ -42,7 +42,7 @@ app.run(['$location', '$rootScope','$window', function($location, $rootScope, $w
 
 app.controller("mainController", ['macaronCart', '$log', '$scope','$location','cartCheckout', function(macaronCart, $log, $scope, $location, cartCheckout) {
     var self = this;
-    $scope.title = "Mboutique";
+    $scope.title = "MBoutique";
     $scope.macarons = macaronCart.retrieveMacarons();
     $scope.cart = '';
     $scope.$on('handleBroadcast', function() {
