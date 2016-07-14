@@ -23,7 +23,7 @@ function orderNumber () {
   $token_result = $db -> query("SELECT * FROM `token` WHERE `token`='$token'");
   $row = $token_result->fetch_assoc();
   $timestamp = $row['unix_timestamp'];
-  $username = $row['username'];
+  $email = $row['email'];
   if(($timestamp - time()) > 1800 ){
     $result['success'] = false;
     $result['error'] = true;
@@ -33,7 +33,7 @@ function orderNumber () {
     exit();
   }
   else {
-    $user = $db -> query("SELECT * FROM `customers` WHERE `username` = '$username'");
+    $user = $db -> query("SELECT * FROM `customers` WHERE `email` = '$email'");
     $customer_info = $user->fetch_assoc();
     $id = $customer_info['user_id'];
     $name = $customer_info['name'];

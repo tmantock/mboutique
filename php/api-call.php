@@ -8,7 +8,6 @@ function getUserBase () {
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata);
 
-  $username = $request->username;
   $password = $request->password;
 
   $password = md5($password);
@@ -25,9 +24,9 @@ function getUserBase () {
   $status = $request->status;
 
   if($status === false){
-    $check = $db -> query("SELECT `username` FROM `customers` WHERE `username` ='$username'");
+    $check = $db -> query("SELECT `email` FROM `customers` WHERE `email` ='$email'");
     if($check -> num_rows == 0){
-      $query = "INSERT INTO `customers` (`user_id`,`username`,`password`,`name`,`email`,`phone_number`,`street_address`,`city`,`state`,`zip`) VALUES ('$id','$username','$password','$name','$email','$phone','$address','$city','$state','$zip')";
+      $query = "INSERT INTO `customers` (`user_id`,`password`,`name`,`email`,`phone_number`,`street_address`,`city`,`state`,`zip`) VALUES ('$id','$password','$name','$email','$phone','$address','$city','$state','$zip')";
       if(mysqli_query($conn,$query)) {
 
       } else {
@@ -36,16 +35,16 @@ function getUserBase () {
     }
     else {
       $result['success'] = false;
-      $return['error']['username'] = false;
-      $return['error']['message'] = "Error this usersname is already in use. Please choose another username.";
+      $return['error']['email'] = false;
+      $return['error']['message'] = "Error this email is already in use.";
       exit();
     }
   }
 
-  $user = $db -> query("SELECT `username` , `password`, `user_id` FROM `customers` WHERE `username` = '".$username."'");
+  $user = $db -> query("SELECT `email` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."'");
 
   if($user -> num_rows == 1) {
-    $password = $db -> query("SELECT `username` , `password`, `user_id` FROM `customers` WHERE `username` = '".$username."' AND `password` = '".$password."'");
+    $password = $db -> query("SELECT `email` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."' AND `password` = '".$password."'");
     if($password->num_rows==1){
       $token = uniqid('mbq',true);
       $token = sha1($token);
@@ -53,20 +52,20 @@ function getUserBase () {
       $token = $token.uniqid('token',true).$time;
       $token = sha1($token);
 
-      $user = $db -> query("SELECT `name`,`username` FROM `customers` WHERE `username` = '$username'");
+      $user = $db -> query("SELECT `name`,`email` FROM `customers` WHERE `email` = '$email'");
       $name = $user->fetch_assoc();
 
       $return['success'] = true;
       $return['token'] = $token;
       $return['name'] = $name['name'];
 
-      $user_token = $db -> query("SELECT * FROM `token` WHERE `username`='$username'");
+      $user_token = $db -> query("SELECT * FROM `token` WHERE `email`='$email'");
 
       if($user_token->num_rows==1){
-        $db -> query("UPDATE `token` SET `token` = '$token' , `unix_timestamp` = '$time' WHERE `username` = '$username'");
+        $db -> query("UPDATE `token` SET `token` = '$token' , `unix_timestamp` = '$time' WHERE `email` = '$email'");
       }
       else{
-        $db->query("INSERT INTO `token`(`username`, `token`,`unix_timestamp`) VALUES ('$username' , '$token','$time')");
+        $db->query("INSERT INTO `token`(`email`, `token`,`unix_timestamp`) VALUES ('$email' , '$token','$time')");
       }
 
     }
@@ -77,7 +76,7 @@ function getUserBase () {
   }
   else {
     $return['success'] = false;
-    $return['error']['message'] = "Error you have entered the wrong username.";
+    $return['error']['message'] = "Error you have entered the wrong email.";
   }
 
   header('Content-Type: application/json');

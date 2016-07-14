@@ -1,7 +1,5 @@
 app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginService',function($scope,macaronCart,cartCheckout,loginService){
   var self = this;
-  self.username = '';
-  self.password='';
   $scope.token = null;
   $scope.message = null;
   $scope.status = false;
@@ -26,7 +24,6 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     $scope.token = loginService.token;
     $scope.message = loginService.message;
     $scope.status = loginService.status;
-    $scope.username = loginService.username;
     $scope.name = loginService.name;
     self.check();
   });
@@ -101,7 +98,6 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
 ];
 
   self.customer = {
-    username: '',
     password: '',
     confirm:'',
     name: '',

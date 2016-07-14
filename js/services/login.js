@@ -6,8 +6,6 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
 
   login.message = null;
 
-  login.username = null;
-
   login.name = '';
 
   login.status = false;
@@ -22,7 +20,6 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
     url: './php/api-call.php',
     method: 'POST',
     data: {
-      username : customer.username,
       password : customer.password,
       name: customer.name,
       email: customer.email,
