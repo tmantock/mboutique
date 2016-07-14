@@ -30,13 +30,15 @@ function getUserBase () {
       if(mysqli_query($conn,$query)) {
 
       } else {
-        $error = "Please enter all fields.";
+        $return['success'] = false;
+        $return['error']['message'] = "Please enter all fields.";
       }
     }
     else {
-      $result['success'] = false;
+      $return['success'] = false;
       $return['error']['email'] = false;
       $return['error']['message'] = "Error this email is already in use.";
+      print(json_encode($return));
       exit();
     }
   }
@@ -60,7 +62,6 @@ function getUserBase () {
       $return['name'] = $name['name'];
 
       $user_token = $db -> query("SELECT * FROM `token` WHERE `email`='$email'");
-
       if($user_token->num_rows==1){
         $db -> query("UPDATE `token` SET `token` = '$token' , `unix_timestamp` = '$time' WHERE `email` = '$email'");
       }

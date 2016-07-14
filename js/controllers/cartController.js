@@ -1,13 +1,13 @@
 app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginService',function($scope,macaronCart,cartCheckout,loginService){
   var self = this;
-  $scope.token = null;
-  $scope.message = null;
-  $scope.status = false;
+  $scope.token = loginService.retrieveToken();
+  $scope.message = loginService.getMessage();
+  $scope.status = loginService.getStatus();
   self.checkoutStatus = null;
   $scope.macarons = macaronCart.retrieveMacarons();
   $scope.cart = macaronCart.itemCount;
   $scope.title = "Cart";
-  $scope.name = '';
+  $scope.name = loginService.getName();
   $scope.orderNumber = '';
   self.showSignUp = false;
   self.showSignIn = false;
@@ -120,12 +120,12 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   };
 
   self.resetCart = function () {
-    $scope.checkout = [];
     $scope.cart = 0;
     $scope.total = 0;
     for(var i = 0; i < $scope.macarons.length; i++){
       $scope.macarons[i].count = 0;
     }
+    macaronCart.updateMacarons($scope.macarons);
     console.log("Cart has been emptied");
   };
 
@@ -135,6 +135,7 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     }
     else {
       $scope.modalText = "Error! Please make sure that passwords are matching.";
+      $scope.modalTile = "Login Error";
       $("#modal").modal("show");
     }
   };
@@ -144,17 +145,16 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   };
 
   self.login = function () {
-    var login = loginService.httpLogin(self.customer,true);
+    loginService.httpLogin(self.customer,true);
   };
 
   self.check = function () {
-    console.log("Check called" , $scope.status);
     if($scope.status === false){
+      $scope.modalTitle = "Login Error";
       $scope.modalText = $scope.message;
       $("#modal").modal('show');
     }
     if($scope.status === true){
-      console.log("In Check");
       self.showSignUp = false;
       self.showSignIn = false;
     }

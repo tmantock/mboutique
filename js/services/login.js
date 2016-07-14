@@ -10,6 +10,22 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
 
   login.status = false;
 
+  login.retrieveToken = function () {
+    return login.token;
+  };
+
+  login.getStatus = function () {
+    return login.status;
+  };
+
+  login.getMessage = function () {
+    return login.message;
+  };
+
+  login.getName = function () {
+    return login.name;
+  };
+
   login.broadcastCredentials = function () {
     $rootScope.$broadcast('loginBroadcast');
   };
@@ -38,19 +54,15 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
       if(result.success === true){
         login.token = result.token;
         login.name = result.name;
-        login.broadcastCredentials();
+        $log.log("User Data Retrieved");
       } else if(result.success === false){
+        login.message = result.error.message;
         console.log("Error on login");
       }
-      $log.log("User Data Retrieved");
+      login.broadcastCredentials();
       return deferred.resolve(result.success);
   }, function errorCallback (err){
-    var result = data.data;
-    if(result.success === false){
-      login.status = result.success.success;
-      login.message = result.error.message;
-      login.broadcastCredentials();
-    }
+      console.error(err);
   });
 };
   return login;

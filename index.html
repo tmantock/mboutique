@@ -41,7 +41,7 @@
         <div ng-view class="fade" autoscroll="true"></div>
     </div>
 
-    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog" ng-controller="cartController as crc">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -122,7 +122,7 @@
                     <p>Print this page for your records</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary glyphicon glyphicon-print" ng-click="crc.resetCart()"></button>
+                    <button type="button" class="btn btn-primary glyphicon glyphicon-print" ng-click="crc.resetCart()" data-dismiss="modal"></button>
                 </div>
             </div>
         </div>
