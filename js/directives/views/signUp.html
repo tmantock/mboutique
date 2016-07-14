@@ -1,0 +1,67 @@
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Checkout</legend>
+        <div class="form-group col-lg-4 col-md-4 col-xs-12">
+            <label for="inputEmail" class="col-lg-3 control-label">Email</label>
+            <div class="col-lg-9">
+                <input type="email" class="form-control" id="inputEmail" ng-model="crc.customer.email" name="email" placeholder="Email Address" required>
+            </div>
+        </div>
+        <div class="form-group col-lg-4 col-md-4 col-xs-12">
+            <label for="inputpassword" class="col-lg-3 control-label">Password</label>
+            <div class="col-lg-9">
+                <input type="password" class="form-control" id="inputpassword" name="password" ng-model="crc.customer.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Password" required>
+            </div>
+        </div>
+        <div class="form-group col-lg-4 col-md-4 col-xs-12">
+            <label for="confirmpassword" class="col-lg-3 control-label">Confirm Password</label>
+            <div class="col-lg-9">
+                <input type="password" class="form-control" id="confirmpassword" ng-model="crc.customer.confirm" name="confirmpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Confirm Password" required>
+            </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-xs-12">
+            <label for="inputName" class="col-lg-3 control-label">Name</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="inputName" ng-model="crc.customer.name" name="name" placeholder="Full Name" required>
+            </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-xs-12">
+            <label for="inputPhone" class="col-lg-3 control-label">Phone</label>
+            <div class="col-lg-9">
+                <input type="tel" class="form-control" id="inputPhone" ng-model="crc.customer.phone" name="phone" placeholder="Phone Number" required>
+            </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-xs-12">
+            <label for="inputAddress" class="col-lg-3 control-label">Address</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="inputAddress" ng-model="crc.customer.address" name="address" placeholder="Street Address" required>
+            </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-xs-12">
+            <label for="inputCity" class="col-lg-3 control-label">City</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="inputCity" ng-model="crc.customer.city" name="city" placeholder="City" required>
+            </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-xs-12">
+            <label for="state" class="col-lg-3 control-label">State</label>
+            <div class="col-lg-9">
+                <select class="form-control" id="state" name="state" ng-model="crc.customer.state" required>
+                    <option ng-repeat="state in crc.states">{{ state.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-xs-12">
+            <label for="inputZip" class="col-lg-3 control-label">Zip</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="inputZip" ng-model="crc.customer.zip" pattern="[0-9]{5}"name="zip" placeholder="Zip Code" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-4 col-lg-offset-8 col-md-4 col-md-offset-8 col-xs-12">
+                <button type="reset" class="btn btn-default col-sm-5" ng-click="crc.cancel(0);">Cancel</button>
+                <button type="button" class="btn btn-primary col-sm-5 col-sm-offset-1" ng-click="crc.newCustomer()">Submit</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

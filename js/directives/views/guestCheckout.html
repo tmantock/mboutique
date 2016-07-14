@@ -1,0 +1,62 @@
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Checkout</legend>
+        <div class="form-group">
+            <label for="inputName" class="col-lg-3 control-label">Name</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="inputName" ng-model="crc.customer.name" placeholder="Full Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail" class="col-lg-3 control-label">Email</label>
+            <div class="col-lg-9">
+                <input type="email" class="form-control" id="inputEmail" ng-model="crc.customer.email" placeholder="Email Address">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPhone" class="col-lg-3 control-label">Phone</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="inputPhone" ng-model="crc.customer.phone" placeholder="Phone Number">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress" class="col-lg-3 control-label">Address</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="inputAddress" ng-model="crc.customer.address" placeholder="Street Address">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputCity" class="col-lg-3 control-label">City</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="inputCity" ng-model="crc.customer.city" placeholder="City">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="state" class="col-lg-3 control-label">State</label>
+            <div class="col-lg-9">
+                <select class="form-control" id="state" ng-model="crc.customer.state">
+                    <option ng-repeat="state in crc.states">{{ state.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputZip" class="col-lg-3 control-label">Zip</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" id="inputZip" ng-model="crc.customer.zip" placeholder="Zip Code">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="checkoutComments" class="col-lg-3 control-label">Comments</label>
+            <div class="col-lg-9">
+                <textarea class="form-control" rows="3" id="checkoutComments" ng-model="crc.customer.comments"></textarea>
+                <span class="help-block">Please leave any comments here.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button type="reset" class="btn btn-default" ng-click="crc.cancel(2);">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="crc.submit()">Submit</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
