@@ -1,39 +1,23 @@
 # MBoutique
 
-## Assignment
-> We will be building out the full MBoutique website
+MBoutique is a full e-commerce website dedicated to selling delicious Macarons.
 
-> The MBoutique webstite contains 4 seperate pages
-  - Welcome
-  - Our Macarons
-  - Gifts & Parties
-  - Contact
+I made this website to demonstrate and practice the knowledge I have gained on Front-End and Back-End tecnologies. I wanted to make a visully apealling website that was functional as well.
 
-## Code Setup Details
+- This project features the LAMP stack.
 
-#### 1. Fork Repository
-> Forking the repository or Repo will give you a copy of this repo under your own GitHub user account. We will be starting with a Learning-Fuze account repo.
+- This website features a modern design and is inspired by Google's Material Design Philosophy.
 
-> Click the Fork icon in the top right corner if you have not done so already
+- MBoutique utilizes core Javascript and Angular JS to handle the Front-End logic for the application, like retrieving shopping information, handling date related items, adding and removing items within the cart, sharing pertinent data across all pages, sending the cart to the Back-End, verifying user input, and sending customer data to the Back-End.
 
-#### 2. Copy locally (Clone the Repo)
-> `git clone https://github.com/[your-user-name]/mboutique.git`
+- PHP and MySQL were used for the Back End of this project. MySQL was used to store all product and customer information. PHP was used to interface with MySQL and send pertinent data to the client via APIs. PHP and MySQL were also used to establish an OAUTH Token login system for customer logins.
 
-> <b>[your-user-name] should be replaced with your exact github account name</b>
+- The website is hosted on an Apache server on Ubuntu (Linux) hosted on an Amazon Web Services EC2 virtual machine.
 
-> Cloning a repository is making a copy of the repo that was forked on github.com/[your_account_name]/mboutique (in the step above) and saving it too your computer (Local Machine).
+- CSS3, Bootstrap Paper, and Material Design Lite were used to style the website.
 
-#### 3. Click the Links Below
-> Below are the assignment links that will contain further information about creating feature sets (branches) and how to submit your assignments.
+- HTML5 was used as the markup language.
 
-> ##### Steps 1 & 2 from above only need to be done once, *DO NOT* Repeat those steps for every assignment 
+Please visit the website and please use it! You can go through the checkout process. It's fully functional, however I am currently working on input validation. Please "purchase" some macarons (no payment required). The more orders, teh more data I have to use for a later project. Thank You!
 
-## Assignment 1
-> <a href="https://github.com/Learning-Fuze/mboutique/tree/assignment_1" target="_blank">Click here for assignment 1</a>
-
-## Assignments 2-4
-> <a href="https://github.com/Learning-Fuze/mboutique/tree/assignment_2" target="_blank">Click here for assignment 2</a>
-
-> <a href="https://github.com/Learning-Fuze/mboutique/tree/assignment_3" target="_blank">Click here for assignment 3</a>
-
-> <a href="https://github.com/Learning-Fuze/mboutique/tree/assignment_4" target="_blank">Click here for assignment 4</a>
+###<a href="http://tevinmantock.com/projects/mboutique" target="_blank">Visit MBoutique</a>
