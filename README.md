@@ -20,4 +20,4 @@ I made this website to demonstrate and practice the knowledge I have gained on F
 
 Please visit the website and please use it! You can go through the checkout process. It's fully functional, however I am currently working on input validation. Please "purchase" some macarons (no payment required). The more orders, teh more data I have to use for a later project. Thank You!
 
-###<a href="http://tevinmantock.com/projects/mboutique" target="_blank">Visit MBoutique</a>
+###[Visit MBoutique](http://tevinmantock.com/projects/mboutique).
