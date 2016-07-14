@@ -524,7 +524,8 @@ legend {
     margin: 0 auto
 }
 #days-address, #contact-form {
-    height: 60%;
+    min-height: 60%;
+    height: auto;
     padding-top: 3%;
     margin: 3% 0;
     color: #000000;
