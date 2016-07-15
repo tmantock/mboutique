@@ -98,10 +98,10 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
 ];
 
   self.customer = {
-    password: '',
-    confirm:'',
     name: '',
     email: '',
+    password: '',
+    confirm:'',
     phone: '',
     address: '',
     city: '',
@@ -131,7 +131,9 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
 
   self.newCustomer = function () {
     if(self.customer.password == self.customer.confirm){
-      loginService.httpLogin(self.customer,false);
+      if(self.validate(true)){
+        loginService.httpLogin(self.customer,false);
+      }
     }
     else {
       $scope.modalText = "Error! Please make sure that passwords are matching.";
@@ -145,7 +147,9 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   };
 
   self.login = function () {
-    loginService.httpLogin(self.customer,true);
+    if(self.validate(false)){
+      loginService.httpLogin(self.customer,true);
+    }
   };
 
   self.check = function () {
@@ -180,5 +184,93 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
       console.log("close sign in");
       self.showSignIn = false;
     }
+  };
+
+  self.validate = function (boolean){
+    for(var index in self.customer){
+      self.customer[index].trim();
+    }
+    if(boolean === true){
+      if(self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip)){
+        return true;
+      }
+    } else if(boolean === false) {
+      if(self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password)){
+        return true;
+      }
+    }
+  };
+
+  self.nameRegex = function (string, boolean) {
+    var exp = /^[a-z ,.'-]+$/i;
+    var test = exp.test(string);
+    if(test === false && boolean === true){
+      $scope.modalTitle = "Form Error";
+      $scope.modalText = "Please enter a valid name.";
+      $("#modal").modal('show');
+    } else if(test === false && boolean === false) {
+      $scope.modalTitle = "Form Error";
+      $scope.modalText = "Please enter a valid city.";
+      $("#modal").modal('show');
+    }
+    return test;
+  };
+
+  self.emailRegex = function (string) {
+    var exp = /\S+@\S+\.\S+/;
+    var test = exp.test(string);
+    if(test === false){
+      console.log("invalid email");
+      console.log(string);
+      $scope.modalTitle = "Form Error";
+      $scope.modalText = "Please enter a valid email.";
+      $("#modal").modal('show');
+    }
+    return test;
+  };
+
+  self.passwordRegex = function (string) {
+    var exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    var test = exp.test(string);
+    if(test === false){
+      console.log("invalid password");
+      $scope.modalTitle = "Form Error";
+      $scope.modalText = "Please enter a valid password. The password should have at least 1 uppercase letter, 1 lowercase letter, 1 number, and be at least 8 characters long.";
+      $("#modal").modal('show');
+    }
+    return test;
+  };
+
+  self.phoneRegex = function (string) {
+    var exp = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+    var test = exp.test(string);
+    if(test === false){
+      $scope.modalTitle = "Form Error";
+      $scope.modalText = "Please enter a valid phone number. Ex: 555-555-5555";
+      $("#modal").modal('show');
+    }
+    return test;
+  };
+
+  self.addressRegex = function (string) {
+    var exp = /\d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*\./;
+    var test = exp.test(string);
+    if(test === false){
+      $scope.modalTitle = "Form Error";
+      $scope.modalText = "Please enter a valid address. Ex: 555 N. Maple Street";
+      $("#modal").modal('show');
+    }
+    return test;
+  };
+
+  self.zipRegex = function (string) {
+    var exp = /^[0-9]{5}$/;
+    var test = exp.test(string);
+    if(test === false){
+      $scope.modalTitle = "Form Error";
+      $scope.modalText = "Please enter a valid zip code. Ex: 98495";
+      $("#modal").modal('show');
+    }
+    return test;
   };
 }]);
