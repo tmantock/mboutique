@@ -1,7 +1,8 @@
 app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginService',function($scope,macaronCart,cartCheckout,loginService){
   var self = this;
   $scope.token = loginService.retrieveToken();
-  $scope.message = loginService.getMessage();
+  self.errorTitle = loginService.getErrorTitle();
+  self.errorMessage = loginService.getErrorMessage();
   $scope.status = loginService.getStatus();
   self.checkoutStatus = null;
   $scope.macarons = macaronCart.retrieveMacarons();
@@ -22,13 +23,14 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
 
   $scope.$on('loginBroadcast', function(){
     $scope.token = loginService.token;
-    $scope.message = loginService.message;
+    $scope.errorTitle = loginService.errorTitle;
+    $scope.errorMessage = loginService.errorMessage;
     $scope.status = loginService.status;
     $scope.name = loginService.name;
     self.check();
   });
 
-  $scope.$on('successBroadcast', function () {
+  $scope.$on('checkoutBroadcast', function () {
     $scope.orderNumber = cartCheckout.orderNumber;
     self.checkoutStatus = cartCheckout.checkoutStatus;
     self.checkCheckout();
@@ -109,6 +111,21 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     zip: ''
   };
 
+  self.check = function () {
+    if($scope.status === true){
+      self.showSignUp = false;
+      self.showSignIn = false;
+      for(var index in self.customer){
+        self.customer[index] = '';
+      }
+      $("#password-modal").modal('hide');
+    } else if($scope.status === false){
+      $scope.modalTitle = self.errorTitle;
+      $scope.modalText = self.errorMessage;
+      $("#modal").modal('show');
+    }
+  };
+
   self.removeItem = function (item,index) {
     var macaron = parseInt(item.id);
     for(var i = 0; i < $scope.macarons.length; i++){
@@ -129,43 +146,11 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     console.log("Cart has been emptied");
   };
 
-  self.newCustomer = function () {
-    if(self.customer.password == self.customer.confirm){
-      if(self.validate(true)){
-        loginService.httpLogin(self.customer,false);
-      }
-    }
-    else {
-      $scope.modalText = "Error! Please make sure that passwords are matching.";
-      $scope.modalTile = "Login Error";
-      $("#modal").modal("show");
-    }
-  };
-
   self.checkout = function () {
     cartCheckout.checkout($scope.token,$scope.checkout,$scope.cart,$scope.total);
   };
 
-  self.login = function () {
-    if(self.validate(false)){
-      loginService.httpLogin(self.customer,true);
-    }
-  };
-
-  self.check = function () {
-    if($scope.status === false){
-      $scope.modalTitle = "Login Error";
-      $scope.modalText = $scope.message;
-      $("#modal").modal('show');
-    }
-    if($scope.status === true){
-      self.showSignUp = false;
-      self.showSignIn = false;
-    }
-  };
-
   self.checkCheckout = function () {
-    console.log("Checking");
     if(self.checkoutStatus === true){
       self.name = $scope.name;
       self.orderNumber = $scope.orderNumber;
@@ -178,12 +163,37 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   self.cancel = function (option) {
     $('input').html('');
     if(option === 0){
-      console.log("close sign up");
       self.showSignUp = false;
     } else if(option === 1){
-      console.log("close sign in");
       self.showSignIn = false;
     }
+  };
+
+  self.login = function () {
+    if(self.validate(false)){
+      loginService.httpLogin(self.customer,true);
+    }
+  };
+
+  self.newCustomer = function (status) {
+    if(self.customer.password == self.customer.confirm){
+      if(status === 1 && self.validate(true) ){
+        loginService.httpLogin(self.customer,false);
+      }
+      else if(status === 0 && self.validate(false)){
+        loginService.httpLogin(self.customer,'exist');
+      }
+
+    }
+    else {
+      $scope.modalText = "Error! Please make sure that passwords are matching.";
+      $scope.modalTile = "Login Error";
+      $("#modal").modal("show");
+    }
+  };
+
+  self.logout = function () {
+    loginService.logout();
   };
 
   self.validate = function (boolean){
@@ -204,14 +214,16 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   self.nameRegex = function (string, boolean) {
     var exp = /^[a-z ,.'-]+$/i;
     var test = exp.test(string);
+    var title;
+    var message;
     if(test === false && boolean === true){
-      $scope.modalTitle = "Form Error";
-      $scope.modalText = "Please enter a valid name.";
-      $("#modal").modal('show');
+      title = "Form Error";
+      message = "Please enter a valid name.";
+      loginService.setErrorMessage(title,message);
     } else if(test === false && boolean === false) {
-      $scope.modalTitle = "Form Error";
-      $scope.modalText = "Please enter a valid city.";
-      $("#modal").modal('show');
+      title = "Form Error";
+      message = "Please enter a valid city.";
+      loginService.setErrorMessage(title,message);
     }
     return test;
   };
@@ -220,11 +232,9 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     var exp = /\S+@\S+\.\S+/;
     var test = exp.test(string);
     if(test === false){
-      console.log("invalid email");
-      console.log(string);
-      $scope.modalTitle = "Form Error";
-      $scope.modalText = "Please enter a valid email.";
-      $("#modal").modal('show');
+      var title = "Form Error";
+      var message = "Please enter a valid email.";
+      loginService.setErrorMessage(title,message);
     }
     return test;
   };
@@ -233,10 +243,9 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     var exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     var test = exp.test(string);
     if(test === false){
-      console.log("invalid password");
-      $scope.modalTitle = "Form Error";
-      $scope.modalText = "Please enter a valid password. The password should have at least 1 uppercase letter, 1 lowercase letter, 1 number, and be at least 8 characters long.";
-      $("#modal").modal('show');
+      var title = "Form Error";
+      var message = "Please enter a valid password. The password should have at least 1 uppercase letter, 1 lowercase letter, 1 number, and be at least 8 characters long.";
+      loginService.setErrorMessage(title,message);
     }
     return test;
   };
@@ -245,9 +254,9 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     var exp = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
     var test = exp.test(string);
     if(test === false){
-      $scope.modalTitle = "Form Error";
-      $scope.modalText = "Please enter a valid phone number. Ex: 555-555-5555";
-      $("#modal").modal('show');
+      var title = "Form Error";
+      var message = "Please enter a valid phone number. Ex: 555-555-5555";
+      loginService.setErrorMessage(title,message);
     }
     return test;
   };
@@ -256,9 +265,9 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     var exp = /\d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*\./;
     var test = exp.test(string);
     if(test === false){
-      $scope.modalTitle = "Form Error";
-      $scope.modalText = "Please enter a valid address. Ex: 555 N. Maple Street";
-      $("#modal").modal('show');
+      var title = "Form Error";
+      var message = "Please enter a valid address. Ex: 555 N. Maple Street";
+      loginService.setErrorMessage(title,message);
     }
     return test;
   };
@@ -267,9 +276,9 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
     var exp = /^[0-9]{5}$/;
     var test = exp.test(string);
     if(test === false){
-      $scope.modalTitle = "Form Error";
-      $scope.modalText = "Please enter a valid zip code. Ex: 98495";
-      $("#modal").modal('show');
+      var title = "Form Error";
+      var message = "Please enter a valid zip code. Ex: 98495";
+      loginService.setErrorMessage(title,message);
     }
     return test;
   };

@@ -169,9 +169,19 @@ function getUserBase () {
     $password = md5($password);
     $password = sha1($password);
 
-    if($status === false && phoneRegex($phone) && addressRegex($address) && nameRegex($city) && zipRegex($zip) && stateRegex($state)){
+    if($status === 'exist'){
+      $user = $db -> query("SELECT `email` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."'");
+      if($user -> num_rows === 1) {
+        $db -> query("UPDATE `customers` SET `password` = '$password' WHERE `email` = '$email'");
+      }else{
+        $return['success'] = false;
+        $return['error']['message'] = "Unable to find email";
+      }
+    }
+    else if($status === false && phoneRegex($phone) && addressRegex($address) && nameRegex($city) && zipRegex($zip) && stateRegex($state)){
+      $return['check'] = 'made it staus of true';
       $check = $db -> query("SELECT `email` FROM `customers` WHERE `email` ='$email'");
-      if($check -> num_rows == 0){
+      if($check -> num_rows === 0){
         $query = "INSERT INTO `customers` (`user_id`,`password`,`name`,`email`,`phone_number`,`street_address`,`city`,`state`,`zip`) VALUES ('$id','$password','$name','$email','$phone','$address','$city','$state','$zip')";
         if(mysqli_query($conn,$query)) {
 
@@ -184,13 +194,12 @@ function getUserBase () {
         $return['success'] = false;
         $return['error']['email'] = false;
         $return['error']['message'] = "Error this email is already in use.";
-        print(json_encode($return));
+        echo(json_encode($return));
         exit();
       }
     }
 
     $user = $db -> query("SELECT `email` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."'");
-
     if($user -> num_rows === 1) {
       $password = $db -> query("SELECT `email` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."' AND `password` = '".$password."'");
       if($password->num_rows==1){
@@ -218,6 +227,7 @@ function getUserBase () {
       }
       else {
         $return['success'] = false;
+        $return['error']['password'] = false;
         $return['error']['message'] = "Error you have entered the wrong password.";
       }
     }
@@ -226,8 +236,8 @@ function getUserBase () {
       $return['error']['message'] = "Error you have entered the wrong email.";
     }
   }
-  header('Content-Type: application/json');
   $return = json_encode($return);
+  header('Content-Type: application/json');
   echo($return);
 }
 
