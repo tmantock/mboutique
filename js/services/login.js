@@ -89,7 +89,7 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
         login.name = result.name;
         $log.log("User Data Retrieved");
       } else if(result.success === false){
-        login.message = result.error.message;
+        login.errorMessage = result.error.message;
         if(result.error.password === false){
           login.status = null;
           login.passwordMessage = "Password is incorrect.";

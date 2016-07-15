@@ -194,6 +194,7 @@ function getUserBase () {
         $return['success'] = false;
         $return['error']['email'] = false;
         $return['error']['message'] = "Error this email is already in use.";
+        header('Content-Type: application/json');
         echo(json_encode($return));
         exit();
       }
@@ -233,7 +234,7 @@ function getUserBase () {
     }
     else {
       $return['success'] = false;
-      $return['error']['message'] = "Error you have entered the wrong email.";
+      $return['error']['message'] = "Error we don't have any records of ".$email." in our records.";
     }
   }
   $return = json_encode($return);
