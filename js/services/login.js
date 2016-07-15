@@ -12,6 +12,14 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
 
   login.status = null;
 
+  login.count = 0;
+
+  login.passwordMessage = '';
+
+  login.getPasswordMessage = function () {
+    return login.passwordMessage;
+  };
+
   login.retrieveToken = function () {
     return login.token;
   };
@@ -34,7 +42,7 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
 
   login.setErrorMessage = function (title, message) {
     login.errorTitle = title;
-    login.message = message;
+    login.errorMessage = message;
     login.status = false;
     login.broadcastCredentials();
   };
@@ -45,6 +53,8 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
     login.name = null;
     login.errorTitle = null;
     login.errorMessage = null;
+    login.passwordMessage = '';
+    login.count = 0;
     login.broadcastCredentials();
   };
 
@@ -73,6 +83,8 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
     var result = data.data;
     login.status = result.success;
       if(result.success === true){
+        login.passwordMessage = '';
+        login.count = 0;
         login.token = result.token;
         login.name = result.name;
         $log.log("User Data Retrieved");
@@ -80,7 +92,11 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
         login.message = result.error.message;
         if(result.error.password === false){
           login.status = null;
-          $("#password-modal").modal("show");
+          login.passwordMessage = "Password is incorrect.";
+          login.count++;
+          if(login.count >= 3){
+            $("#password-modal").modal("show");
+          }
         }
         console.log("Error on login");
       }

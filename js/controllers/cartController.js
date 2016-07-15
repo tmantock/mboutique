@@ -14,6 +14,7 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
   self.showSignIn = false;
   $scope.checkout = macaronCart.generateCheckout();
   $scope.total = macaronCart.calculateTotal();
+  $scope.passwordMessage = loginService.getPasswordMessage();
   $scope.$on('handleBroadcast', function() {
     $scope.macarons = macaronCart.macarons;
     $scope.cart = macaronCart.itemCount;
@@ -23,10 +24,11 @@ app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginSe
 
   $scope.$on('loginBroadcast', function(){
     $scope.token = loginService.token;
-    $scope.errorTitle = loginService.errorTitle;
-    $scope.errorMessage = loginService.errorMessage;
+    self.errorTitle = loginService.errorTitle;
+    self.errorMessage = loginService.errorMessage;
     $scope.status = loginService.status;
     $scope.name = loginService.name;
+    $scope.passwordMessage = loginService.passwordMessage;
     self.check();
   });
 
