@@ -13,7 +13,7 @@ I made this website to demonstrate and practice the knowledge I have gained on F
 - PHP and MySQL were used for the Back End of this project. MySQL was used to store all product and customer information. PHP was used to interface with MySQL and send pertinent data to the client via APIs. PHP and MySQL were also used to establish an OAUTH Token login system for customer logins.
 
 - The inputs are validated through Regular Expressions on the HTML, inside of Javascript, and on the Back-End.
-- 
+
 - The website is hosted on an Apache server on Ubuntu (Linux) hosted on an Amazon Web Services EC2 virtual machine.
 
 - CSS3, Bootstrap Paper, and Material Design Lite were used to style the website.
