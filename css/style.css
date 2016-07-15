@@ -481,7 +481,9 @@ legend {
 .confirm-checkout {
     text-align: center;
 }
-
+.password-error {
+  color: red;
+}
 /*Contacts*/
 
 #contacts {

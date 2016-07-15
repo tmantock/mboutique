@@ -4,11 +4,21 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
 
   login.token = null;
 
-  login.message = null;
+  login.errorTitle = null;
+
+  login.errorMessage = null;
 
   login.name = '';
 
-  login.status = false;
+  login.status = null;
+
+  login.count = 0;
+
+  login.passwordMessage = '';
+
+  login.getPasswordMessage = function () {
+    return login.passwordMessage;
+  };
 
   login.retrieveToken = function () {
     return login.token;
@@ -18,12 +28,34 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
     return login.status;
   };
 
-  login.getMessage = function () {
-    return login.message;
+  login.getErrorTitle = function () {
+    return login.errorTitle;
+  };
+
+  login.getErrorMessage = function () {
+    return login.errorMessage;
   };
 
   login.getName = function () {
     return login.name;
+  };
+
+  login.setErrorMessage = function (title, message) {
+    login.errorTitle = title;
+    login.errorMessage = message;
+    login.status = false;
+    login.broadcastCredentials();
+  };
+
+  login.logout = function () {
+    login.status = null;
+    login.token = null;
+    login.name = null;
+    login.errorTitle = null;
+    login.errorMessage = null;
+    login.passwordMessage = '';
+    login.count = 0;
+    login.broadcastCredentials();
   };
 
   login.broadcastCredentials = function () {
@@ -49,14 +81,23 @@ app.factory("loginService", ["$http","$log","$rootScope",'$q', function($http,$l
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   }).then(function successCallack (data){
     var result = data.data;
-    console.log(data);
     login.status = result.success;
       if(result.success === true){
+        login.passwordMessage = '';
+        login.count = 0;
         login.token = result.token;
         login.name = result.name;
         $log.log("User Data Retrieved");
       } else if(result.success === false){
         login.message = result.error.message;
+        if(result.error.password === false){
+          login.status = null;
+          login.passwordMessage = "Password is incorrect.";
+          login.count++;
+          if(login.count >= 3){
+            $("#password-modal").modal("show");
+          }
+        }
         console.log("Error on login");
       }
       login.broadcastCredentials();

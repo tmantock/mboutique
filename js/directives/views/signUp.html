@@ -5,12 +5,14 @@
             <label for="inputEmail" class="col-lg-3 control-label">Email</label>
             <div class="col-lg-9">
                 <input type="email" class="form-control" id="inputEmail" ng-model="crc.customer.email" name="email" placeholder="Email Address" required>
+                <span class="help-block">Ex. hello@mail.com</span>
             </div>
         </div>
         <div class="form-group col-lg-4 col-md-4 col-xs-12">
             <label for="inputpassword" class="col-lg-3 control-label">Password</label>
             <div class="col-lg-9">
                 <input type="password" class="form-control" id="inputpassword" name="password" ng-model="crc.customer.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Password" required>
+                <span class="help-block">Must be 8 characters long. Numbers and Uppercase letters are required.</span>
             </div>
         </div>
         <div class="form-group col-lg-4 col-md-4 col-xs-12">
@@ -29,6 +31,7 @@
             <label for="inputPhone" class="col-lg-3 control-label">Phone</label>
             <div class="col-lg-9">
                 <input type="tel" class="form-control" id="inputPhone" ng-model="crc.customer.phone" name="phone" placeholder="Phone Number" required>
+                <span class="help-block">Ex. 555-555-555</span>
             </div>
         </div>
         <div class="form-group col-lg-6 col-md-6 col-xs-12">
@@ -55,12 +58,13 @@
             <label for="inputZip" class="col-lg-3 control-label">Zip</label>
             <div class="col-lg-9">
                 <input type="text" class="form-control" id="inputZip" ng-model="crc.customer.zip" pattern="[0-9]{5}"name="zip" placeholder="Zip Code" required>
+                <span class="help-block">Ex. 92485</span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-lg-4 col-lg-offset-8 col-md-4 col-md-offset-8 col-xs-12">
                 <button type="reset" class="btn btn-default col-sm-5" ng-click="crc.cancel(0);">Cancel</button>
-                <button type="button" class="btn btn-primary col-sm-5 col-sm-offset-1" ng-click="crc.newCustomer()">Submit</button>
+                <button type="button" class="btn btn-primary col-sm-5 col-sm-offset-1" ng-click="crc.newCustomer(1)">Submit</button>
             </div>
         </div>
     </fieldset>

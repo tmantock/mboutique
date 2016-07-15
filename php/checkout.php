@@ -29,7 +29,7 @@ function orderNumber () {
     $result['error'] = true;
     $result['error']['message'] = "Error: Your session has expired. Please sign in again.";
     $result = json_encode($result);
-    print($result);
+    echo($result);
     exit();
   }
   else {
