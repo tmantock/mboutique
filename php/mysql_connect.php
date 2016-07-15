@@ -18,7 +18,9 @@ if($result->num_rows>0) {
 }
 //if thre is are no macarons in the database, then prent error message
 else {
-  echo("Error 76 from Server: unable to read data.");
+  $output['success'] = false;
+  $output['error']['message'] = ("Error 76 from Server: unable to read data.");
+  echo(json_encode($output));
 }
 //close the database connections
 mysqli_close($conn);

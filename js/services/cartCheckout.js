@@ -6,8 +6,7 @@ app.factory('cartCheckout',["$log","$http","$q","$rootScope", function($log,$htt
   self.orderNumber = '';
 
   self.broadcastSuccess = function () {
-    console.log("Broadcasting");
-    $rootScope.$broadcast('successBroadcast');
+    $rootScope.$broadcast('checkoutBroadcast');
   };
 
   self.checkout = function (token,array,itemCount,total) {
@@ -35,16 +34,13 @@ app.factory('cartCheckout',["$log","$http","$q","$rootScope", function($log,$htt
       }
     }).then(function successCallack(data) {
       var result = data.data.success;
-      console.log(result);
       self.checkoutStatus = result.success;
       self.orderNumber = result.order_number;
-      console.log(self.orderNumber);
       self.broadcastSuccess();
       return deffered.resolve(result.success);
     }, function errorCallback (err) {
       $log.warn("Error: ", err);
     });
   };
-
   return self;
 }]);
