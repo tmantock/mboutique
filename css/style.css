@@ -440,7 +440,7 @@ legend {
     background: #ffffff;
     min-height: 50%;
     height: auto;
-    padding-top: 5%;
+    padding-top: 7%;
     padding-bottom: 4%;
     overflow: auto;
     position: relative;
@@ -529,6 +529,7 @@ legend {
     min-height: 60%;
     height: auto;
     padding-top: 3%;
+    padding-bottom: 3%;
     margin: 3% 0;
     color: #000000;
     overflow: auto;
