@@ -7,7 +7,7 @@ $result = $db -> query("SELECT * FROM `products` ORDER BY `products`.`category` 
 $object = [];
 //Conditional for determining if there are macarons present to be pushed into the object array
 if($result->num_rows>0) {
-  //while loop for pushing each macaron row into teh object array
+  //while loop for pushing each macaron row into the object array
   while($row = $result -> fetch_assoc()){
     array_push($object,$row);
   }
