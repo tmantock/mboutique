@@ -170,7 +170,7 @@ function stateRegex ($string) {
   );
 
   foreach($states as $key=>$value){
-    if($value === $string){
+    if(strtolower($value) === strtolower($string)){
       return true;
     }
   }
