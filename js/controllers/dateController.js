@@ -14,28 +14,28 @@ app.controller("dateController", ['macaronCart', '$scope', '$log', '$timeout', '
 
     self.changeHeader = function() {
         $("#home-header").text("MBoutique")
-            .delay(750)
-            .fadeOut(2000, function() {
+            .delay(4000)
+            .fadeOut(1500, function() {
                 $("#home-header").text("Sweet");
-                $("#home-header").fadeIn(2000, function() {
-                    $("#home-header").fadeOut(2000, function() {
+                $("#home-header").fadeIn(1500, function() {
+                    $("#home-header").fadeOut(1500, function() {
                         $("#home-header").text("Beautiful");
-                        $("#home-header").fadeIn(2000, function() {
-                            $("#home-header").fadeOut(2000, function() {
+                        $("#home-header").fadeIn(1500, function() {
+                            $("#home-header").fadeOut(1500, function() {
                                 $("#home-header").text("Decadent");
-                                $("#home-header").fadeIn(2000, function() {
-                                    $("#home-header").fadeOut(2000, function() {
+                                $("#home-header").fadeIn(1500, function() {
+                                    $("#home-header").fadeOut(1500, function() {
                                         $("#home-header").text("MBoutique");
-                                        $("#home-header").fadeIn(2000, function() {
+                                        $("#home-header").fadeIn(1500, function() {
                                             self.changeHeader();
-                                        }).delay(750);
-                                    }).delay(750);
-                                }).delay(750);
-                            }).delay(750);
-                        }).delay(750);
-                    }).delay(750);
-                }).delay(750);
-            }).delay(750);
+                                        }).delay(500);
+                                    }).delay(500);
+                                }).delay(500);
+                            }).delay(500);
+                        }).delay(500);
+                    }).delay(500);
+                }).delay(500);
+            }).delay(500);
     };
 
     self.changeHeader();
