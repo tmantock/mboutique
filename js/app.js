@@ -5,7 +5,7 @@ app.config(["$routeProvider", function($routeProvider) {
         .when('/', {
             templateUrl: 'home.html',
             controller: 'dateController as dc',
-            title: 'Mboutique'
+            title: 'MBoutique'
         })
         .when('/macarons', {
             templateUrl: 'our-macarons.html',
@@ -15,7 +15,7 @@ app.config(["$routeProvider", function($routeProvider) {
         .when('/gifts', {
             templateUrl: 'gifts-parties.html',
             controller: 'partyController as pc',
-            title: 'GIfts & Parties'
+            title: 'Gifts & Parties'
         })
         .when('/contact', {
             templateUrl: 'contact.html',
