@@ -409,7 +409,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //takes string as a parameter
     self.passwordRegex = function(string) {
         //regex allows for letters and numbers. Must have at least one number, one uppercase letter, and one lowercase letter, nad it must be at least 8 characters long
-        var exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        var exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,50}$/;
         var test = exp.test(string);
         if (test === false) {
             var title = "Form Error";
