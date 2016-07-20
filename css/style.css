@@ -11,6 +11,8 @@ body {
     position: relative;
     height: 100%;
     width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     max-width: 1500px;
     overflow-x: hidden;
 }
@@ -146,6 +148,8 @@ h4 {
     max-width: 1500px;
     margin: 0;
     position: fixed;
+    top: 0;
+    left: 0;
     z-index: 1030;
 }
 #navbar-collapse {
@@ -240,6 +244,11 @@ h4 {
     font-weight: 700;
     font-size: 7em;
     color: #ffffff;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    user-select: none;
 }
 #main-container {
     margin-top: 1%;
@@ -615,7 +624,8 @@ footer {
     min-height: 9%;
     height: auto;
     width: 100%;
-    background-color: #484452;
+    /*background-color: #484452;*/
+    background-color: #212121;
     color: #ffffff;
     text-align: center;
     display: inline-block;
@@ -661,9 +671,6 @@ footer li {
     }
     .catering-top, .catering-bottom {
         height: 45%;
-    }
-    .cart_list .mdl-card {
-        margin: 1% 3.5%;
     }
     .card {
         padding: 0;
