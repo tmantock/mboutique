@@ -35,7 +35,8 @@ app.controller("contactController", ['$scope','macaronCart','$timeout','cartChec
     var marker;
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 33.6501, lng: -117.7436},
-          zoom: 14
+          zoom: 14,
+          scrollwheel: false
         });
 
         marker = new google.maps.Marker({
