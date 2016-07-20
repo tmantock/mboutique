@@ -1,287 +1,464 @@
-app.controller("cartController", ['$scope','macaronCart','cartCheckout','loginService',function($scope,macaronCart,cartCheckout,loginService){
-  var self = this;
-  $scope.token = loginService.retrieveToken();
-  self.errorTitle = loginService.getErrorTitle();
-  self.errorMessage = loginService.getErrorMessage();
-  $scope.status = loginService.getStatus();
-  self.checkoutStatus = null;
-  $scope.macarons = macaronCart.retrieveMacarons();
-  $scope.cart = macaronCart.itemCount;
-  $scope.title = "Cart";
-  $scope.name = loginService.getName();
-  $scope.orderNumber = '';
-  self.showSignUp = false;
-  self.showSignIn = false;
-  $scope.checkout = macaronCart.generateCheckout();
-  $scope.total = macaronCart.calculateTotal();
-  $scope.passwordMessage = loginService.getPasswordMessage();
-  $scope.$on('handleBroadcast', function() {
-    $scope.macarons = macaronCart.macarons;
+//cartController is initialized for managing data within the cart page
+app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'loginService', function($scope, macaronCart, cartCheckout, loginService) {
+    //self is declared to keep track of this
+    var self = this;
+    //retrieve the authentication token from the login service
+    $scope.token = loginService.retrieveToken();
+    //retrieve the error message and error title from the login service for use in the error modal
+    self.errorTitle = loginService.getErrorTitle();
+    self.errorMessage = loginService.getErrorMessage();
+    //retrieve the status of a login attempt from the login service
+    $scope.status = loginService.getStatus();
+    //retrieve the macaron array form the macaron service
+    $scope.macarons = macaronCart.retrieveMacarons();
+    //retrieve the item count from the macaron service
     $scope.cart = macaronCart.itemCount;
-    $scope.total = macaronCart.total;
-    $scope.checkout = macaronCart.checkoutArray;
-  });
+    //retrieve the customers name from the macaron service
+    $scope.name = loginService.getName();
+    //retreive the checkout array from the macaron service
+    $scope.checkout = macaronCart.generateCheckout();
+    //retrieve the checkout total form the macaron service
+    $scope.total = macaronCart.calculateTotal();
+    //retrieve the password error message from the login service on bad attempt
+    $scope.passwordMessage = loginService.getPasswordMessage();
+    self.checkoutStatus = null;
+    $scope.orderNumber = '';
+    self.showSignUp = false;
+    self.showSignIn = false;
+    //Eventhandler for handling a broadcast message that is sent by the macaron service whenever the macaron array has been altered
+    $scope.$on('handleBroadcast', function() {
+        //update the macaron array, item count, cart total, and checkout array on any pertinent changes
+        $scope.macarons = macaronCart.macarons;
+        $scope.cart = macaronCart.itemCount;
+        $scope.total = macaronCart.total;
+        $scope.checkout = macaronCart.checkoutArray;
+    });
+    //Eventhandler for handling a broadcast message that is sent by the login service whenever the a login attempt or new customer attempt has been made
+    $scope.$on('loginBroadcast', function() {
+        //update the token, status, and name on a successful user creation or login attempt.
+        //update the error messages and status on a failed attempt
+        $scope.token = loginService.token;
+        self.errorTitle = loginService.errorTitle;
+        self.errorMessage = loginService.errorMessage;
+        $scope.status = loginService.status;
+        $scope.name = loginService.name;
+        $scope.passwordMessage = loginService.passwordMessage;
+        //check method is called to handle a successful or unsuccessful login or user creation attempt
+        self.check();
+    });
+    //Eventhandler for handling a broadcast message that is sent by the checkout service whenever a request to send the cart to the server for checkout
+    $scope.$on('checkoutBroadcast', function() {
+        //updates the orderNumber on successful checkout.
+        //updates checkout status on unsuccessful checkout attempt
+        $scope.orderNumber = cartCheckout.orderNumber;
+        self.checkoutStatus = cartCheckout.checkoutStatus;
+        //checkCheckout method is called to handle a successful or unsuccessfulcheckout atttempt
+        self.checkCheckout();
+    });
+    //array of states
+    self.states = [{
+        name: 'Select a State',
+        addreviation: 'Select'
+    }, {
+        name: 'ALABAMA',
+        abbreviation: 'AL'
+    }, {
+        name: 'ALASKA',
+        abbreviation: 'AK'
+    }, {
+        name: 'AMERICAN SAMOA',
+        abbreviation: 'AS'
+    }, {
+        name: 'ARIZONA',
+        abbreviation: 'AZ'
+    }, {
+        name: 'ARKANSAS',
+        abbreviation: 'AR'
+    }, {
+        name: 'CALIFORNIA',
+        abbreviation: 'CA'
+    }, {
+        name: 'COLORADO',
+        abbreviation: 'CO'
+    }, {
+        name: 'CONNECTICUT',
+        abbreviation: 'CT'
+    }, {
+        name: 'DELAWARE',
+        abbreviation: 'DE'
+    }, {
+        name: 'DISTRICT OF COLUMBIA',
+        abbreviation: 'DC'
+    }, {
+        name: 'FEDERATED STATES OF MICRONESIA',
+        abbreviation: 'FM'
+    }, {
+        name: 'FLORIDA',
+        abbreviation: 'FL'
+    }, {
+        name: 'GEORGIA',
+        abbreviation: 'GA'
+    }, {
+        name: 'GUAM',
+        abbreviation: 'GU'
+    }, {
+        name: 'HAWAII',
+        abbreviation: 'HI'
+    }, {
+        name: 'IDAHO',
+        abbreviation: 'ID'
+    }, {
+        name: 'ILLINOIS',
+        abbreviation: 'IL'
+    }, {
+        name: 'INDIANA',
+        abbreviation: 'IN'
+    }, {
+        name: 'IOWA',
+        abbreviation: 'IA'
+    }, {
+        name: 'KANSAS',
+        abbreviation: 'KS'
+    }, {
+        name: 'KENTUCKY',
+        abbreviation: 'KY'
+    }, {
+        name: 'LOUISIANA',
+        abbreviation: 'LA'
+    }, {
+        name: 'MAINE',
+        abbreviation: 'ME'
+    }, {
+        name: 'MARSHALL ISLANDS',
+        abbreviation: 'MH'
+    }, {
+        name: 'MARYLAND',
+        abbreviation: 'MD'
+    }, {
+        name: 'MASSACHUSETTS',
+        abbreviation: 'MA'
+    }, {
+        name: 'MICHIGAN',
+        abbreviation: 'MI'
+    }, {
+        name: 'MINNESOTA',
+        abbreviation: 'MN'
+    }, {
+        name: 'MISSISSIPPI',
+        abbreviation: 'MS'
+    }, {
+        name: 'MISSOURI',
+        abbreviation: 'MO'
+    }, {
+        name: 'MONTANA',
+        abbreviation: 'MT'
+    }, {
+        name: 'NEBRASKA',
+        abbreviation: 'NE'
+    }, {
+        name: 'NEVADA',
+        abbreviation: 'NV'
+    }, {
+        name: 'NEW HAMPSHIRE',
+        abbreviation: 'NH'
+    }, {
+        name: 'NEW JERSEY',
+        abbreviation: 'NJ'
+    }, {
+        name: 'NEW MEXICO',
+        abbreviation: 'NM'
+    }, {
+        name: 'NEW YORK',
+        abbreviation: 'NY'
+    }, {
+        name: 'NORTH CAROLINA',
+        abbreviation: 'NC'
+    }, {
+        name: 'NORTH DAKOTA',
+        abbreviation: 'ND'
+    }, {
+        name: 'NORTHERN MARIANA ISLANDS',
+        abbreviation: 'MP'
+    }, {
+        name: 'OHIO',
+        abbreviation: 'OH'
+    }, {
+        name: 'OKLAHOMA',
+        abbreviation: 'OK'
+    }, {
+        name: 'OREGON',
+        abbreviation: 'OR'
+    }, {
+        name: 'PALAU',
+        abbreviation: 'PW'
+    }, {
+        name: 'PENNSYLVANIA',
+        abbreviation: 'PA'
+    }, {
+        name: 'PUERTO RICO',
+        abbreviation: 'PR'
+    }, {
+        name: 'RHODE ISLAND',
+        abbreviation: 'RI'
+    }, {
+        name: 'SOUTH CAROLINA',
+        abbreviation: 'SC'
+    }, {
+        name: 'SOUTH DAKOTA',
+        abbreviation: 'SD'
+    }, {
+        name: 'TENNESSEE',
+        abbreviation: 'TN'
+    }, {
+        name: 'TEXAS',
+        abbreviation: 'TX'
+    }, {
+        name: 'UTAH',
+        abbreviation: 'UT'
+    }, {
+        name: 'VERMONT',
+        abbreviation: 'VT'
+    }, {
+        name: 'VIRGIN ISLANDS',
+        abbreviation: 'VI'
+    }, {
+        name: 'VIRGINIA',
+        abbreviation: 'VA'
+    }, {
+        name: 'WASHINGTON',
+        abbreviation: 'WA'
+    }, {
+        name: 'WEST VIRGINIA',
+        abbreviation: 'WV'
+    }, {
+        name: 'WISCONSIN',
+        abbreviation: 'WI'
+    }, {
+        name: 'WYOMING',
+        abbreviation: 'WY'
+    }];
+    //customer object that is sent for login
+    self.customer = {
+        name: '',
+        email: '',
+        password: '',
+        confirm: '',
+        phone: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: ''
+    };
+    //check method for handling a login attempt
+    self.check = function() {
+        //if a login attempt is successful then show the user the checkout page and empty the customer oject
+        if ($scope.status === true) {
+            self.showSignUp = false;
+            self.showSignIn = false;
+            for (var index in self.customer) {
+                self.customer[index] = '';
+            }
+            $("#password-modal").modal('hide');
+        }
+        //if the loging attempt is unsuccessful then show the user the error message
+        else if ($scope.status === false) {
+            $scope.modalTitle = self.errorTitle;
+            $scope.modalText = self.errorMessage;
+            $("#modal").modal('show');
+        }
+    };
+    //removeItem method for removing an item from the checkout array
+    self.removeItem = function(item, index) {
+        var macaron = parseInt(item.id);
+        //loop through the macaron array to find the macaron within the macaron array by id. If there's a match then set the count property to zero for that item
+        for (var i = 0; i < $scope.macarons.length; i++) {
+            if (parseInt($scope.macarons[i].id) === macaron) {
+                $scope.macarons[i].count = 0;
+            }
+        }
+        //send updated macaron array to the macaron service
+        macaronCart.updateMacarons($scope.macarons);
+    };
+    //resetCart method for setting all quantitiesand totals to zero
+    self.resetCart = function() {
+        $scope.cart = 0;
+        $scope.total = 0;
+        for (var i = 0; i < $scope.macarons.length; i++) {
+            $scope.macarons[i].count = 0;
+        }
+        //send updated macaron array to the macaron service
+        macaronCart.updateMacarons($scope.macarons);
+        console.log("Cart has been emptied");
+    };
+    //checkout method for calling the cart service's own checkout method.
+    //send the the authentication token, cart, item count, and total
+    self.checkout = function() {
+        cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, $scope.total);
+    };
+    //checkCheckout method for handling teh response of a checkout attempt
+    self.checkCheckout = function() {
+        //if the attempt was successful then the orderNumberis set and the reciept modal is displayed
+        if (self.checkoutStatus === true) {
+            self.name = $scope.name;
+            self.orderNumber = $scope.orderNumber;
+            $("#reciept-modal").modal("show");
+        }
+        //if the attempt failed then log the failed attempt in the console
+        else if (self.checkoutStatus === false) {
+            console.log("Error: On Checkout confirmation");
+        }
+    };
+    //canel method for setting all inputs to an empty string and hiding the respective forms either sign-up or sign-in takes in one parameter a boolean
+    self.cancel = function(option) {
+        $('input').html('');
+        if (option === 0) {
+            self.showSignUp = false;
+        } else if (option === 1) {
+            self.showSignIn = false;
+        }
+    };
+    //login method for sending the the customer to the login service for a login attempt
+    self.login = function() {
+        //if the validate method returns true then send the the customer to the login service along wih their status (new or existing)
+        if (self.validate(false)) {
+            loginService.httpLogin(self.customer, true);
+        }
+    };
+    //login method for sendin the new customer to the login service. This method is alos used to handle setting up a new password for teh customer in teh event they forgot their password
+    self.newCustomer = function(status) {
+        //if the password and password confirmations pass tehn move on
+        if (self.customer.password == self.customer.confirm) {
+            //if it's a new customer and the validate method returns true then send teh customer to the login service with their status
+            if (status === 1 && self.validate(true)) {
+                loginService.httpLogin(self.customer, false);
+            }
+            //if it's an existing customer and the validate method returns true then send teh customer with a status of 'exist'
+            else if (status === 0 && self.validate(false)) {
+                loginService.httpLogin(self.customer, 'exist');
+            }
+        }
+        //if the passwords do not match then display the error message to the user
+        else {
+            $scope.modalText = "Error! Please make sure that passwords are matching.";
+            $scope.modalTile = "Login Error";
+            $("#modal").modal("show");
+        }
+    };
+    //logout method calls the login service's own logout method
+    self.logout = function() {
+        loginService.logout();
+    };
+    //validate method for validating the user's inputs. takes in one parameter a boolean to determine which regex methods to use
+    self.validate = function(boolean) {
+        //for loop for trimming the whitespaces/spaces of an inpput
+        for (var index in self.customer) {
+            self.customer[index].trim();
+        }
+        //if they are a new customer then call these regex methods, if they all return true then the validate method returns true
+        if (boolean === true) {
+            if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip)) {
+                return true;
+            }
+        }
+        //if they are an existing customer then call on the regex methods for email and password only if they return true then the validate method returns true
+        else if (boolean === false) {
+            if (self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password)) {
+                return true;
+            }
+        }
+    };
 
-  $scope.$on('loginBroadcast', function(){
-    $scope.token = loginService.token;
-    self.errorTitle = loginService.errorTitle;
-    self.errorMessage = loginService.errorMessage;
-    $scope.status = loginService.status;
-    $scope.name = loginService.name;
-    $scope.passwordMessage = loginService.passwordMessage;
-    self.check();
-  });
-
-  $scope.$on('checkoutBroadcast', function () {
-    $scope.orderNumber = cartCheckout.orderNumber;
-    self.checkoutStatus = cartCheckout.checkoutStatus;
-    self.checkCheckout();
-  });
-
-  self.states = [
-    {name: 'Select a State', addreviation: 'Select'},
-    { name: 'ALABAMA', abbreviation: 'AL'},
-    { name: 'ALASKA', abbreviation: 'AK'},
-    { name: 'AMERICAN SAMOA', abbreviation: 'AS'},
-    { name: 'ARIZONA', abbreviation: 'AZ'},
-    { name: 'ARKANSAS', abbreviation: 'AR'},
-    { name: 'CALIFORNIA', abbreviation: 'CA'},
-    { name: 'COLORADO', abbreviation: 'CO'},
-    { name: 'CONNECTICUT', abbreviation: 'CT'},
-    { name: 'DELAWARE', abbreviation: 'DE'},
-    { name: 'DISTRICT OF COLUMBIA', abbreviation: 'DC'},
-    { name: 'FEDERATED STATES OF MICRONESIA', abbreviation: 'FM'},
-    { name: 'FLORIDA', abbreviation: 'FL'},
-    { name: 'GEORGIA', abbreviation: 'GA'},
-    { name: 'GUAM', abbreviation: 'GU'},
-    { name: 'HAWAII', abbreviation: 'HI'},
-    { name: 'IDAHO', abbreviation: 'ID'},
-    { name: 'ILLINOIS', abbreviation: 'IL'},
-    { name: 'INDIANA', abbreviation: 'IN'},
-    { name: 'IOWA', abbreviation: 'IA'},
-    { name: 'KANSAS', abbreviation: 'KS'},
-    { name: 'KENTUCKY', abbreviation: 'KY'},
-    { name: 'LOUISIANA', abbreviation: 'LA'},
-    { name: 'MAINE', abbreviation: 'ME'},
-    { name: 'MARSHALL ISLANDS', abbreviation: 'MH'},
-    { name: 'MARYLAND', abbreviation: 'MD'},
-    { name: 'MASSACHUSETTS', abbreviation: 'MA'},
-    { name: 'MICHIGAN', abbreviation: 'MI'},
-    { name: 'MINNESOTA', abbreviation: 'MN'},
-    { name: 'MISSISSIPPI', abbreviation: 'MS'},
-    { name: 'MISSOURI', abbreviation: 'MO'},
-    { name: 'MONTANA', abbreviation: 'MT'},
-    { name: 'NEBRASKA', abbreviation: 'NE'},
-    { name: 'NEVADA', abbreviation: 'NV'},
-    { name: 'NEW HAMPSHIRE', abbreviation: 'NH'},
-    { name: 'NEW JERSEY', abbreviation: 'NJ'},
-    { name: 'NEW MEXICO', abbreviation: 'NM'},
-    { name: 'NEW YORK', abbreviation: 'NY'},
-    { name: 'NORTH CAROLINA', abbreviation: 'NC'},
-    { name: 'NORTH DAKOTA', abbreviation: 'ND'},
-    { name: 'NORTHERN MARIANA ISLANDS', abbreviation: 'MP'},
-    { name: 'OHIO', abbreviation: 'OH'},
-    { name: 'OKLAHOMA', abbreviation: 'OK'},
-    { name: 'OREGON', abbreviation: 'OR'},
-    { name: 'PALAU', abbreviation: 'PW'},
-    { name: 'PENNSYLVANIA', abbreviation: 'PA'},
-    { name: 'PUERTO RICO', abbreviation: 'PR'},
-    { name: 'RHODE ISLAND', abbreviation: 'RI'},
-    { name: 'SOUTH CAROLINA', abbreviation: 'SC'},
-    { name: 'SOUTH DAKOTA', abbreviation: 'SD'},
-    { name: 'TENNESSEE', abbreviation: 'TN'},
-    { name: 'TEXAS', abbreviation: 'TX'},
-    { name: 'UTAH', abbreviation: 'UT'},
-    { name: 'VERMONT', abbreviation: 'VT'},
-    { name: 'VIRGIN ISLANDS', abbreviation: 'VI'},
-    { name: 'VIRGINIA', abbreviation: 'VA'},
-    { name: 'WASHINGTON', abbreviation: 'WA'},
-    { name: 'WEST VIRGINIA', abbreviation: 'WV'},
-    { name: 'WISCONSIN', abbreviation: 'WI'},
-    { name: 'WYOMING', abbreviation: 'WY' }
-];
-
-  self.customer = {
-    name: '',
-    email: '',
-    password: '',
-    confirm:'',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: ''
-  };
-
-  self.check = function () {
-    if($scope.status === true){
-      self.showSignUp = false;
-      self.showSignIn = false;
-      for(var index in self.customer){
-        self.customer[index] = '';
-      }
-      $("#password-modal").modal('hide');
-    } else if($scope.status === false){
-      $scope.modalTitle = self.errorTitle;
-      $scope.modalText = self.errorMessage;
-      $("#modal").modal('show');
-    }
-  };
-
-  self.removeItem = function (item,index) {
-    var macaron = parseInt(item.id);
-    for(var i = 0; i < $scope.macarons.length; i++){
-      if(parseInt($scope.macarons[i].id) === macaron){
-        $scope.macarons[i].count = 0;
-      }
-    }
-    macaronCart.updateMacarons($scope.macarons);
-  };
-
-  self.resetCart = function () {
-    $scope.cart = 0;
-    $scope.total = 0;
-    for(var i = 0; i < $scope.macarons.length; i++){
-      $scope.macarons[i].count = 0;
-    }
-    macaronCart.updateMacarons($scope.macarons);
-    console.log("Cart has been emptied");
-  };
-
-  self.checkout = function () {
-    cartCheckout.checkout($scope.token,$scope.checkout,$scope.cart,$scope.total);
-  };
-
-  self.checkCheckout = function () {
-    if(self.checkoutStatus === true){
-      self.name = $scope.name;
-      self.orderNumber = $scope.orderNumber;
-      $("#reciept-modal").modal("show");
-    } else if (self.checkoutStatus === false) {
-      console.log("Error: On Checkout confirmation");
-    }
-  };
-
-  self.cancel = function (option) {
-    $('input').html('');
-    if(option === 0){
-      self.showSignUp = false;
-    } else if(option === 1){
-      self.showSignIn = false;
-    }
-  };
-
-  self.login = function () {
-    if(self.validate(false)){
-      loginService.httpLogin(self.customer,true);
-    }
-  };
-
-  self.newCustomer = function (status) {
-    if(self.customer.password == self.customer.confirm){
-      if(status === 1 && self.validate(true) ){
-        loginService.httpLogin(self.customer,false);
-      }
-      else if(status === 0 && self.validate(false)){
-        loginService.httpLogin(self.customer,'exist');
-      }
-
-    }
-    else {
-      $scope.modalText = "Error! Please make sure that passwords are matching.";
-      $scope.modalTile = "Login Error";
-      $("#modal").modal("show");
-    }
-  };
-
-  self.logout = function () {
-    loginService.logout();
-  };
-
-  self.validate = function (boolean){
-    for(var index in self.customer){
-      self.customer[index].trim();
-    }
-    if(boolean === true){
-      if(self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip)){
-        return true;
-      }
-    } else if(boolean === false) {
-      if(self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password)){
-        return true;
-      }
-    }
-  };
-
-  self.nameRegex = function (string, boolean) {
-    var exp = /^[a-z ,.'-]+$/i;
-    var test = exp.test(string);
-    var title;
-    var message;
-    if(test === false && boolean === true){
-      title = "Form Error";
-      message = "Please enter a valid name.";
-      loginService.setErrorMessage(title,message);
-    } else if(test === false && boolean === false) {
-      title = "Form Error";
-      message = "Please enter a valid city.";
-      loginService.setErrorMessage(title,message);
-    }
-    return test;
-  };
-
-  self.emailRegex = function (string) {
-    var exp = /\S+@\S+\.\S+/;
-    var test = exp.test(string);
-    if(test === false){
-      var title = "Form Error";
-      var message = "Please enter a valid email.";
-      loginService.setErrorMessage(title,message);
-    }
-    return test;
-  };
-
-  self.passwordRegex = function (string) {
-    var exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    var test = exp.test(string);
-    if(test === false){
-      var title = "Form Error";
-      var message = "Please enter a valid password. The password should have at least 1 uppercase letter, 1 lowercase letter, 1 number, and be at least 8 characters long.";
-      loginService.setErrorMessage(title,message);
-    }
-    return test;
-  };
-
-  self.phoneRegex = function (string) {
-    var exp = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-    var test = exp.test(string);
-    if(test === false){
-      var title = "Form Error";
-      var message = "Please enter a valid phone number. Ex: 555-555-5555";
-      loginService.setErrorMessage(title,message);
-    }
-    return test;
-  };
-
-  self.addressRegex = function (string) {
-    var exp = /\d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*\./;
-    var test = exp.test(string);
-    if(test === false){
-      var title = "Form Error";
-      var message = "Please enter a valid address. Ex: 555 N. Maple Street";
-      loginService.setErrorMessage(title,message);
-    }
-    return test;
-  };
-
-  self.zipRegex = function (string) {
-    var exp = /^[0-9]{5}$/;
-    var test = exp.test(string);
-    if(test === false){
-      var title = "Form Error";
-      var message = "Please enter a valid zip code. Ex: 98495";
-      loginService.setErrorMessage(title,message);
-    }
-    return test;
-  };
+    //nameRegex property validates the inputs for the name field, takes a striing and a boolean as a parameter, since this method is also used to validate cities as well
+    self.nameRegex = function(string, boolean) {
+        //allow upper and lower case letters, periods, commas, apostrophes, and hyphens
+        var exp = /^[a-z ,.'-]+$/i;
+        var test = exp.test(string);
+        var title;
+        var message;
+        //if the test returned false and the boolean queal to true then display name error messsage
+        if (test === false && boolean === true) {
+            title = "Form Error";
+            message = "Please enter a valid name.";
+            //calls login service error message method to handle error messages in one location
+            loginService.setErrorMessage(title, message);
+        }
+        //if the test returned false and the boolean queal to true then display city error messsage
+        else if (test === false && boolean === false) {
+            title = "Form Error";
+            message = "Please enter a valid city.";
+            //calls login service error message method to handle error messages in one location
+            loginService.setErrorMessage(title, message);
+        }
+        return test;
+    };
+    //emailRegex method for validating the email input.
+    //takes string as a parameter
+    self.emailRegex = function(string) {
+        //email allows for letters,@, and .
+        var exp = /\S+@\S+\.\S+/;
+        var test = exp.test(string);
+        if (test === false) {
+            var title = "Form Error";
+            var message = "Please enter a valid email.";
+            //calls login service error message method to handle error messages in one location
+            loginService.setErrorMessage(title, message);
+        }
+        return test;
+    };
+    //passwordRegex method for validating the password input.
+    //takes string as a parameter
+    self.passwordRegex = function(string) {
+        //regex allows for letters and numbers. Must have at least one number, one uppercase letter, and one lowercase letter, nad it must be at least 8 characters long
+        var exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        var test = exp.test(string);
+        if (test === false) {
+            var title = "Form Error";
+            var message = "Please enter a valid password. The password should have at least 1 uppercase letter, 1 lowercase letter, 1 number, and be at least 8 characters long.";
+            //calls login service error message method to handle error messages in one location
+            loginService.setErrorMessage(title, message);
+        }
+        return test;
+    };
+    //phoneRegex method for validating the phone input.
+    //takes string as a parameter
+    self.phoneRegex = function(string) {
+        //regex allows for numbers and dashes must follow a pattern and length
+        var exp = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+        var test = exp.test(string);
+        if (test === false) {
+            var title = "Form Error";
+            var message = "Please enter a valid phone number. Ex: 555-555-5555";
+            //calls login service error message method to handle error messages in one location
+            loginService.setErrorMessage(title, message);
+        }
+        return test;
+    };
+    //addressRegex method for validating the address input.
+    //takes string as a parameter
+    self.addressRegex = function(string) {
+        //regex allows for up to 5 numbers and must have at least one, uppercase and lowercase letters and periods
+        var exp = /\d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*\./;
+        var test = exp.test(string);
+        if (test === false) {
+            var title = "Form Error";
+            var message = "Please enter a valid address. Ex: 555 N. Maple Street";
+            //calls login service error message method to handle error messages in one location
+            loginService.setErrorMessage(title, message);
+        }
+        return test;
+    };
+    //zipRegex method for validating the zip input.
+    //takes string as a parameter
+    self.zipRegex = function(string) {
+        //regex allows for up to 5 numbers
+        var exp = /^[0-9]{5}$/;
+        var test = exp.test(string);
+        if (test === false) {
+            var title = "Form Error";
+            var message = "Please enter a valid zip code. Ex: 98495";
+            //calls login service error message method to handle error messages in one location
+            loginService.setErrorMessage(title, message);
+        }
+        return test;
+    };
 }]);
