@@ -498,7 +498,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //addressRegex method for validating the address input.
     //takes string as a parameter
     self.addressRegex = function(string) {
-        //regex allows for up to 5 numbers and must have at least one, uppercase and lowercase letters and periods
+        //regex allows for up to numbers, letters, periods, pound symbols, hyphens, and spaces
         var exp = /^[A-Za-z0-9'\.\#\-\s\,]*$/;
         var test = exp.test(string);
         if (test === false) {
