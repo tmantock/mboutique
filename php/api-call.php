@@ -41,7 +41,7 @@ function passwordRegex ($string) {
   $string = stripslashes($string);
   //returns a string with whitespace stripped from the beginning and end of string
   $string = trim($string);
-  $exp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/";
+  $exp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,50}$/";
   if(preg_match($exp,$string)){
     return true;
   } else {
@@ -73,7 +73,7 @@ function addressRegex ($string) {
   $string = stripslashes($string);
   //returns a string with whitespace stripped from the beginning and end of string
   $string = trim($string);
-  $exp = "/[A-Za-z0-9'\.\-\s\,]/";
+  $exp = "/^[A-Za-z0-9'\.\#\-\s\,]*$/";
   if(preg_match($exp,$string)){
     return true;
   } else {
@@ -170,7 +170,7 @@ function stateRegex ($string) {
   );
 
   foreach($states as $key=>$value){
-    if($value === $string){
+    if(strtolower($value) === strtolower($string)){
       return true;
     }
   }

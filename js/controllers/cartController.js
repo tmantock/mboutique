@@ -56,187 +56,248 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         self.checkCheckout();
     });
     //array of states
-    self.states = [{
-        name: 'Select a State',
-        addreviation: 'Select'
-    }, {
-        name: 'ALABAMA',
-        abbreviation: 'AL'
-    }, {
-        name: 'ALASKA',
-        abbreviation: 'AK'
-    }, {
-        name: 'AMERICAN SAMOA',
-        abbreviation: 'AS'
-    }, {
-        name: 'ARIZONA',
-        abbreviation: 'AZ'
-    }, {
-        name: 'ARKANSAS',
-        abbreviation: 'AR'
-    }, {
-        name: 'CALIFORNIA',
-        abbreviation: 'CA'
-    }, {
-        name: 'COLORADO',
-        abbreviation: 'CO'
-    }, {
-        name: 'CONNECTICUT',
-        abbreviation: 'CT'
-    }, {
-        name: 'DELAWARE',
-        abbreviation: 'DE'
-    }, {
-        name: 'DISTRICT OF COLUMBIA',
-        abbreviation: 'DC'
-    }, {
-        name: 'FEDERATED STATES OF MICRONESIA',
-        abbreviation: 'FM'
-    }, {
-        name: 'FLORIDA',
-        abbreviation: 'FL'
-    }, {
-        name: 'GEORGIA',
-        abbreviation: 'GA'
-    }, {
-        name: 'GUAM',
-        abbreviation: 'GU'
-    }, {
-        name: 'HAWAII',
-        abbreviation: 'HI'
-    }, {
-        name: 'IDAHO',
-        abbreviation: 'ID'
-    }, {
-        name: 'ILLINOIS',
-        abbreviation: 'IL'
-    }, {
-        name: 'INDIANA',
-        abbreviation: 'IN'
-    }, {
-        name: 'IOWA',
-        abbreviation: 'IA'
-    }, {
-        name: 'KANSAS',
-        abbreviation: 'KS'
-    }, {
-        name: 'KENTUCKY',
-        abbreviation: 'KY'
-    }, {
-        name: 'LOUISIANA',
-        abbreviation: 'LA'
-    }, {
-        name: 'MAINE',
-        abbreviation: 'ME'
-    }, {
-        name: 'MARSHALL ISLANDS',
-        abbreviation: 'MH'
-    }, {
-        name: 'MARYLAND',
-        abbreviation: 'MD'
-    }, {
-        name: 'MASSACHUSETTS',
-        abbreviation: 'MA'
-    }, {
-        name: 'MICHIGAN',
-        abbreviation: 'MI'
-    }, {
-        name: 'MINNESOTA',
-        abbreviation: 'MN'
-    }, {
-        name: 'MISSISSIPPI',
-        abbreviation: 'MS'
-    }, {
-        name: 'MISSOURI',
-        abbreviation: 'MO'
-    }, {
-        name: 'MONTANA',
-        abbreviation: 'MT'
-    }, {
-        name: 'NEBRASKA',
-        abbreviation: 'NE'
-    }, {
-        name: 'NEVADA',
-        abbreviation: 'NV'
-    }, {
-        name: 'NEW HAMPSHIRE',
-        abbreviation: 'NH'
-    }, {
-        name: 'NEW JERSEY',
-        abbreviation: 'NJ'
-    }, {
-        name: 'NEW MEXICO',
-        abbreviation: 'NM'
-    }, {
-        name: 'NEW YORK',
-        abbreviation: 'NY'
-    }, {
-        name: 'NORTH CAROLINA',
-        abbreviation: 'NC'
-    }, {
-        name: 'NORTH DAKOTA',
-        abbreviation: 'ND'
-    }, {
-        name: 'NORTHERN MARIANA ISLANDS',
-        abbreviation: 'MP'
-    }, {
-        name: 'OHIO',
-        abbreviation: 'OH'
-    }, {
-        name: 'OKLAHOMA',
-        abbreviation: 'OK'
-    }, {
-        name: 'OREGON',
-        abbreviation: 'OR'
-    }, {
-        name: 'PALAU',
-        abbreviation: 'PW'
-    }, {
-        name: 'PENNSYLVANIA',
-        abbreviation: 'PA'
-    }, {
-        name: 'PUERTO RICO',
-        abbreviation: 'PR'
-    }, {
-        name: 'RHODE ISLAND',
-        abbreviation: 'RI'
-    }, {
-        name: 'SOUTH CAROLINA',
-        abbreviation: 'SC'
-    }, {
-        name: 'SOUTH DAKOTA',
-        abbreviation: 'SD'
-    }, {
-        name: 'TENNESSEE',
-        abbreviation: 'TN'
-    }, {
-        name: 'TEXAS',
-        abbreviation: 'TX'
-    }, {
-        name: 'UTAH',
-        abbreviation: 'UT'
-    }, {
-        name: 'VERMONT',
-        abbreviation: 'VT'
-    }, {
-        name: 'VIRGIN ISLANDS',
-        abbreviation: 'VI'
-    }, {
-        name: 'VIRGINIA',
-        abbreviation: 'VA'
-    }, {
-        name: 'WASHINGTON',
-        abbreviation: 'WA'
-    }, {
-        name: 'WEST VIRGINIA',
-        abbreviation: 'WV'
-    }, {
-        name: 'WISCONSIN',
-        abbreviation: 'WI'
-    }, {
-        name: 'WYOMING',
-        abbreviation: 'WY'
-    }];
+    self.states = [
+        {
+            name: "Select a State",
+            "addreviation": "Select"
+        },
+        {
+            name: "Alabama",
+            abbreviation: "AL"
+        },
+        {
+            name: "Alaska",
+            abbreviation: "AK"
+        },
+        {
+            name: "American Samoa",
+            abbreviation: "AS"
+        },
+        {
+            name: "Arizona",
+            abbreviation: "AZ"
+        },
+        {
+            name: "Arkansas",
+            abbreviation: "AR"
+        },
+        {
+            name: "California",
+            abbreviation: "CA"
+        },
+        {
+            name: "Colorado",
+            abbreviation: "CO"
+        },
+        {
+            name: "Connecticut",
+            abbreviation: "CT"
+        },
+        {
+            name: "Delaware",
+            abbreviation: "DE"
+        },
+        {
+            name: "District of Columbia",
+            abbreviation: "DC"
+        },
+        {
+            name: "Federated States of Micronesia",
+            abbreviation: "FM"
+        },
+        {
+            name: "Florida",
+            abbreviation: "FL"
+        },
+        {
+            name: "Georgia",
+            abbreviation: "GA"
+        },
+        {
+            name: "Guam",
+            abbreviation: "GU"
+        },
+        {
+            name: "Hawaii",
+            abbreviation: "HI"
+        },
+        {
+            name: "Idaho",
+            abbreviation: "ID"
+        },
+        {
+            name: "Illinois",
+            abbreviation: "IL"
+        },
+        {
+            name: "Indiana",
+            abbreviation: "IN"
+        },
+        {
+            name: "Iowa",
+            abbreviation: "IA"
+        },
+        {
+            name: "Kansas",
+            abbreviation: "KS"
+        },
+        {
+            name: "Kentucky",
+            abbreviation: "KY"
+        },
+        {
+            name: "Louisiana",
+            abbreviation: "LA"
+        },
+        {
+            name: "Maine",
+            abbreviation: "ME"
+        },
+        {
+            name: "Marshall Islands",
+            abbreviation: "MH"
+        },
+        {
+            name: "Maryland",
+            abbreviation: "MD"
+        },
+        {
+            name: "Massachusetts",
+            abbreviation: "MA"
+        },
+        {
+            name: "Michigan",
+            abbreviation: "MI"
+        },
+        {
+            name: "Minnesota",
+            abbreviation: "MN"
+        },
+        {
+            name: "Mississippi",
+            abbreviation: "MS"
+        },
+        {
+            name: "Missouri",
+            abbreviation: "MO"
+        },
+        {
+            name: "Montana",
+            abbreviation: "MT"
+        },
+        {
+            name: "Nebraska",
+            abbreviation: "NE"
+        },
+        {
+            name: "Nevada",
+            abbreviation: "NV"
+        },
+        {
+            name: "New Hampshire",
+            abbreviation: "NH"
+        },
+        {
+            name: "New Jersey",
+            abbreviation: "NJ"
+        },
+        {
+            name: "New Mexico",
+            abbreviation: "NM"
+        },
+        {
+            name: "New York",
+            abbreviation: "NY"
+        },
+        {
+            name: "North Carolina",
+            abbreviation: "NC"
+        },
+        {
+            name: "North Dakota",
+            abbreviation: "ND"
+        },
+        {
+            name: "Northern Mariana Islands",
+            abbreviation: "MP"
+        },
+        {
+            name: "Ohio",
+            abbreviation: "OH"
+        },
+        {
+            name: "Oklahoma",
+            abbreviation: "OK"
+        },
+        {
+            name: "Oregon",
+            abbreviation: "OR"
+        },
+        {
+            name: "Palau",
+            abbreviation: "PW"
+        },
+        {
+            name: "Pennsylvania",
+            abbreviation: "PA"
+        },
+        {
+            name: "Puerto Rico",
+            abbreviation: "PR"
+        },
+        {
+            name: "Rhode Island",
+            abbreviation: "RI"
+        },
+        {
+            name: "South Carolina",
+            abbreviation: "SC"
+        },
+        {
+            name: "South Dakota",
+            abbreviation: "SD"
+        },
+        {
+            name: "Tennessee",
+            abbreviation: "TN"
+        },
+        {
+            name: "Texas",
+            abbreviation: "TX"
+        },
+        {
+            name: "Utah",
+            abbreviation: "UT"
+        },
+        {
+            name: "Vermont",
+            abbreviation: "VT"
+        },
+        {
+            name: "Virgin Islands",
+            abbreviation: "VI"
+        },
+        {
+            name: "Virginia",
+            abbreviation: "VA"
+        },
+        {
+            name: "Washington",
+            abbreviation: "WA"
+        },
+        {
+            name: "West Virginia",
+            abbreviation: "WV"
+        },
+        {
+            name: "Wisconsin",
+            abbreviation: "WI"
+        },
+        {
+            name: "Wyoming",
+            abbreviation: "WY"
+        }
+    ];
     //customer object that is sent for login
     self.customer = {
         name: '',
@@ -246,7 +307,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         phone: '',
         address: '',
         city: '',
-        state: '',
+        state: 'Select a State',
         zip: ''
     };
     //check method for handling a login attempt
@@ -258,6 +319,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
             for (var index in self.customer) {
                 self.customer[index] = '';
             }
+            self.customer.address = 'Select a State'
             $("#password-modal").modal('hide');
         }
         //if the loging attempt is unsuccessful then show the user the error message
@@ -356,7 +418,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         }
         //if they are a new customer then call these regex methods, if they all return true then the validate method returns true
         if (boolean === true) {
-            if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip)) {
+            if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address)) {
                 return true;
             }
         }
@@ -409,7 +471,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //takes string as a parameter
     self.passwordRegex = function(string) {
         //regex allows for letters and numbers. Must have at least one number, one uppercase letter, and one lowercase letter, nad it must be at least 8 characters long
-        var exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        var exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,50}$/;
         var test = exp.test(string);
         if (test === false) {
             var title = "Form Error";
@@ -436,8 +498,8 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //addressRegex method for validating the address input.
     //takes string as a parameter
     self.addressRegex = function(string) {
-        //regex allows for up to 5 numbers and must have at least one, uppercase and lowercase letters and periods
-        var exp = /\d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*\./;
+        //regex allows for up to numbers, letters, periods, pound symbols, hyphens, and spaces
+        var exp = /^[A-Za-z0-9'\.\#\-\s\,]*$/;
         var test = exp.test(string);
         if (test === false) {
             var title = "Form Error";
