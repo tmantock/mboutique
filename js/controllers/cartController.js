@@ -307,7 +307,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         phone: '',
         address: '',
         city: '',
-        state: '',
+        state: 'Select a State',
         zip: ''
     };
     //check method for handling a login attempt
@@ -319,6 +319,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
             for (var index in self.customer) {
                 self.customer[index] = '';
             }
+            self.customer.address = 'Select a State'
             $("#password-modal").modal('hide');
         }
         //if the loging attempt is unsuccessful then show the user the error message
@@ -417,7 +418,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         }
         //if they are a new customer then call these regex methods, if they all return true then the validate method returns true
         if (boolean === true) {
-            if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip)) {
+            if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address)) {
                 return true;
             }
         }
@@ -498,7 +499,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //takes string as a parameter
     self.addressRegex = function(string) {
         //regex allows for up to 5 numbers and must have at least one, uppercase and lowercase letters and periods
-        var exp = /\d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*\./;
+        var exp = /^[A-Za-z0-9'\.\#\-\s\,]*$/;
         var test = exp.test(string);
         if (test === false) {
             var title = "Form Error";
