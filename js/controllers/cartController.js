@@ -19,8 +19,12 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     $scope.name = loginService.getName();
     //retreive the checkout array from the macaron service
     $scope.checkout = macaronCart.generateCheckout();
+    //retrieve the checkout total from the macaron service
+    $scope.total = macaronCart.getTotal();
+    //retrieve the checkout tax from the macaron service
+    $scope.tax = macaronCart.getTax();
     //retrieve the checkout total form the macaron service
-    $scope.total = macaronCart.calculateTotal();
+    $scope.shipping = macaronCart.getShipping();
     //retrieve the password error message from the login service on bad attempt
     $scope.passwordMessage = loginService.getPasswordMessage();
     self.checkoutStatus = null;
@@ -28,11 +32,15 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     self.showSignUp = false;
     self.showSignIn = false;
     self.update = false;
+    self.shipping_time = 2;
+    self.shipping = [2,3,5];
     //Eventhandler for handling a broadcast message that is sent by the macaron service whenever the macaron array has been altered
     $scope.$on('handleBroadcast', function() {
         //update the macaron array, item count, cart total, and checkout array on any pertinent changes
         $scope.macarons = macaronCart.macarons;
         $scope.cart = macaronCart.itemCount;
+        $scope.tax = macaronCart.tax;
+        $scope.shipping = macaronCart.shipping;
         $scope.total = macaronCart.total;
         $scope.checkout = macaronCart.checkoutArray;
     });
@@ -79,6 +87,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     self.check = function() {
         //if a login attempt is successful then show the user the checkout page and empty the customer oject
         if ($scope.status === true) {
+            self.calculateCost();
             self.showSignUp = false;
             self.showSignIn = false;
             self.update = false;
@@ -111,6 +120,8 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     self.resetCart = function() {
         $scope.cart = 0;
         $scope.total = 0;
+        $scope.tax = 0;
+        $scope.shipping = 0;
         for (var i = 0; i < $scope.macarons.length; i++) {
             $scope.macarons[i].count = 0;
         }
@@ -121,7 +132,10 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //checkout method for calling the cart service's own checkout method.
     //send the the authentication token, cart, item count, and total
     self.checkout = function() {
-        cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, $scope.total);
+        cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, self.shipping_time, $scope.total);
+    };
+    self.calculateCost = function () {
+      macaronCart.calculateFinalCost(self.shipping_time,self.dbUser.state);
     };
     //checkCheckout method for handling teh response of a checkout attempt
     self.checkCheckout = function() {
