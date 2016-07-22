@@ -1,5 +1,5 @@
 //cartController is initialized for managing data within the cart page
-app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'loginService', function($scope, macaronCart, cartCheckout, loginService) {
+app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'loginService', 'stateService', function($scope, macaronCart, cartCheckout, loginService, stateService) {
     //self is declared to keep track of this
     var self = this;
     //retrieve the authentication token from the login service
@@ -19,8 +19,12 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     $scope.name = loginService.getName();
     //retreive the checkout array from the macaron service
     $scope.checkout = macaronCart.generateCheckout();
+    //retrieve the checkout total from the macaron service
+    $scope.total = macaronCart.getTotal();
+    //retrieve the checkout tax from the macaron service
+    $scope.tax = macaronCart.getTax();
     //retrieve the checkout total form the macaron service
-    $scope.total = macaronCart.calculateTotal();
+    $scope.shipping = macaronCart.getShipping();
     //retrieve the password error message from the login service on bad attempt
     $scope.passwordMessage = loginService.getPasswordMessage();
     self.checkoutStatus = null;
@@ -28,11 +32,15 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     self.showSignUp = false;
     self.showSignIn = false;
     self.update = false;
+    self.shipping_time = 2;
+    self.shipping = [2,3,5];
     //Eventhandler for handling a broadcast message that is sent by the macaron service whenever the macaron array has been altered
     $scope.$on('handleBroadcast', function() {
         //update the macaron array, item count, cart total, and checkout array on any pertinent changes
         $scope.macarons = macaronCart.macarons;
         $scope.cart = macaronCart.itemCount;
+        $scope.tax = macaronCart.tax;
+        $scope.shipping = macaronCart.shipping;
         $scope.total = macaronCart.total;
         $scope.checkout = macaronCart.checkoutArray;
     });
@@ -60,248 +68,9 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         self.checkCheckout();
     });
     //array of states
-    self.states = [
-        {
-            name: "Select a State",
-            "addreviation": "Select"
-        },
-        {
-            name: "Alabama",
-            abbreviation: "AL"
-        },
-        {
-            name: "Alaska",
-            abbreviation: "AK"
-        },
-        {
-            name: "American Samoa",
-            abbreviation: "AS"
-        },
-        {
-            name: "Arizona",
-            abbreviation: "AZ"
-        },
-        {
-            name: "Arkansas",
-            abbreviation: "AR"
-        },
-        {
-            name: "California",
-            abbreviation: "CA"
-        },
-        {
-            name: "Colorado",
-            abbreviation: "CO"
-        },
-        {
-            name: "Connecticut",
-            abbreviation: "CT"
-        },
-        {
-            name: "Delaware",
-            abbreviation: "DE"
-        },
-        {
-            name: "District of Columbia",
-            abbreviation: "DC"
-        },
-        {
-            name: "Federated States of Micronesia",
-            abbreviation: "FM"
-        },
-        {
-            name: "Florida",
-            abbreviation: "FL"
-        },
-        {
-            name: "Georgia",
-            abbreviation: "GA"
-        },
-        {
-            name: "Guam",
-            abbreviation: "GU"
-        },
-        {
-            name: "Hawaii",
-            abbreviation: "HI"
-        },
-        {
-            name: "Idaho",
-            abbreviation: "ID"
-        },
-        {
-            name: "Illinois",
-            abbreviation: "IL"
-        },
-        {
-            name: "Indiana",
-            abbreviation: "IN"
-        },
-        {
-            name: "Iowa",
-            abbreviation: "IA"
-        },
-        {
-            name: "Kansas",
-            abbreviation: "KS"
-        },
-        {
-            name: "Kentucky",
-            abbreviation: "KY"
-        },
-        {
-            name: "Louisiana",
-            abbreviation: "LA"
-        },
-        {
-            name: "Maine",
-            abbreviation: "ME"
-        },
-        {
-            name: "Marshall Islands",
-            abbreviation: "MH"
-        },
-        {
-            name: "Maryland",
-            abbreviation: "MD"
-        },
-        {
-            name: "Massachusetts",
-            abbreviation: "MA"
-        },
-        {
-            name: "Michigan",
-            abbreviation: "MI"
-        },
-        {
-            name: "Minnesota",
-            abbreviation: "MN"
-        },
-        {
-            name: "Mississippi",
-            abbreviation: "MS"
-        },
-        {
-            name: "Missouri",
-            abbreviation: "MO"
-        },
-        {
-            name: "Montana",
-            abbreviation: "MT"
-        },
-        {
-            name: "Nebraska",
-            abbreviation: "NE"
-        },
-        {
-            name: "Nevada",
-            abbreviation: "NV"
-        },
-        {
-            name: "New Hampshire",
-            abbreviation: "NH"
-        },
-        {
-            name: "New Jersey",
-            abbreviation: "NJ"
-        },
-        {
-            name: "New Mexico",
-            abbreviation: "NM"
-        },
-        {
-            name: "New York",
-            abbreviation: "NY"
-        },
-        {
-            name: "North Carolina",
-            abbreviation: "NC"
-        },
-        {
-            name: "North Dakota",
-            abbreviation: "ND"
-        },
-        {
-            name: "Northern Mariana Islands",
-            abbreviation: "MP"
-        },
-        {
-            name: "Ohio",
-            abbreviation: "OH"
-        },
-        {
-            name: "Oklahoma",
-            abbreviation: "OK"
-        },
-        {
-            name: "Oregon",
-            abbreviation: "OR"
-        },
-        {
-            name: "Palau",
-            abbreviation: "PW"
-        },
-        {
-            name: "Pennsylvania",
-            abbreviation: "PA"
-        },
-        {
-            name: "Puerto Rico",
-            abbreviation: "PR"
-        },
-        {
-            name: "Rhode Island",
-            abbreviation: "RI"
-        },
-        {
-            name: "South Carolina",
-            abbreviation: "SC"
-        },
-        {
-            name: "South Dakota",
-            abbreviation: "SD"
-        },
-        {
-            name: "Tennessee",
-            abbreviation: "TN"
-        },
-        {
-            name: "Texas",
-            abbreviation: "TX"
-        },
-        {
-            name: "Utah",
-            abbreviation: "UT"
-        },
-        {
-            name: "Vermont",
-            abbreviation: "VT"
-        },
-        {
-            name: "Virgin Islands",
-            abbreviation: "VI"
-        },
-        {
-            name: "Virginia",
-            abbreviation: "VA"
-        },
-        {
-            name: "Washington",
-            abbreviation: "WA"
-        },
-        {
-            name: "West Virginia",
-            abbreviation: "WV"
-        },
-        {
-            name: "Wisconsin",
-            abbreviation: "WI"
-        },
-        {
-            name: "Wyoming",
-            abbreviation: "WY"
-        }
-    ];
+    self.states = stateService.success(function (data) {
+      self.states = data;
+    });
     //customer object that is sent for login
     self.customer = {
         name: '',
@@ -318,6 +87,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     self.check = function() {
         //if a login attempt is successful then show the user the checkout page and empty the customer oject
         if ($scope.status === true) {
+            self.calculateCost();
             self.showSignUp = false;
             self.showSignIn = false;
             self.update = false;
@@ -350,6 +120,8 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     self.resetCart = function() {
         $scope.cart = 0;
         $scope.total = 0;
+        $scope.tax = 0;
+        $scope.shipping = 0;
         for (var i = 0; i < $scope.macarons.length; i++) {
             $scope.macarons[i].count = 0;
         }
@@ -360,7 +132,10 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //checkout method for calling the cart service's own checkout method.
     //send the the authentication token, cart, item count, and total
     self.checkout = function() {
-        cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, $scope.total);
+        cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, self.shipping_time, $scope.total);
+    };
+    self.calculateCost = function () {
+      macaronCart.calculateFinalCost(self.shipping_time,self.dbUser.state);
     };
     //checkCheckout method for handling teh response of a checkout attempt
     self.checkCheckout = function() {

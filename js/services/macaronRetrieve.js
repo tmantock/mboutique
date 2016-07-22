@@ -14,6 +14,10 @@ app.factory("macaronCart", ["$http", "$log", "$rootScope", function($http, $log,
     cart.checkoutArray = [];
 
     cart.total = 0;
+
+    cart.tax = 0;
+
+    cart.shipping = 0;
     //retrieveMacarons method retrieving the macaron array on request. Returns the macaron array
     cart.retrieveMacarons = function() {
         return cart.macarons;
@@ -61,6 +65,9 @@ app.factory("macaronCart", ["$http", "$log", "$rootScope", function($http, $log,
         //return the checkoutArray
         return cart.checkoutArray;
     };
+    cart.calculateFinalCost = function (shipping,state) {
+      cart.httpCalculate(cart.checkoutArray,shipping,state);
+    };
     //updateMacarons method takes in an array as a parameter. Sets the local macaron array to the array it was sent calls other methods to update the item count, total, and checkout array, then calls the broadcast function to transmit the message
     cart.updateMacarons = function(array) {
         cart.macarons = array;
@@ -79,6 +86,18 @@ app.factory("macaronCart", ["$http", "$log", "$rootScope", function($http, $log,
         }
         cart.itemCount = counter;
     };
+    //getTotal method to return cart total
+    cart.getTotal = function () {
+      return cart.total;
+    };
+    //getTax method to return cart tax
+    cart.getTax = function () {
+      return cart.tax;
+    };
+    //getShipping method to return cart shipping
+    cart.getShipping = function () {
+      return cart.shipping;
+    };
     //calculateTotal method for calculating the cart total
     cart.calculateTotal = function() {
         var total = 0;
@@ -87,8 +106,6 @@ app.factory("macaronCart", ["$http", "$log", "$rootScope", function($http, $log,
             total += cart.checkoutArray[i].cost * cart.checkoutArray[i].count;
         }
         cart.total = total;
-        //returns the cart total
-        return cart.total;
     };
     //broadcastItem method for broadcasting any changes to controllers with a handler
     cart.broadcastItem = function() {
@@ -130,6 +147,31 @@ app.factory("macaronCart", ["$http", "$log", "$rootScope", function($http, $log,
                 $log.warn(err);
                 return err;
             });
+    };
+
+    cart.httpCalculate = function (array,shipping, state) {
+      return $http({
+        url: './php/calculate.php',
+        method: 'POST',
+        data: {
+          cart: array,
+          shipping_time: shipping,
+          state: state
+        },
+        headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(function successCallack(data){
+        var result = data.data;
+        if(result.success === true){
+          cart.total = result.total;
+          cart.tax = result.tax;
+          cart.shipping = result.shipping;
+          cart.broadcastItem();
+        }
+      },function errorCallback(err) {
+        $log.err(err);
+      });
     };
 
     cart.httpMacaron();

@@ -148,6 +148,26 @@
                               {{ macaron.cost * macaron.count | currency }}
                             </td>
                           </tr>
+                          <tr>
+                            <td>
+                              <strong>Tax</strong>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                              {{ tax | currency }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <strong>{{ crc.shipping_time }} Day Shipping</strong>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                              {{ shipping | currency }}
+                            </td>
+                          </tr>
                           <tr class="total-row">
                             <td>
                               <strong>Total:</strong>
@@ -192,6 +212,7 @@
     <script src="js/services/macaronRetrieve.js"></script>
     <script src="js/services/cartCheckout.js"></script>
     <script src="js/services/login.js"></script>
+    <script src="js/services/states.js"></script>
     <!-- Controllers -->
     <script src="js/controllers/dateController.js"></script>
     <script src="js/controllers/cartController.js"></script>
