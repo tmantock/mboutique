@@ -11,7 +11,7 @@
           <button type="button" class="btn btn-info col-sm-5 display-toggle" ng-click="displayToggle = !displayToggle">Show Cart</button>
           <button type="button" class="btn btn-active col-sm-5 col-sm-offset-1 display-toggle" ng-if="status" ng-click="crc.logout()">Logout</button>
         </div>
-        <div class = "choose-checkout" ng-hide=" crc.showSignUp || crc.showSignIn || status;">
+        <div class = "choose-checkout" ng-hide=" crc.showSignUp || crc.showSignIn || status || crc.update;">
           <h2 class="checkout-title">MBoutique requires that all customers be registered.</h2>
           <div class="col-sm-6 sign-up">
             <h3>If you're a new customer...</h3>
@@ -27,6 +27,7 @@
         <checkout ng-if="status"></checkout>
         <sign-up ng-if="crc.showSignUp"></sign-up>
         <sign-in ng-if="crc.showSignIn"></sign-in>
+        <update ng-if="crc.update"></update>
       </div>
 
     </div>
