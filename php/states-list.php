@@ -9,7 +9,7 @@ $states = [
 	'Colorado',
 	'Connecticut',
 	'Deleware',
-	'Distric of Columbia',
+	'District of Columbia',
 	'Florida',
 	'Georgia',
 	'Guam',
@@ -55,10 +55,4 @@ $states = [
 	'Wisconsin',
 	'Wyoming'
 ];
-
-if(empty($_POST)){
-  $states = json_encode($states);
-  header('Content-Type: application/json');
-  echo($states);
-}
 ?>

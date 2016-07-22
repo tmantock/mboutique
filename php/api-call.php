@@ -101,6 +101,7 @@ function zipRegex ($string) {
 }
 //function for validating the state
 function stateRegex ($string) {
+  global $states;
   //Returns a string with backslashes stripped off
   $string = stripslashes($string);
   //returns a string with whitespace stripped from the beginning and end of string
