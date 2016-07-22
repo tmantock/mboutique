@@ -15,6 +15,8 @@ app.factory("loginService", ["$http", "$log", "$rootScope", '$q', function($http
 
     login.count = 0;
 
+    login.user = {};
+
     login.passwordMessage = '';
     //getPasswordMessage method for returning the password message
     login.getPasswordMessage = function() {
@@ -39,6 +41,10 @@ app.factory("loginService", ["$http", "$log", "$rootScope", '$q', function($http
     //getName method for returning the customer's name
     login.getName = function() {
         return login.name;
+    };
+    //getUser method for returning the user info from database
+    login.getUser = function () {
+      return login.user;
     };
     //setErrorMessage method takes in two parameters a title and a message. The login status and error messages are set here by setting thos variables equal to the title and message parameters
     login.setErrorMessage = function(title, message) {
@@ -65,7 +71,7 @@ app.factory("loginService", ["$http", "$log", "$rootScope", '$q', function($http
         $rootScope.$broadcast('loginBroadcast');
     };
     //httpLogin method for making an http post request to the server for logging a customer in or creating a new user. Takes teh customer object and customer status as parameters
-    login.httpLogin = function(customer, boolean) {
+    login.httpLogin = function(customer, boolean, userReason) {
         //defer the login
         var deferred = $q.defer();
         return $http({
@@ -80,7 +86,8 @@ app.factory("loginService", ["$http", "$log", "$rootScope", '$q', function($http
                 city: customer.city,
                 state: customer.state,
                 zip: customer.zip,
-                status: boolean
+                status: boolean,
+                reason: userReason
             },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -94,6 +101,7 @@ app.factory("loginService", ["$http", "$log", "$rootScope", '$q', function($http
                 login.count = 0;
                 login.token = result.token;
                 login.name = result.name;
+                login.user = result.user;
                 $log.log("User Data Retrieved");
             }
             //if server returned an unsuccessful message

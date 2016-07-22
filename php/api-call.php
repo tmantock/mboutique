@@ -129,6 +129,8 @@ function login () {
   $state = $request->state;
   $zip = $request->zip;
   $status = $request->status;
+  $reason = $request->reason;
+
   //if the email and regex passes
   if(emailRegex($email) && passwordRegex($password)){
     //convert password for interaction with database. This would not be displayed on Github in a production environment, however since the purpose of this project is to demostrate my knowledge, I have allowed it to be stored on Github for examination.
@@ -138,8 +140,22 @@ function login () {
     if($status === 'exist'){
       //Select all users from the database with the same email
       $user = $db -> query("SELECT `email` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."'");
+      if($reason === 'update' && phoneRegex($phone) && addressRegex($address) && nameRegex($city) && zipRegex($zip) && stateRegex($state) && $user -> num_rows === 1){
+        $query = "UPDATE `customers` SET `name`='$name',`phone_number`='$phone',`street_address`='$address',`city`='$city',`state`='$state',`zip`='$zip' WHERE `email`='$email'";
+        if(!mysqli_query($conn,$query)){
+          $return['success'] = false;
+          $return['error']['message'] = "Unable to update information";
+          //json_encode the $reruen array
+          $return = json_encode($return);
+          //set the header
+          header('Content-Type: application/json');
+          //echo the return to the client
+          echo($return);
+          exit();
+        }
+      }
       //if ther is a user in existence
-      if($user -> num_rows === 1) {
+      else if($reason === 'password' && $user -> num_rows === 1) {
         //Set the users password equal to the new password
         $db -> query("UPDATE `customers` SET `password` = '$password' WHERE `email` = '$email'");
       }
@@ -195,8 +211,10 @@ function login () {
     }
     //Select all users from the database with the matching email
     $user = $db -> query("SELECT `email`, `name` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."'");
+    //Select from user without the password
+    $userNoPassword = $db -> query("SELECT `email`, `name` , `street_address`, `zip`, `city`, `state`, `phone_number` FROM `customers` WHERE `email` = '".$email."'");
     //if there is a matching user
-    if($user -> num_rows === 1) {
+    if($user -> num_rows === 1 && $userNoPassword->num_rows === 1) {
       //Select all users with the matching email and password
       $password = $db -> query("SELECT `email` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."' AND `password` = '".$password."'");
       //if there is a matching user
@@ -208,11 +226,12 @@ function login () {
         $token = $token.uniqid('token',true).$time;
         $token = sha1($token);
 
-        $name = $user->fetch_assoc();
+        $user = $userNoPassword->fetch_assoc();
 
         $return['success'] = true;
         $return['token'] = $token;
-        $return['name'] = $name['name'];
+        $return['name'] = $user['name'];
+        $return['user'] = $user;
         //Select all tokens where the user's email match
         $user_token = $db -> query("SELECT * FROM `token` WHERE `email`='$email'");
         //if token already exists then update the token
