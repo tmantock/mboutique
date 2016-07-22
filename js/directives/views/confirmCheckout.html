@@ -1,6 +1,7 @@
 <h1 class="confirm-checkout">Welcome {{ name }}!</h1>
 <h2 class="confirm-checkout">Your total is {{ total | currency }}.</h1>
 <h2 class="confirm-checkout">Please press Checkout to complete your purchase.</h1>
+<h3 class="confirm-checkout">Your order will be shipped to {{ crc.dbUser.street_address }}, {{ crc.dbUser.city }}, {{ crc.dbUser.state }} {{ crc.dbUser.zip }}. If you would like to update your personal information please click <a ng-click="crc.updateInfo()">here</a>.</h3>
   <div class="container checkout table">
     <table class="table table-striped table-hover">
       <thead>

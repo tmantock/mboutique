@@ -7,6 +7,8 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //retrieve the error message and error title from the login service for use in the error modal
     self.errorTitle = loginService.getErrorTitle();
     self.errorMessage = loginService.getErrorMessage();
+    //retrieve teh user info from the database from the login service
+    self.dbUser = loginService.getUser();
     //retrieve the status of a login attempt from the login service
     $scope.status = loginService.getStatus();
     //retrieve the macaron array form the macaron service
@@ -25,6 +27,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     $scope.orderNumber = '';
     self.showSignUp = false;
     self.showSignIn = false;
+    self.update = false;
     //Eventhandler for handling a broadcast message that is sent by the macaron service whenever the macaron array has been altered
     $scope.$on('handleBroadcast', function() {
         //update the macaron array, item count, cart total, and checkout array on any pertinent changes
@@ -40,6 +43,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         $scope.token = loginService.token;
         self.errorTitle = loginService.errorTitle;
         self.errorMessage = loginService.errorMessage;
+        self.dbUser = loginService.user;
         $scope.status = loginService.status;
         $scope.name = loginService.name;
         $scope.passwordMessage = loginService.passwordMessage;
@@ -316,10 +320,11 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         if ($scope.status === true) {
             self.showSignUp = false;
             self.showSignIn = false;
+            self.update = false;
             for (var index in self.customer) {
                 self.customer[index] = '';
             }
-            self.customer.address = 'Select a State'
+            self.customer.state = 'Select a State';
             $("#password-modal").modal('hide');
         }
         //if the loging attempt is unsuccessful then show the user the error message
@@ -382,51 +387,75 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //login method for sending the the customer to the login service for a login attempt
     self.login = function() {
         //if the validate method returns true then send the the customer to the login service along wih their status (new or existing)
-        if (self.validate(false)) {
-            loginService.httpLogin(self.customer, true);
+        if (self.validate('login')) {
+            loginService.httpLogin(self.customer, true, null);
         }
     };
     //login method for sendin the new customer to the login service. This method is alos used to handle setting up a new password for teh customer in teh event they forgot their password
     self.newCustomer = function(status) {
         //if the password and password confirmations pass tehn move on
         if (self.customer.password == self.customer.confirm) {
-            //if it's a new customer and the validate method returns true then send teh customer to the login service with their status
-            if (status === 1 && self.validate(true)) {
-                loginService.httpLogin(self.customer, false);
+            //if it's a new customer and the validate method returns true then send the customer to the login service with their status
+            if (status === 1 && self.validate('new')) {
+                loginService.httpLogin(self.customer, false, null);
             }
-            //if it's an existing customer and the validate method returns true then send teh customer with a status of 'exist'
-            else if (status === 0 && self.validate(false)) {
-                loginService.httpLogin(self.customer, 'exist');
+            //if it's an existing customer who needs to update their password and the validate method returns true then send the customer with a status of 'exist' and reason of password
+            else if (status === 0 && self.validate('password')) {
+                loginService.httpLogin(self.customer, 'exist','password');
             }
         }
         //if the passwords do not match then display the error message to the user
         else {
-            $scope.modalText = "Error! Please make sure that passwords are matching.";
-            $scope.modalTile = "Login Error";
+            $("#modal-text").text("Error! Please make sure that passwords are matching.");
+            $("#modal-title").text("Login Error");
             $("#modal").modal("show");
         }
+    };
+    //updateInfo method for allowing the user to change their information
+    self.updateInfo = function () {
+      self.customer.name = self.dbUser.name;
+      self.customer.email = self.dbUser.email;
+      self.customer.address = self.dbUser.street_address;
+      self.customer.zip = self.dbUser.zip;
+      self.customer.state = self.dbUser.state;
+      self.customer.city = self.dbUser.city;
+      self.customer.phone = self.dbUser.phone_number;
+      $scope.status = false;
+      self.update = true;
+    };
+    self.confirmUpdate = function () {
+      //if it's an existing customer who wants to update their information and the validate method returns true then send the customer with a status of 'exist' and reason of update
+      if(self.validate('update')) {
+        loginService.httpLogin(self.customer,'exist','update');
+      }
     };
     //logout method calls the login service's own logout method
     self.logout = function() {
         loginService.logout();
     };
-    //validate method for validating the user's inputs. takes in one parameter a boolean to determine which regex methods to use
-    self.validate = function(boolean) {
+    //validate method for validating the user's inputs. takes in one parameter a reason to determine which regex methods to use
+    self.validate = function(reason) {
         //for loop for trimming the whitespaces/spaces of an inpput
         for (var index in self.customer) {
             self.customer[index].trim();
         }
         //if they are a new customer then call these regex methods, if they all return true then the validate method returns true
-        if (boolean === true) {
+        if (reason === 'new') {
             if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address)) {
                 return true;
             }
         }
         //if they are an existing customer then call on the regex methods for email and password only if they return true then the validate method returns true
-        else if (boolean === false) {
+        else if (reason === 'login' || reason === 'password') {
             if (self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password)) {
                 return true;
             }
+        }
+        //if the customer wants to update their information, check everything but the password and email
+        else if(reason === 'update') {
+          if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address) && self.passwordRegex(self.customer.password)) {
+              return true;
+          }
         }
     };
 
