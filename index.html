@@ -50,9 +50,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="modal-title">{{ modalTitle }}</h4>
+                    <h4 id = "modal-title"></h4>
                 </div>
                 <div class="modal-body">
                     <p>{{ modalText }}</p>
+                    <p id="modal-text"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
@@ -114,7 +116,7 @@
                     <h4 class="modal-title">Thank You {{ crc.name }}!</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Your Order# is {{ crc.orderNumber }}, and your order of delicious macarons will arrive in 2 days! Thank you for shooping at MBoutique. We hope to see you again!</p>
+                    <p>Your Order# is {{ crc.orderNumber }}, and your order of delicious macarons will arrive in 2 days at {{ crc.dbUser.street_address }}, {{ crc.dbUser.city }}, {{ crc.dbUser.state }} {{ crc.dbUser.zip }}! Thank you for shopping at MBoutique. We hope to see you again!</p>
                     <div class="container checkout table">
                       <table class="table table-striped table-hover">
                         <thead>
