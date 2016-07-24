@@ -28,9 +28,11 @@ $email = $row['email'];
 $user = $db->query("SELECT `state` FROM `customers` WHERE `email`='$email'");
 if($user->num_rows===1){
   $user = $user->fetch_assoc();
-  $shipping = shipping(intval($request->shipping_time));
+  $ship_calc = new Shipping(intval($request->shipping_time));
+  $shipping = $ship_calc->calculateShipping();
   $shippingDate = $shipping['date'];
-  $calculation = calculateCost($request->cart,$user['state'],$shipping['cost']);
+  $calculate = new Calculate($states,$cart,$state,$shipping['cost']);
+  $calculation = $calculate->totalCost();
   $orderTax = $calculation['tax'];
   $orderShippingCost = $calculation['shipping'];
   if(intval($calculation['total']) !== intval($orderTotal)){
