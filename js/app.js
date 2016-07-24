@@ -57,7 +57,11 @@ app.controller("mainController", ['macaronCart', '$log', '$scope','cartCheckout'
         $scope.cart = macaronCart.itemCount;
     });
 
-    // $scope.collapse = function () {
-    //   $scope.isCollapsed = true;
-    // };
+    self.collapse = function () {
+      if($scope.isCollapsed === true){
+        $scope.isCollapsed = false;
+      } else {
+        $scope.isCollapsed = true;
+      }
+    };
 }]);
