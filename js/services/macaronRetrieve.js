@@ -131,6 +131,8 @@ app.factory("macaronCart", ["$http", "$log", "$rootScope", function($http, $log,
                 var days = [];
                 for (var index in data) {
                     data[index].count = 0;
+                    //Cannot protect object due to Amgular adding $$hashKey to keep track of objects
+                    //Object.seal(data[index]);
                     if (parseInt(data[index].category) === 2) {
                         days.push(data[index]);
                     }
