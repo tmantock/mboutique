@@ -162,6 +162,7 @@ app.factory("macaronCart", ["$http", "$log", "$rootScope", function($http, $log,
         'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(function successCallack(data){
+        console.log(data);
         var result = data.data;
         if(result.success === true){
           cart.total = result.total;

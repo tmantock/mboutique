@@ -7,17 +7,17 @@ $request = json_decode($postdata);
 
 $state = $request->state;
 $cart = $request->cart;
-$shipping = shipping(intval($request->shipping_time));
+$ship_calc = new Shipping(intval($request->shipping_time));
+$shipping = $ship_calc->calculateShipping();
 
-$calculation = calculateCost($cart,$state,$shipping['cost']);
+$calculate = new Calculate($states,$cart,$state,$shipping['cost']);
+$calculation = $calculate->totalCost();
 
-if(!empty($state)){
-  $return =[];
-  $return['success'] = true;
-  $return['tax'] = $calculation['tax'];
-  $return['shipping'] = $calculation['shipping'];
-  $return['total'] = $calculation['total'];
-  header('Content-Type: application/json');
-  echo(json_encode($return));
-}
+$return =[];
+$return['success'] = true;
+$return['tax'] = $calculation['tax'];
+$return['shipping'] = $calculation['shipping'];
+$return['total'] = $calculation['total'];
+header('Content-Type: application/json');
+echo(json_encode($return));
 ?>
