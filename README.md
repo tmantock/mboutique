@@ -2,7 +2,9 @@
 
 MBoutique is a full e-commerce website dedicated to selling delicious Macarons.
 
-I made this website to demonstrate and practice the knowledge I have gained on Front-End and Back-End tecnologies. I wanted to make a visully apealling website that was functional as well.
+Note: This website does not take any form of payments. This website is purely for example purposes. They're far better and more secure services for making credit card transactions than a MySQL database.
+
+I made this website to demonstrate and practice the knowledge I have gained on Front-End and Back-End technologies. I wanted to make a visually appealing website that was functional as well.
 
 - This project features the LAMP stack.
 

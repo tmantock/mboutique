@@ -26,8 +26,8 @@ app.controller("contactController", ['$scope', 'macaronCart', 'cartCheckout', 'l
             target: '_blank'
         });
         //Text gets added to the modal and the a tag get appended to the modal.
-        $(".modal-title").html("Thank you for your message!");
-        $(".modal-body p").html("Thank you for your message. For demostratice purposes, the mail function has been disabled, since this is not a full deployed product. If you would like to see the code please visit the ").append(link);
+        $("#modal-title").html("Thank you for your message!");
+        $("#modal-text").html("Thank you for your message. For demonstration purposes, the mail function has been disabled, since this is not a fully deployed production website used by an actual company. I expect that that users will most likely use fake email accounts, which is perfectly fine, so it would be best to not have email functionality active. If you would like to see the code please see the mailer in the php folder by visiting the ").append(link);
         $("#modal").modal("show");
     };
     //method for clearing the contants of the inputs upon a successful message send
