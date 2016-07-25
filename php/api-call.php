@@ -142,10 +142,24 @@ function login () {
       //Select all users from the database with the same email
       $user = $db -> query("SELECT `email` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."'");
       if($reason === 'update' && phoneRegex($phone) && addressRegex($address) && nameRegex($city) && zipRegex($zip) && stateRegex($state) && $user -> num_rows === 1){
-        $query = "UPDATE `customers` SET `name`='$name',`phone_number`='$phone',`street_address`='$address',`city`='$city',`state`='$state',`zip`='$zip' WHERE `email`='$email'";
-        if(!mysqli_query($conn,$query)){
+        $pass_check = $db -> query("SELECT * FROM `customers` WHERE `email`='".$email."' AND `password`='".$password."'");
+        if($pass_check->num_rows===1){
+          $query = "UPDATE `customers` SET `name`='$name',`phone_number`='$phone',`street_address`='$address',`city`='$city',`state`='$state',`zip`='$zip' WHERE `email`='$email'";
+          if(!mysqli_query($conn,$query)){
+            $return['success'] = false;
+            $return['error']['message'] = "Unable to update information";
+            //json_encode the $reruen array
+            $return = json_encode($return);
+            //set the header
+            header('Content-Type: application/json');
+            //echo the return to the client
+            echo($return);
+            exit();
+          }
+        }
+        else {
           $return['success'] = false;
-          $return['error']['message'] = "Unable to update information";
+          $return['error']['message'] = "You have entered the wrong password";
           //json_encode the $reruen array
           $return = json_encode($return);
           //set the header
