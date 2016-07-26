@@ -5,7 +5,7 @@ require_once('states.php');
 require_once('calculate-function.php');
 //function for generating a unique order number
 function orderNumber () {
-  return uniqid('ORD',false);
+  return strtoupper(uniqid('ORD',false));
 }
 
 //result array set to be echoed later
