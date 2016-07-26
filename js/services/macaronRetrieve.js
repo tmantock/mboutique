@@ -72,8 +72,8 @@ app.factory("macaronCart", ["$http", "$log", "$rootScope", function($http, $log,
     cart.updateMacarons = function(array) {
         cart.macarons = array;
         cart.getItemCount();
-        cart.calculateTotal();
         cart.generateCheckout();
+        cart.calculateTotal();
         cart.broadcastItem();
     };
     //getItemCount method determing the number of macarons the user has added.
