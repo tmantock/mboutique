@@ -31,7 +31,7 @@ if($user->num_rows===1){
   $ship_calc = new Shipping(intval($request->shipping_time));
   $shipping = $ship_calc->calculateShipping();
   $shippingDate = $shipping['date'];
-  $calculate = new Calculate($states,$cart,$state,$shipping['cost']);
+  $calculate = new Calculate($states,$request->cart,$user['state'],$shipping['cost']);
   $calculation = $calculate->totalCost();
   $orderTax = $calculation['tax'];
   $orderShippingCost = $calculation['shipping'];
