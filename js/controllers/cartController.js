@@ -118,10 +118,10 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     };
     //resetCart method for setting all quantitiesand totals to zero
     self.resetCart = function() {
-        $scope.cart = 0;
-        $scope.total = 0;
-        $scope.tax = 0;
-        $scope.shipping = 0;
+        macaronCart.itemCount = 0;
+        macaronCart.total = 0;
+        macaronCart.tax = 0;
+        macaronCart.shipping = 0;
         for (var i = 0; i < $scope.macarons.length; i++) {
             $scope.macarons[i].count = 0;
         }
