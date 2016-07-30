@@ -1,5 +1,5 @@
 //Angular app is initiazlied
-var app = angular.module("mboutiqueApp", ['ngRoute','ngAnimate']);
+var app = angular.module("mboutiqueApp", ['ngRoute','ngAnimate','ui.bootstrap']);
 //Routes are set
 app.config(["$routeProvider", function($routeProvider) {
     $routeProvider
@@ -43,7 +43,7 @@ app.run(['$location', '$rootScope','$window', function($location, $rootScope, $w
     });
 }]);
 //default MainController is initialized
-app.controller("mainController", ['macaronCart', '$log', '$scope','cartCheckout', function(macaronCart, $log, $scope, cartCheckout) {
+app.controller("mainController", ['macaronCart', '$log', '$scope','cartCheckout','$timeout', function(macaronCart, $log, $scope, cartCheckout,$timeout) {
     //variable self set to this to keep track of this
     var self = this;
     //macaron array is retrieved from the macaron service
@@ -56,12 +56,14 @@ app.controller("mainController", ['macaronCart', '$log', '$scope','cartCheckout'
         //cart total is updated to the updated cart total
         $scope.cart = macaronCart.itemCount;
     });
-
+    //method for allowing the navbar to collapse when a link is pressed
     self.collapse = function () {
-      if($scope.isCollapsed === true){
-        $scope.isCollapsed = false;
-      } else {
-        $scope.isCollapsed = true;
-      }
+      $timeout(function () {
+        if($scope.navCollapsed === true){
+          $scope.navCollapsed = false;
+        } else {
+          $scope.navCollapsed = true;
+        }
+      }, 300);
     };
 }]);
