@@ -6,6 +6,19 @@ app.factory('cartCheckout', ["$log", "$http", "$q", "$rootScope", function($log,
     self.checkoutStatus = null;
 
     self.orderNumber = '';
+
+    self.shipping_time = 2;
+
+    self.errorTitle = '';
+
+    self.errorMessage = '';
+
+    self.setErrorMessage = function (title,message) {
+      self.errorTitle = title;
+      self.errorMessage = message;
+      self.checkoutStatus = false;
+      self.broadcastSuccess();
+    }
     //broadcastSuccess method for sending a message to any controller that has a handler for the message
     self.broadcastSuccess = function() {
         $rootScope.$broadcast('checkoutBroadcast');
@@ -40,6 +53,7 @@ app.factory('cartCheckout', ["$log", "$http", "$q", "$rootScope", function($log,
             var result = data.data.success;
             self.checkoutStatus = result.success;
             self.orderNumber = result.order_number;
+            self.shipping_time = result.shipping;
             //broadcast the message for a successful cart checkout
             self.broadcastSuccess();
             //return the deferred response

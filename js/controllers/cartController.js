@@ -64,6 +64,9 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         //updates checkout status on unsuccessful checkout attempt
         $scope.orderNumber = cartCheckout.orderNumber;
         self.checkoutStatus = cartCheckout.checkoutStatus;
+        self.shipping_time = cartCheckout.shipping_time;
+        self.errorTitle = cartCheckout.errorTitle;
+        self.errorMessage = cartCheckout.errorMessage;
         //checkCheckout method is called to handle a successful or unsuccessfulcheckout atttempt
         self.checkCheckout();
     });
@@ -132,10 +135,24 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //checkout method for calling the cart service's own checkout method.
     //send the the authentication token, cart, item count, and total
     self.checkout = function() {
-        cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, self.shipping_time, $scope.total);
+      cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, self.shipping_time, $scope.total);
     };
+    self.moveToCheckout = function () {
+      if($scope.status === true){
+        self.calculateCost();
+      } else if($scope.status === false){
+        
+      }
+    }
     self.calculateCost = function () {
-      macaronCart.calculateFinalCost(self.shipping_time,self.dbUser.state);
+      if($scope.checkout.length === 0){
+        var title = "Cart Error";
+        var message = "You cannot checkout with an empty cart";
+        cartCheckout.setErrorMessage(title,message);
+      }else{
+        self.disableCheckout = false;
+        macaronCart.calculateFinalCost(self.shipping_time,self.dbUser.state);
+      }
     };
     //checkCheckout method for handling teh response of a checkout attempt
     self.checkCheckout = function() {
@@ -147,6 +164,10 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         }
         //if the attempt failed then log the failed attempt in the console
         else if (self.checkoutStatus === false) {
+          $scope.modalTitle = self.errorTitle;
+          $scope.modalText = self.errorMessage;
+          self.disableCheckout = true;
+          $("#modal").modal('show');
             console.log("Error: On Checkout confirmation");
         }
     };
