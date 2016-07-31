@@ -141,7 +141,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
       if($scope.status === true){
         self.calculateCost();
       } else if($scope.status === false){
-        
+
       }
     }
     self.calculateCost = function () {
@@ -168,7 +168,6 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
           $scope.modalText = self.errorMessage;
           self.disableCheckout = true;
           $("#modal").modal('show');
-            console.log("Error: On Checkout confirmation");
         }
     };
     //canel method for setting all inputs to an empty string and hiding the respective forms either sign-up or sign-in takes in one parameter a boolean
