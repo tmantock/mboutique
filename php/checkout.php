@@ -79,6 +79,7 @@ else {
     //set the result success messages
     $result['success']['success'] = true;
     $result['success']['order_number'] = $orderNumber;
+    $result['success']['shipping'] = $request->shipping_time;
   }
   //if entering the data was unsuccessful, then set the error messages
   else {
