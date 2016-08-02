@@ -160,6 +160,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         if (self.checkoutStatus === true) {
             self.name = $scope.name;
             self.orderNumber = $scope.orderNumber;
+            self.disableCheckout = true;
             $("#reciept-modal").modal("show");
         }
         //if the attempt failed then log the failed attempt in the console
