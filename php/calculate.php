@@ -10,7 +10,7 @@ $cart = $request->cart;
 $ship_calc = new Shipping(intval($request->shipping_time));
 $shipping = $ship_calc->calculateShipping();
 
-$calculate = new Calculate($states,$cart,$state,$shipping['cost']);
+$calculate = new Calculate($states_tax,$cart,$state,$shipping['cost']);
 $calculation = $calculate->totalCost();
 
 $return =[];

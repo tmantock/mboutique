@@ -165,6 +165,7 @@ app.factory("macaronCart", ["$http", "$log", "$rootScope", function($http, $log,
         }
       }).then(function successCallack(data){
         var result = data.data;
+        console.log(result);
         if(result.success === true){
           cart.total = result.total;
           cart.tax = result.tax;

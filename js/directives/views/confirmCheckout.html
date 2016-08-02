@@ -2,7 +2,7 @@
 <h2 class="confirm-checkout">Your total is {{ total | currency }}.</h1>
 <h2 class="confirm-checkout">Please press Checkout to complete your purchase.</h1>
 <h3 class="confirm-checkout">Your order will be shipped to {{ crc.dbUser.street_address }}, {{ crc.dbUser.city }}, {{ crc.dbUser.state }} {{ crc.dbUser.zip }}. If you would like to update your personal information please click <a ng-click="crc.updateInfo()">here</a>.</h3>
-<h3>Please select your shipping time</h3>
+<h4>Please select your shipping time</h4>
 <div class="form-group col-lg-6 col-md-6 col-xs-12">
     <label for="state" class="col-lg-3 control-label">Shipping Days</label>
     <div class="col-lg-9">

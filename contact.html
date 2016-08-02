@@ -30,24 +30,26 @@
         <div class="form-group">
           <label for="inputName" class="col-sm-3 control-label">Name</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputName" placeholder="Full Name">
+            <input type="text" class="form-control" id="inputName" pattern="[a-zA-Z0-9\s]+" placeholder="Full Name" required>
           </div>
         </div>
         <div class="form-group">
           <label for="inputEmail" class="col-sm-3 control-label">Email</label>
           <div class="col-sm-9">
-            <input type="email" class="form-control" id="inputEmail" placeholder="Email Address">
+            <input type="email" class="form-control" id="inputEmail" placeholder="Email Address" required>
+            <span class="help-block">Ex. hello@mail.com</span>
           </div>
         </div>
         <div class="form-group">
           <label for="inputPhone" class="col-sm-3 control-label">Phone</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputPhone" placeholder="Phone Number">
+            <input type="text" class="form-control" id="inputPhone" pattern="\d{3}[\-]\d{3}[\-]\d{4}" placeholder="Phone Number" required>
+            <span class="help-block">Ex. 555-555-5555</span>
           </div>
           <div class="form-group">
             <label for="inputSubject" class="col-sm-3 control-label">Subject</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="inputSubject" placeholder="Phone Number">
+              <input type="text" class="form-control" id="inputSubject" pattern="[a-zA-Z0-9\s]+" placeholder="Phone Number" required>
             </div>
           </div>
           <div class="form-group">
