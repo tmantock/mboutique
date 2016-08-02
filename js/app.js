@@ -57,13 +57,14 @@ app.controller("mainController", ['macaronCart', '$log', '$scope','cartCheckout'
         $scope.cart = macaronCart.itemCount;
     });
     //method for allowing the navbar to collapse when a link is pressed
-    self.collapse = function () {
-      $timeout(function () {
-        if($scope.navCollapsed === true){
-          $scope.navCollapsed = false;
-        } else {
-          $scope.navCollapsed = true;
-        }
-      }, 300);
-    };
+    angular.element(document).ready(function() {
+        $('.navbar a.n_link').click(function() {
+            $timeout(function() {
+                var navbar_toggle = $('.navbar-toggle');
+                if (navbar_toggle.is(':visible')) {
+                    navbar_toggle.trigger('click');
+                }
+            }, 300);
+        });
+    });
 }]);

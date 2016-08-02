@@ -19,14 +19,14 @@
     <nav id = 'navbar' class = "navbar navbar-default" ng-controller="mainController as mc">
     <div class = 'container-fluid'>
         <div class = 'navbar-header'>
-            <button class = "navbar-toggle collapsed mdl-badge mdl-badge--overlap" id="nav-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+            <button class = "navbar-toggle collapsed mdl-badge mdl-badge--overlap" id="nav-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                 <span class = "icon-bar"></span>
                 <span class = "icon-bar"></span>
                 <span class = "icon-bar"></span>
             </button>
             <a class = 'navbar-brand' id ='brand' href="#welcome"> <img id = "logo-image" src = "./assets/images/logo.png"></a>
         </div>
-        <div uib-collapse="navCollapsed" class="navbar-collapse collapse navbar-responsive-collapse" id="navbar-collapse">
+        <div class="navbar-collapse collapse navbar-responsive-collapse" id="navbar-collapse">
             <ul class = 'nav navbar-nav navbar-right'>
               <li><a class="n_link" href="#welcome" ng-click="mc.collapse()">WELCOME</a></li>
               <li><a class="n_link" href="#macarons" ng-click="mc.collapse()">OUR MACARONS</a></li>
