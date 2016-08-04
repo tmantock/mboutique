@@ -229,9 +229,9 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         }
         //if the passwords do not match then display the error message to the user
         else {
-            $("#modal-text").text("Error! Please make sure that passwords are matching.");
-            $("#modal-title").text("Login Error");
-            $("#modal").modal("show");
+          var title = "Login Error";
+          var message = "Error! Please make sure that passwords are matching.";
+          loginService.setErrorMessage(title,message);
         }
     };
     //updateInfo method for allowing the user to change their information
