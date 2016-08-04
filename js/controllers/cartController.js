@@ -260,11 +260,22 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     self.validate = function(reason) {
         //for loop for trimming the whitespaces/spaces of an inpput
         for (var index in self.customer) {
-            self.customer[index].trim();
+          try{
+            if(typeof self.customer[index] !== 'undefined'){
+              self.customer[index].trim();
+            }else {
+              var title = "Error Message";
+              var message = "Please enter your values into the input fields.";
+              loginService.setErrorMessage(title,message);
+            }
+          } catch(err){
+            console.warn(err);
+          }
+
         }
         //if they are a new customer then call these regex methods, if they all return true then the validate method returns true
         if (reason === 'new') {
-            if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address)) {
+            if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.emailRegex(self.customer.email) && self.passwordRegex(self.customer.password) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address) && self.stateCheck(self.customer.state)) {
                 return true;
             }
         }
@@ -276,11 +287,11 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         }
         //if the customer wants to update their information, check everything but the password and email
         else if(reason === 'update') {
-          if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address) && self.passwordRegex(self.customer.password)) {
+          if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address) && self.passwordRegex(self.customer.password) && self.stateCheck(self.customer.state)) {
               return true;
           }
         } else if (reason === 'guest'){
-          if(self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address)){
+          if(self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address) && self.stateCheck(self.customer.state)){
             return true;
           }
         }
@@ -355,6 +366,12 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //takes string as a parameter
     self.addressRegex = function(string) {
         //regex allows for up to numbers, letters, periods, pound symbols, hyphens, and spaces
+        if(string === '' || typeof string === 'undefined'){
+          var title = "Form Error";
+          var message = "Please enter a valid address. Ex: 555 N. Maple Street";
+          loginService.setErrorMessage(title, message);
+          return false;
+        }
         var exp = /^[A-Za-z0-9'\.\#\-\s\,]*$/;
         var test = exp.test(string);
         if (test === false) {
@@ -379,4 +396,15 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         }
         return test;
     };
+
+    self.stateCheck = function (string) {
+      if(string === 'Select a State'){
+        var title = "Form Error";
+        var message = "Please select a state in the dropdwn select field";
+        loginService.setErrorMessage(title, message);
+        return false;
+      }else{
+        return true;
+      }
+    }
 }]);

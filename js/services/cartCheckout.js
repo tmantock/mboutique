@@ -51,7 +51,6 @@ app.factory('cartCheckout', ["$log", "$http", "$q", "$rootScope", function($log,
                 customer_status: status
             }
         }).then(function successCallack(data) {
-          console.log(data);
             //set the variables equal to what was recieved
             var result = data.data.success;
             self.checkoutStatus = result.success;
