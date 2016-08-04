@@ -132,6 +132,21 @@ $orderTotal = $request->total;
 $orderNumber = orderNumber();
 
 if($status === 'existing'){
+    //Select everything from the token table where the tokens match
+    $token_result = $db -> query("SELECT * FROM `token` WHERE `token`='$token'");
+    $row = $token_result->fetch_assoc();
+    $timestamp = $row['unix_timestamp'];
+    $email = $row['email'];
+    //check if the token has been issued for more than 30 minutes. If it has than echo the error message
+    if(($timestamp - time()) > 1800 ){
+      $result['success'] = false;
+      $result['error'] = true;
+      $result['error']['message'] = "Error: Your session has expired. Please sign in again.";
+      $result = json_encode($result);
+      header('Content-Type: application/json;charset=utf-8');
+      echo($result);
+      exit();
+    }
     $user = $db->query("SELECT `state` FROM `customers` WHERE `email`='$email'");
     $user = $user->fetch_assoc();
 }else if($status === 'guest'){
@@ -159,23 +174,6 @@ if(intval($calculation['total']) !== intval($orderTotal)){
 
 
 if($status === 'existing'){
-  //Select everything from the token table where the tokens match
-  $token_result = $db -> query("SELECT * FROM `token` WHERE `token`='$token'");
-  $row = $token_result->fetch_assoc();
-  $timestamp = $row['unix_timestamp'];
-  $email = $row['email'];
-  //check if the token has been issued for more than 30 minutes. If it has than echo the error message
-  if(($timestamp - time()) > 1800 ){
-    $result['success'] = false;
-    $result['error'] = true;
-    $result['error']['message'] = "Error: Your session has expired. Please sign in again.";
-    $result = json_encode($result);
-    header('Content-Type: application/json;charset=utf-8');
-    echo($result);
-    exit();
-  }
-  //if the token has been issued within 30 minutes
-  else {
     //Select all the customer data form the customers tabler where email matches
     $user = $db -> query("SELECT * FROM `customers` WHERE `email` = '$email'");
     $customer_info = $user->fetch_assoc();
@@ -205,7 +203,6 @@ if($status === 'existing'){
       $result['success'] = false;
       $result['message'] = "Error: Unable to add order!";
     }
-  }
 } else if($status === 'guest'){
   $id = uniqid('mbq',false).time();
   $name = $request->customer->name;
