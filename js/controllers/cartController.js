@@ -32,6 +32,8 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     self.showSignUp = false;
     self.showSignIn = false;
     self.update = false;
+    self.guest = false;
+    self.guestCheckoutStatus = false;
     self.shipping_time = 2;
     self.shipping = [2,3,5];
     //Eventhandler for handling a broadcast message that is sent by the macaron service whenever the macaron array has been altered
@@ -135,7 +137,12 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
     //checkout method for calling the cart service's own checkout method.
     //send the the authentication token, cart, item count, and total
     self.checkout = function() {
-      cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, self.shipping_time, $scope.total);
+      if(self.guestCheckoutStatus === true){
+        cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, self.shipping_time, $scope.total, self.customer, 'guest');
+      } else {
+        cartCheckout.checkout($scope.token, $scope.checkout, $scope.cart, self.shipping_time, $scope.total, null, 'existing');
+      }
+
     };
     self.moveToCheckout = function () {
       if($scope.status === true){
@@ -160,6 +167,7 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         if (self.checkoutStatus === true) {
             self.name = $scope.name;
             self.orderNumber = $scope.orderNumber;
+            self.disableCheckout = true;
             $("#reciept-modal").modal("show");
         }
         //if the attempt failed then log the failed attempt in the console
@@ -177,8 +185,28 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
             self.showSignUp = false;
         } else if (option === 1) {
             self.showSignIn = false;
+        } else if(option === 2){
+          self.update = false;
+        } else if(option === 3){
+          self.guest = false;
         }
     };
+    self.guestProgress = function () {
+      if(self.validate('guest')){
+        $scope.name = self.customer.name;
+        self.name = self.customer.name;
+        self.dbUser.street_address = self.customer.address;
+        self.dbUser.city = self.customer.city;
+        self.dbUser.state = self.customer.state;
+        self.dbUser.zip = self.customer.zip;
+        self.calculateCost();
+        self.guest = false;
+        self.guestCheckoutStatus = true;
+        $scope.status = true;
+      } else {
+        self.guestCheckoutStatus = false;
+      }
+    }
     //login method for sending the the customer to the login service for a login attempt
     self.login = function() {
         //if the validate method returns true then send the the customer to the login service along wih their status (new or existing)
@@ -250,6 +278,10 @@ app.controller("cartController", ['$scope', 'macaronCart', 'cartCheckout', 'logi
         else if(reason === 'update') {
           if (self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address) && self.passwordRegex(self.customer.password)) {
               return true;
+          }
+        } else if (reason === 'guest'){
+          if(self.nameRegex(self.customer.name, true) && self.nameRegex(self.customer.city, false) && self.phoneRegex(self.customer.phone) && self.zipRegex(self.customer.zip) && self.addressRegex(self.customer.address)){
+            return true;
           }
         }
     };

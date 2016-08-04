@@ -101,13 +101,13 @@ function zipRegex ($string) {
 }
 //function for validating the state
 function stateRegex ($string) {
-  global $states;
+  global $states_list;
   //Returns a string with backslashes stripped off
   $string = stripslashes($string);
   //returns a string with whitespace stripped from the beginning and end of string
   $string = trim($string);
-  for($i = 0; $i < count($states); $i++){
-    if(strtolower($states[$i]) === strtolower($string)){
+  for($i = 0; $i < count($states_list); $i++){
+    if(strtolower($states_list[$i]) === strtolower($string)){
       return true;
     }
   }
@@ -141,7 +141,7 @@ function login () {
     if($status === 'exist'){
       //Select all users from the database with the same email
       $user = $db -> query("SELECT `email` , `password`, `user_id` FROM `customers` WHERE `email` = '".$email."'");
-      if($reason === 'update' && phoneRegex($phone) && addressRegex($address) && nameRegex($city) && zipRegex($zip) && stateRegex($state) && $user -> num_rows === 1){
+      if($reason === 'update' && phoneRegex($phone) && addressRegex($address) && nameRegex($city) && zipRegex($zip) && stateRegex($state) && nameRegex(name) && $user -> num_rows === 1){
         $pass_check = $db -> query("SELECT * FROM `customers` WHERE `email`='".$email."' AND `password`='".$password."'");
         if($pass_check->num_rows===1){
           $query = "UPDATE `customers` SET `name`='$name',`phone_number`='$phone',`street_address`='$address',`city`='$city',`state`='$state',`zip`='$zip' WHERE `email`='$email'";

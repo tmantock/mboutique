@@ -1,5 +1,5 @@
 <?php
-$states = [
+$states_tax = [
 	'Alabamba' => 0.04,
 	'Alaska' => 0.00,
 	'Arizona' => 0.066,

@@ -24,7 +24,7 @@ app.factory('cartCheckout', ["$log", "$http", "$q", "$rootScope", function($log,
         $rootScope.$broadcast('checkoutBroadcast');
     };
     //checkout method makes an http request to the server. Takes the authentication token, checkout array, cart quantity, and cart total as parameters
-    self.checkout = function(token, array, itemCount, shipping, total) {
+    self.checkout = function(token, array, itemCount, shipping, total, customer, status) {
         //creates the cart object to be sent to the server
         var cart = {};
         //loops over the array and changes each index into a key value pair in the cart object
@@ -46,9 +46,12 @@ app.factory('cartCheckout', ["$log", "$http", "$q", "$rootScope", function($log,
                 shipping_time: shipping,
                 quantity: itemCount,
                 cart: cart,
-                total: total
+                total: total,
+                customer: customer,
+                customer_status: status
             }
         }).then(function successCallack(data) {
+          console.log(data);
             //set the variables equal to what was recieved
             var result = data.data.success;
             self.checkoutStatus = result.success;

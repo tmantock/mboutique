@@ -1,5 +1,5 @@
 <?php
-$states = [
+$states_list = [
   'Select a State',
 	'Alabamba',
 	'Alaska',
