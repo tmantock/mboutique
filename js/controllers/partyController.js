@@ -11,6 +11,15 @@ app.controller("partyController", ['$scope', 'macaronCart', 'cartCheckout', 'log
         $scope.macarons = macaronCart.macarons;
         $scope.cart = macaronCart.itemCount;
     });
+    self.addClick =function (id) {
+      for(var i = 0; i < $scope.macarons.length; i++){
+        var macaron = $scope.macarons[i];
+        if(parseInt(macaron.id) === parseInt(id) && parseInt(macaron.count) === 0){
+          macaron.count++
+        }
+      }
+      macaronCart.updateMacarons($scope.macarons);
+    };
     //giftCartControl method for handling a customer adding an item to the cart
     //takes in three arguments: the gift item, a value which determines if its an additional item or removal request, and the idex within the macaron array.
     self.giftCartControl = function(gift, value) {
