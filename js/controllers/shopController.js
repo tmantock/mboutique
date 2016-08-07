@@ -12,6 +12,16 @@ app.controller("shopController", ['macaronCart', '$log', '$scope', 'cartCheckout
     $scope.macarons = macaronCart.retrieveMacarons();
     $scope.cart = '';
 
+    self.addClick =function (id) {
+      for(var i = 0; i < $scope.macarons.length; i++){
+        var macaron = $scope.macarons[i];
+        if(parseInt(macaron.id) === parseInt(id) && parseInt(macaron.count) === 0){
+          macaron.count++
+        }
+      }
+      macaronCart.updateMacarons($scope.macarons);
+    };
+
     //macaronCartControl method for handling a customer adding an item to the cart
     //takes in three arguments: the macaron item, a value which determines if its an additional item or removal request, and the idex within the macaron array.
     self.macaronCartControl = function(macaron, value) {
