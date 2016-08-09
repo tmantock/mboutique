@@ -22,6 +22,7 @@ app.controller("shopController", ['macaronCart', '$log', '$scope', 'cartCheckout
           macaron.count++
         }
       }
+      //update the MacaronArray in the macaron factory which eill update the data shown in view
       macaronCart.updateMacarons($scope.macarons);
     };
 
