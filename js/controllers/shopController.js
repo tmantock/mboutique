@@ -12,9 +12,12 @@ app.controller("shopController", ['macaronCart', '$log', '$scope', 'cartCheckout
     $scope.macarons = macaronCart.retrieveMacarons();
     $scope.cart = '';
 
+    //addClick method for automatically adding a macaron if the macaron count is zero and the add to cart button has been clicked.
     self.addClick =function (id) {
+      //loop through the macaron to find a match
       for(var i = 0; i < $scope.macarons.length; i++){
         var macaron = $scope.macarons[i];
+        //if there's a match add a macaron only if the count is equal to 0
         if(parseInt(macaron.id) === parseInt(id) && parseInt(macaron.count) === 0){
           macaron.count++
         }
