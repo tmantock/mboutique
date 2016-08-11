@@ -645,7 +645,7 @@ footer li {
     }
     #days-address, #contact-form {
       height: auto;
-      max-height: 600px;
+      max-height: 750px;
     }
     footer {
         margin-top: 3%;
