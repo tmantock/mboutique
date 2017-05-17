@@ -21,5 +21,3 @@ I made this website to demonstrate and practice the knowledge I have gained on F
 - CSS3, Bootstrap Paper, and Material Design Lite were used to style the website.
 
 - HTML5 was used as the markup language.
-
-Please visit the website and please use it! You can go through the checkout process. It's fully functional! Please "purchase" some macarons (no payment required). The more orders, the more data I have to use for a later project. Thank You!
